@@ -1,0 +1,8 @@
+#game {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+        "player-olive player-olive player-olive"
+        "board        board        status"
+        "player-tan   player-tan   player-tan";
+}

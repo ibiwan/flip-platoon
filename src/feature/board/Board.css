@@ -1,0 +1,16 @@
+#board {
+    display: grid;
+    /* grid-template-rows: (inline) */
+    grid-area: board;
+
+}
+
+#board .boardCell {
+    background-color: linen;
+    border: 1px solid black;
+    width: 6vmin;
+    height: 6vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
