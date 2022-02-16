@@ -1,20 +1,20 @@
 import { GiSwordman, GiMountedKnight, GiArcher, GiCatapult } from 'react-icons/gi';
-import { PIECE_ARCHERS, PIECE_ARTILLERY, PIECE_CAVALRY, PIECE_INFANTRY } from '../../util/consts';
+import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '../../util/consts';
 
 import "./Token.css"
 
-export const Token = ({ piece }) => {
-    const { color, type, mode } = piece
+export const Token = ({ token }) => {
+    const { color, type, mode } = token
 
     const icon = (type, size) => {
         switch (type) {
-            case PIECE_INFANTRY:
+            case TOKEN_INFANTRY:
                 return <GiSwordman size={size} color="darkblue" />
-            case PIECE_CAVALRY:
+            case TOKEN_CAVALRY:
                 return <GiMountedKnight size={size} color="darkred" />
-            case PIECE_ARCHERS:
+            case TOKEN_ARCHERS:
                 return <GiArcher size={size} color="darkgreen" />
-            case PIECE_ARTILLERY:
+            case TOKEN_ARTILLERY:
                 return <GiCatapult size={size} color="darkpurple" />
             default:
                 return <></>

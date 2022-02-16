@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { PIECE_POSITION_HOME, PLAYERS } from '../../util/consts'
+import { TOKEN_POSITION_HOME, PLAYERS } from '../../util/consts'
 
 export const boardSlice = createSlice({
   name: 'boardSlice',
@@ -11,11 +11,11 @@ export const boardSlice = createSlice({
 
 export const { a } = boardSlice.actions
 
-export const selectBoardPieces = state => PLAYERS
+export const selectBoardTokens = state => PLAYERS
   .flatMap(color =>
-    state.playersSlice[color].pieces
+    state.playersSlice[color].tokens
       .filter(p =>
-        p.position !== PIECE_POSITION_HOME
+        p.position !== TOKEN_POSITION_HOME
       )
   )
 

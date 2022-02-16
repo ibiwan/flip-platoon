@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const pieceInit = {
+const tokenInit = {
     id: null,
     moveDone: false,
     actionDone: false,
@@ -8,8 +8,8 @@ const pieceInit = {
 }
 const turnInit = {
     currentPlayer: null,
-    piecesMoved: [], // id
-    currentPiece: pieceInit
+    tokensMoved: [], // id
+    currentToken: tokenInit
 
 }
 export const turnSlice = createSlice({

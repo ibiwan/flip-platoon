@@ -1,6 +1,6 @@
 .token {
     border-radius: 50%;
-    border-width: .8vmin;
+    border-width: 4px;
     border-style:double;
     height: 60%;
     width: 60%;
@@ -8,8 +8,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
-    justify-items: center;
 }
 
 .tan {

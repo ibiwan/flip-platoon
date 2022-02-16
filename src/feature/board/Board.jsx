@@ -10,14 +10,14 @@ import { Token } from "../token/Token"
 const { boardSize } = rules
 
 export const Board = () => {
-    const { hashedPieces } = useBoard()
+    const { hashedTokens } = useBoard()
 
     const rowCells = (i) =>
         anArray(boardSize).map((_, j) => {
-            const key = ijkey(i,j) 
-            const piece = hashedPieces[key]
+            const key = ijkey(i, j)
+            const token = hashedTokens[key]
             return (<div className="boardCell" key={key}>
-                {piece && <Token piece={piece} />}
+                {token && <Token token={token} />}
             </div>)
         }
         )
@@ -30,10 +30,12 @@ export const Board = () => {
         )
 
     return (
-        <>
-            <div id="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 6vmin)` }}>
+        <div id="boardArea">
+            <div id="board" style={{
+                gridTemplateColumns: `repeat(${boardSize}, 6vmin)`
+            }}>
                 {boardRows()}
             </div>
-        </>
+        </div>
     )
 }

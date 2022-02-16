@@ -1,0 +1,30 @@
+.playerSide {
+    background-color:khaki;
+    display:flex;
+    align-items:center;
+    justify-self: stretch;
+}
+
+.playerSideContent {
+    display: flex;
+    position: static;
+    background-color: yellow;
+    justify-items: flex-start;
+}
+
+.playerSide h1{
+    position:relative;
+    top:0px;
+}
+
+.playerSideTokens {
+    border: 1px solid red;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.playerSide .token {
+    margin-left: 3em;
+    height: 3em;
+    width: 3em;
+}

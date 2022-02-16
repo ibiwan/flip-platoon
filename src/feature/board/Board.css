@@ -1,8 +1,15 @@
+#boardArea {
+    grid-area: board;
+    background-color: pink;
+    display: grid;
+    align-items: flex-end;
+}
+
 #board {
     display: grid;
     /* grid-template-rows: (inline) */
-    grid-area: board;
-
+    position:relative;
+    margin: auto;
 }
 
 #board .boardCell {
