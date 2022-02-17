@@ -1,9 +1,13 @@
 import { useGameSlice } from "./useGameSlice"
 
 export const useGame = () => {
-    const {gameMode}  = useGameSlice()
+    const {
+        gameMode,
+        setSelectedToken,
+    } = useGameSlice()
 
     return {
         gameMode,
+        setSelectedToken,
     }
 }

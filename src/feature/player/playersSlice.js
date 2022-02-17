@@ -11,7 +11,7 @@ const playersInit = {
 export const playersSlice = createSlice({
     name: 'playersSlice',
     initialState: playersInit,
-    reducer: {
+    reducers: {
         a: () => { }
     },
 })

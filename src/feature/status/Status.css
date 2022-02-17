@@ -1,5 +1,5 @@
 .statusArea {
     grid-area: status;
-    background-color: lightblue;
+    /* background-color: lightblue; */
     width: 100%;
 }

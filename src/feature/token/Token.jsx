@@ -3,8 +3,8 @@ import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '.
 
 import "./Token.css"
 
-export const Token = ({ token }) => {
-    const { color, type, mode } = token
+export const Token = ({ token, selected, setSelectedToken }) => {
+    const { id, color, type, mode } = token
 
     const icon = (type, size) => {
         switch (type) {
@@ -21,11 +21,19 @@ export const Token = ({ token }) => {
         }
     }
 
+    const onClick = e => {
+        e.stopPropagation()
+        setSelectedToken(id)
+    }
+
     return (
-        <div className={`token  ${color} ${mode}`}>
-            {/* {type} */}
-            {icon(type, "80%")}
+        <div
+            className={`tokenWrapper ${selected ? 'selected' : ''}`}
+            onClick={onClick}
+        >
+            <div className={`token  ${color} ${mode}`}>
+                {icon(type, "80%")}
+            </div>
         </div>
     )
 }
-

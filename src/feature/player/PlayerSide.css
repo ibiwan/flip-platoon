@@ -1,5 +1,5 @@
 .playerSide {
-    background-color:khaki;
+    /* background-color:khaki; */
     display:flex;
     align-items:center;
     justify-self: stretch;
@@ -8,7 +8,7 @@
 .playerSideContent {
     display: flex;
     position: static;
-    background-color: yellow;
+    /* background-color: yellow; */
     justify-items: flex-start;
 }
 
@@ -18,13 +18,12 @@
 }
 
 .playerSideTokens {
-    border: 1px solid red;
-    display:flex;
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
     flex-wrap: wrap;
-}
-
-.playerSide .token {
-    margin-left: 3em;
-    height: 3em;
-    width: 3em;
+    /* background-color: yellow; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%
 }

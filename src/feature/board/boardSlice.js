@@ -4,7 +4,7 @@ import { TOKEN_POSITION_HOME, PLAYERS } from '../../util/consts'
 export const boardSlice = createSlice({
   name: 'boardSlice',
   initialState: {},
-  reducer: {
+  reducers: {
     a: () => { }
   },
 })

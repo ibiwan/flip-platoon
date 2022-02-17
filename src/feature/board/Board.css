@@ -1,8 +1,10 @@
 #boardArea {
     grid-area: board;
-    background-color: pink;
+    /* background-color: pink; */
     display: grid;
     align-items: flex-end;
+    height: 100%;
+    width: 100%;
 }
 
 #board {
@@ -20,4 +22,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#board .boardCell.valid-target {
+    background-color: green;
 }

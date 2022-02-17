@@ -5,7 +5,7 @@ import { Token } from '../token/Token'
 import "./PlayerSide.css"
 
 export const PlayerSide = ({ color }) => {
-    const { player } = usePlayer(color)
+    const { player, selectedTokenId, setSelectedToken } = usePlayer(color)
 
     const sideTokens = player?.tokens.filter(t => t.position === TOKEN_POSITION_HOME)
     return (
@@ -17,19 +17,19 @@ export const PlayerSide = ({ color }) => {
             }}
         >
             <div className='playerSideContent'>
-
-                <h1 style={{
-                    display: 'inline',
-                    backgroundColor: "orange",
-                    border: "1px solid black",
-                }}>
+                <h1>
                     PLAYER:
                     <br />
                     {color.toUpperCase()}
                 </h1>
                 <div className='playerSideTokens'>
                     {sideTokens && sideTokens.map(token =>
-                        <Token token={token} />
+                        <Token
+                            key={token.id}
+                            token={token}
+                            selected={token.id === selectedTokenId}
+                            setSelectedToken={setSelectedToken}
+                        />
                     )}
                 </div>
             </div>

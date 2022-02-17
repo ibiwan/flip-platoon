@@ -15,7 +15,7 @@ const turnInit = {
 export const turnSlice = createSlice({
     name: 'turnSlice',
     initialState: turnInit,
-    reducer: {
+    reducers: {
         a: () => { }
     },
 })
