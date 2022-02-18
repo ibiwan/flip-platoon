@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { GiSwordman, GiMountedKnight, GiArcher, GiCatapult } from 'react-icons/gi';
 import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '../../util/consts';
 
@@ -31,7 +32,7 @@ export const Token = ({ token, selected, setSelectedToken }) => {
             className={`tokenWrapper ${selected ? 'selected' : ''}`}
             onClick={onClick}
         >
-            <div className={`token  ${color} ${mode}`}>
+            <div className={classNames('token', color, mode)}            >
                 {icon(type, "80%")}
             </div>
         </div>

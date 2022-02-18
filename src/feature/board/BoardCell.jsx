@@ -1,3 +1,5 @@
+
+import classnames from 'classnames'
 import { Token } from "../token/Token"
 
 export const BoardCell = ({
@@ -20,7 +22,7 @@ export const BoardCell = ({
 
     return (
         <div
-            className={`boardCell ${isTarget ? 'valid-target' : ''}`}
+            className={classnames('boardCell', { 'valid-target': isTarget })}
             onClick={onClick}
         >
             {token && <Token
