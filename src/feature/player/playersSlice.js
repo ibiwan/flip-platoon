@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
-import { PLAYER_OLIVE, PLAYER_TAN} from '../../util/consts'
+import { PLAYERS, PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from '../../util/consts'
 import { playerInit } from './playerSliceUtils'
 
 const playersInit = {
@@ -12,12 +12,33 @@ export const playersSlice = createSlice({
     name: 'playersSlice',
     initialState: playersInit,
     reducers: {
-        a: () => { }
-    },
+        moveTokenTo: (stateSlice, { payload: { token, i, j } }) => {
+            const foundToken = stateSlice[token.color].tokens
+                .find(({ id }) =>
+                    id === token.id)
+            foundToken.position = { i, j }
+        }
+    }
 })
 
-export const { a } = playersSlice.actions
+export const { moveTokenTo } = playersSlice.actions
 
 export const selectPlayer = color => state => state.playersSlice[color]
 
+export const selectAllTokens = state => PLAYERS.flatMap(color => state.playersSlice[color].tokens)
+
+export const selectBoardTokens = createSelector(
+    selectAllTokens,
+    allTokens => allTokens.filter(({ position }) => position !== TOKEN_POSITION_HOME)
+)
+
+export const selectHomeTokens = createSelector(
+    selectAllTokens,
+    allTokens => allTokens.filter(({ position }) => position === TOKEN_POSITION_HOME)
+)
+
+export const selectReadyToStart = createSelector(
+    selectHomeTokens,
+    homeTokens => homeTokens.length === 0
+)
 export const playersReducer = playersSlice.reducer

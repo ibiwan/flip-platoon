@@ -1,7 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { anArray, rand } from '../../util';
 import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH, TOKEN_POSITION_HOME } from '../../util/consts';
-import { rules } from '../../util/rules';
+import { rules } from '../../rules';
 
 const {
     numArchers,

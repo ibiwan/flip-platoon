@@ -1,16 +1,27 @@
 import { Token } from "../token/Token"
 
 export const BoardCell = ({
+    i, j,
     token,
     selected,
     isTarget,
     setSelectedToken,
+    moveSelectedTokenTo,
 }) => {
-    // if (isTarget) { console.log('target') }
+
+    const onClick = e => {
+        if (!isTarget) {
+            return
+        }
+
+        e.stopPropagation()
+        moveSelectedTokenTo(i, j)
+    }
+
     return (
         <div
             className={`boardCell ${isTarget ? 'valid-target' : ''}`}
-            onClick={e => e.stopPropagation()}
+            onClick={onClick}
         >
             {token && <Token
                 token={token}

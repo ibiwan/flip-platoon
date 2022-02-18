@@ -7,6 +7,7 @@ export const useBoard = () => {
         selectedTokenId,
         setSelectedToken,
         validCells,
+        moveSelectedTokenTo,
     } = useBoardSlice()
 
     const hashedTokens = boardTokens.reduce((acc, cur) => {
@@ -20,5 +21,6 @@ export const useBoard = () => {
         selectedTokenId,
         setSelectedToken,
         validCells,
+        moveSelectedTokenTo,
     }
 }

@@ -1,8 +1,15 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedToken, selectSelectedTokenId, selectValidCells } from '../game/gameSlice';
-import { selectBoardTokens } from './boardSlice';
+import {
+    setSelectedToken,
+    selectValidCells,
+    selectSelectedToken,
+} from '../game/gameSlice';
+import {
+    selectBoardTokens,
+    moveTokenTo,
+} from '../player/playersSlice'
 
 export const useBoardSlice = () => {
     const dispatch = useDispatch()
@@ -12,14 +19,19 @@ export const useBoardSlice = () => {
     }, dispatch), [dispatch])
 
     const boardTokens = useSelector(selectBoardTokens)
-    const selectedTokenId = useSelector(selectSelectedTokenId)
+    const selectedToken = useSelector(selectSelectedToken)
 
     const validCells = useSelector(selectValidCells)
+
+    const moveSelectedTokenTo = (i, j) => {
+        dispatch(moveTokenTo({ token: selectedToken, i, j }))
+    }
 
     return {
         ...actions,
         boardTokens,
-        selectedTokenId,
+        selectedTokenId: selectedToken?.id,
         validCells,
+        moveSelectedTokenTo,
     }
 }

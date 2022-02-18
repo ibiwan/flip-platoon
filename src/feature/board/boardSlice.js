@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { TOKEN_POSITION_HOME, PLAYERS } from '../../util/consts'
+import { selectAllTokens } from '../player/playersSlice'
 
 export const boardSlice = createSlice({
   name: 'boardSlice',
@@ -10,13 +11,5 @@ export const boardSlice = createSlice({
 })
 
 export const { a } = boardSlice.actions
-
-export const selectBoardTokens = state => PLAYERS
-  .flatMap(color =>
-    state.playersSlice[color].tokens
-      .filter(p =>
-        p.position !== TOKEN_POSITION_HOME
-      )
-  )
 
 export const boardReducer = boardSlice.reducer

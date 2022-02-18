@@ -1,6 +1,6 @@
 import { useBoard } from "./useBoard"
 
-import { rules } from '../../util/rules'
+import { rules } from '../../rules'
 import { anArray, ijkey } from "../../util"
 
 import "./Board.css"
@@ -15,6 +15,7 @@ export const Board = () => {
         selectedTokenId,
         setSelectedToken,
         validCells,
+        moveSelectedTokenTo,
     } = useBoard()
 
     const rowCells = (i) =>
@@ -24,23 +25,15 @@ export const Board = () => {
             const isTarget = selectedTokenId && validCells.includes(key)
 
             const props = {
+                i, j,
+                isTarget,
+                moveSelectedTokenTo,
                 ...(token && {
                     token,
                     selected: token.id === selectedTokenId,
                     setSelectedToken,
                 }),
-                isTarget,
             }
-
-
-            // token ? {
-            //     token,
-            //     selected: token.id === selectedTokenId,
-            //     setSelectedToken,
-            //     isTarget
-            // } : {}
-
-            // console.log({ key, isTarget, selectedTokenId, props })
 
             return <BoardCell key={key} {...props} />
         })
