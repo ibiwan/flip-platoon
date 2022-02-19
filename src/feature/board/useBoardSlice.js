@@ -15,14 +15,13 @@ export const useBoardSlice = () => {
     const dispatch = useDispatch()
 
     const actions = useMemo(() => bindActionCreators({
-        setSelectedToken
+        setSelectedToken,
     }, dispatch), [dispatch])
 
     const boardTokens = useSelector(selectBoardTokens)
     const selectedToken = useSelector(selectSelectedToken)
 
     const validCells = useSelector(selectValidCells)
-
 
     const moveTokenTo = (token, i, j) => {
         dispatch(setTokenLocation({ token, i, j }))

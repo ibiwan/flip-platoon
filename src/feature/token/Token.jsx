@@ -10,7 +10,7 @@ import "./Token.css"
 export const Token = ({ token, selected, setSelectedToken }) => {
     const { id, color, type, mode } = token
 
-    const { /*isDragging,*/ dragRef } = useToken(token, setSelectedToken)
+    const { /*isDragging,*/ dragRef, setHoverSelectedTokenId } = useToken(token, setSelectedToken)
 
     const icon = (type, size) => {
         switch (type) {
@@ -32,6 +32,13 @@ export const Token = ({ token, selected, setSelectedToken }) => {
         setSelectedToken(id)
     }
 
+    const onMouseEnter = () => {
+        setHoverSelectedTokenId(id)
+    }
+    const onMouseLeave = () => {
+        setHoverSelectedTokenId(null)
+    }
+
     return (
         <Flipped
             flipId={token.id}
@@ -39,6 +46,8 @@ export const Token = ({ token, selected, setSelectedToken }) => {
             <div
                 className={'tokenWrapper'}
                 onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
             >
                 <div className={classNames('stayToken', 'token', color, mode)}>
                     {icon(type, "80%")}

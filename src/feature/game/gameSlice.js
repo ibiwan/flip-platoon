@@ -8,6 +8,7 @@ const gameInit = {
     mode: GAME_MODE_SETUP,
     currentPlayer: null,
     selectedTokenId: null,
+    hoverSelectedTokenId: null,
 }
 export const gameSlice = createSlice({
     name: 'gameSlice',
@@ -15,26 +16,41 @@ export const gameSlice = createSlice({
     reducers: {
         setGameMode: (gameSlice, { payload }) => { gameSlice.mode = payload },
         setCurrentPlayer: (gameSlice, { payload }) => { gameSlice.currentPlayer = payload },
-        setSelectedToken: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload; },
+        setSelectedToken: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload },
+        setHoverSelectedTokenId: (gameSlice, { payload }) => { gameSlice.hoverSelectedTokenId = payload },
     },
 })
 
-export const { setGameMode, setCurrentPlayer, setSelectedToken } = gameSlice.actions
+export const { setGameMode, setCurrentPlayer, setSelectedToken, setHoverSelectedTokenId } = gameSlice.actions
 
 export const selectGameMode = state => state.gameSlice.mode
 export const selectCurrentPlayer = state => state.gameSlice.currentPlayer
 export const selectSelectedTokenId = state => state.gameSlice.selectedTokenId
+export const selectHoverSelectedTokenId = state => state.gameSlice.hoverSelectedTokenId
 
 export const selectOccupiedCells = createSelector(
     selectBoardTokens,
     boardTokens => boardTokens.map(({ position: { i, j } }) => ijkey(i, j))
 )
 
-export const selectSelectedToken = createSelector(
+const selectClickSelectedToken = createSelector(
     selectAllTokens,
     selectSelectedTokenId,
     (allTokens, selectedTokenId) =>
         allTokens.filter(({ id }) => id === selectedTokenId).pop()
+)
+
+const selectHoverSelectedToken = createSelector(
+    selectAllTokens,
+    selectHoverSelectedTokenId,
+    (allTokens, hoverSelectedTokenId) =>
+        allTokens.filter(({ id }) => id === hoverSelectedTokenId).pop()
+)
+
+export const selectSelectedToken = createSelector(
+    selectClickSelectedToken,
+    selectHoverSelectedToken,
+    (click, hover) => click ?? hover
 )
 
 export const selectValidCells = createSelector(
