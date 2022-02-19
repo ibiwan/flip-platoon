@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 
-import { PLAYERS, PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from '../../util/consts'
+import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from '../../util/consts'
 import { playerInit } from './playerSliceUtils'
 
 const playersInit = {
@@ -25,7 +25,15 @@ export const { setTokenLocation } = playersSlice.actions
 
 export const selectPlayer = color => state => state.playersSlice[color]
 
-export const selectAllTokens = state => PLAYERS.flatMap(color => state.playersSlice[color].tokens)
+const selectOliveTokens = state => state.playersSlice[PLAYER_OLIVE].tokens
+
+const selectTanTokens = state => state.playersSlice[PLAYER_TAN].tokens
+
+export const selectAllTokens = createSelector(
+    selectOliveTokens,
+    selectTanTokens,
+    (olive, tan) => [...olive, ...tan]
+)
 
 export const selectBoardTokens = createSelector(
     selectAllTokens,

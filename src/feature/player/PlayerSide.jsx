@@ -1,5 +1,6 @@
 import { TOKEN_POSITION_HOME } from '../../util/consts';
 import { usePlayer } from './usePlayer';
+
 import { Token } from '../token/Token'
 
 import "./PlayerSide.css"
@@ -8,6 +9,7 @@ export const PlayerSide = ({ color }) => {
     const { player, selectedTokenId, setSelectedToken } = usePlayer(color)
 
     const sideTokens = player?.tokens.filter(t => t.position === TOKEN_POSITION_HOME)
+
     return (
         <div
             id={`${color}-player`}

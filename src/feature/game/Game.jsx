@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { Flipper } from 'react-flip-toolkit'
 
 import { PlayerSide } from '../player/PlayerSide';
 import { Board } from '../board/Board';
@@ -6,10 +8,9 @@ import { PLAYER_OLIVE, PLAYER_TAN } from '../../util/consts';
 import { useGame } from './useGame'
 
 import "./Game.css"
-import { useEffect } from 'react';
 
 export const Game = () => {
-    const { setSelectedToken } = useGame()
+    const { setSelectedToken, tokenSummary } = useGame()
 
     useEffect(() => {
         const handlekeyDown = e => {
@@ -17,21 +18,22 @@ export const Game = () => {
                 setSelectedToken(null)
             }
         }
-    
+
         window.addEventListener('keydown', handlekeyDown);
 
         return () => { window.removeEventListener('keydown', handlekeyDown); }
     }, [setSelectedToken])
 
-
     return (
-        <div id="game"
-            onClick={() => setSelectedToken(null)}
-        >
-            <PlayerSide color={PLAYER_OLIVE} />
-            <Board />
-            <PlayerSide color={PLAYER_TAN} />
-            <Status />
-        </div>
+        <Flipper flipKey={tokenSummary}>
+            <div id="game"
+                onClick={() => setSelectedToken(null)}
+            >
+                <PlayerSide color={PLAYER_OLIVE} />
+                <Board />
+                <PlayerSide color={PLAYER_TAN} />
+                <Status />
+            </div>
+        </Flipper>
     )
 }

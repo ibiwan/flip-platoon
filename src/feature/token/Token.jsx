@@ -1,9 +1,11 @@
 import classNames from 'classnames';
+import { Flipped } from 'react-flip-toolkit'
+
 import { GiSwordman, GiMountedKnight, GiArcher, GiCatapult } from 'react-icons/gi';
 import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '../../util/consts';
+import { useToken } from './useToken';
 
 import "./Token.css"
-import { useToken } from './useToken';
 
 export const Token = ({ token, selected, setSelectedToken }) => {
     const { id, color, type, mode } = token
@@ -31,21 +33,25 @@ export const Token = ({ token, selected, setSelectedToken }) => {
     }
 
     return (
-        <div
-            className={'tokenWrapper'}
-            onClick={onClick}
+        <Flipped
+            flipId={token.id}
         >
-            <div className={classNames('stayToken', 'token', color, mode)}>
-                {icon(type, "80%")}
+            <div
+                className={'tokenWrapper'}
+                onClick={onClick}
+            >
+                <div className={classNames('stayToken', 'token', color, mode)}>
+                    {icon(type, "80%")}
 
-            </div>
-            <div className={classNames('goToken', 'token', color, mode)} ref={dragRef}>
-                {icon(type, "80%")}
-            </div>
-            {selected &&
-                <div className='tokenGlow'>
                 </div>
-            }
-        </div>
+                <div className={classNames('goToken', 'token', color, mode)} ref={dragRef}>
+                    {icon(type, "80%")}
+                </div>
+                {selected &&
+                    <div className='tokenGlow'>
+                    </div>
+                }
+            </div>
+        </Flipped>
     )
 }

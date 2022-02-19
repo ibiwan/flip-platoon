@@ -1,6 +1,5 @@
 export const PLAYER_OLIVE = 'olive'
 export const PLAYER_TAN = 'tan'
-export const PLAYERS = [PLAYER_OLIVE, PLAYER_TAN]
 
 export const TOKEN_INFANTRY = 'infantry'
 export const TOKEN_ARCHERS = 'archery'
