@@ -1,5 +1,4 @@
 .playerSide {
-    /* background-color:khaki; */
     display:flex;
     align-items:center;
     justify-self: stretch;
@@ -8,7 +7,6 @@
 .playerSideContent {
     display: flex;
     position: static;
-    /* background-color: yellow; */
     justify-items: flex-start;
 }
 
@@ -21,7 +19,6 @@
     display:grid;
     grid-template-columns: repeat(5,1fr);
     flex-wrap: wrap;
-    /* background-color: yellow; */
     justify-content: center;
     align-items: center;
     width: 100%;

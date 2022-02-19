@@ -6,12 +6,13 @@ const tokenInit = {
     actionDone: false,
     flipDone: false,
 }
+
 const turnInit = {
     currentPlayer: null,
     tokensMoved: [], // id
     currentToken: tokenInit
-
 }
+
 export const turnSlice = createSlice({
     name: 'turnSlice',
     initialState: turnInit,

@@ -1,6 +1,5 @@
 #boardArea {
     grid-area: board;
-    /* background-color: pink; */
     display: grid;
     align-items: flex-end;
     height: 100%;
@@ -9,7 +8,6 @@
 
 #board {
     display: grid;
-    /* grid-template-rows: (inline) */
     position:relative;
     margin: auto;
 }

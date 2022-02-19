@@ -11,13 +11,8 @@ const {
 } = rules
 
 const makeToken = (type, color) => {
-    const mode = rand(2) ?
-        TOKEN_MODE_SKIRMISH : // default
-        TOKEN_MODE_ASSAULT
-    const position =
-        // !rand(4) ?
-        // { i: rand(10), j: rand(10) } :
-        TOKEN_POSITION_HOME // default
+    const mode = TOKEN_MODE_ASSAULT
+    const position = TOKEN_POSITION_HOME
 
     return {
         id: nanoid(6),
@@ -25,7 +20,6 @@ const makeToken = (type, color) => {
         color,
         mode,
         position,
-
     }
 }
 
