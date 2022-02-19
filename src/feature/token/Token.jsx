@@ -22,7 +22,11 @@ export const Token = ({
 
     const onClick = e => {
         e.stopPropagation()
-        setSelectedToken(id)
+        if (!selected) {
+            setSelectedToken(id)
+        } else {
+            console.log("second click")
+        }
     }
     const onMouseEnter = () => {
         setHoverSelectedTokenId(id)
