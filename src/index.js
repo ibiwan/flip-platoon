@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import { store } from './util/store'
 import reportWebVitals from './reportWebVitals';
 import { Game } from './feature/game/Game';
@@ -10,7 +13,9 @@ import { Game } from './feature/game/Game';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Game />
+      <DndProvider backend={HTML5Backend}>
+        <Game />
+      </DndProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

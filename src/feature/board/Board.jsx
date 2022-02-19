@@ -27,11 +27,11 @@ export const Board = () => {
             const props = {
                 i, j,
                 isTarget,
+                setSelectedToken,
                 moveSelectedTokenTo,
                 ...(token && {
                     token,
                     selected: token.id === selectedTokenId,
-                    setSelectedToken,
                 }),
             }
 

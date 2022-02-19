@@ -25,5 +25,9 @@
 }
 
 #board .boardCell.valid-target {
+    background-color: rgb(91, 204, 91);
+}
+
+#board .boardCell.current-target {
     background-color: green;
 }

@@ -3,9 +3,12 @@ import { GiSwordman, GiMountedKnight, GiArcher, GiCatapult } from 'react-icons/g
 import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '../../util/consts';
 
 import "./Token.css"
+import { useToken } from './useToken';
 
 export const Token = ({ token, selected, setSelectedToken }) => {
     const { id, color, type, mode } = token
+
+    const { /*isDragging,*/ dragRef } = useToken(token, setSelectedToken)
 
     const icon = (type, size) => {
         switch (type) {
@@ -29,12 +32,20 @@ export const Token = ({ token, selected, setSelectedToken }) => {
 
     return (
         <div
-            className={`tokenWrapper ${selected ? 'selected' : ''}`}
+            className={'tokenWrapper'}
             onClick={onClick}
         >
-            <div className={classNames('token', color, mode)}            >
+            <div className={classNames('stayToken', 'token', color, mode)}>
+                {icon(type, "80%")}
+
+            </div>
+            <div className={classNames('goToken', 'token', color, mode)} ref={dragRef}>
                 {icon(type, "80%")}
             </div>
+            {selected &&
+                <div className='tokenGlow'>
+                </div>
+            }
         </div>
     )
 }

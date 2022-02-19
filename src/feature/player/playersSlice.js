@@ -12,7 +12,7 @@ export const playersSlice = createSlice({
     name: 'playersSlice',
     initialState: playersInit,
     reducers: {
-        moveTokenTo: (stateSlice, { payload: { token, i, j } }) => {
+        setTokenLocation: (stateSlice, { payload: { token, i, j } }) => {
             const foundToken = stateSlice[token.color].tokens
                 .find(({ id }) =>
                     id === token.id)
@@ -21,7 +21,7 @@ export const playersSlice = createSlice({
     }
 })
 
-export const { moveTokenTo } = playersSlice.actions
+export const { setTokenLocation } = playersSlice.actions
 
 export const selectPlayer = color => state => state.playersSlice[color]
 

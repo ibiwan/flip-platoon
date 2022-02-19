@@ -15,7 +15,7 @@ export const gameSlice = createSlice({
     reducers: {
         setGameMode: (gameSlice, { payload }) => { gameSlice.mode = payload },
         setCurrentPlayer: (gameSlice, { payload }) => { gameSlice.currentPlayer = payload },
-        setSelectedToken: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload },
+        setSelectedToken: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload; },
     },
 })
 

@@ -1,6 +1,4 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit'
-import { TOKEN_POSITION_HOME, PLAYERS } from '../../util/consts'
-import { selectAllTokens } from '../player/playersSlice'
+import { createSlice } from '@reduxjs/toolkit'
 
 export const boardSlice = createSlice({
   name: 'boardSlice',

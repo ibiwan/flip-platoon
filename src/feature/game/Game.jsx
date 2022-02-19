@@ -11,17 +11,17 @@ import { useEffect } from 'react';
 export const Game = () => {
     const { setSelectedToken } = useGame()
 
-    const handlekeyDown = e => {
-        if (e.key === 'Escape') {
-            setSelectedToken(null)
-        }
-    }
-
     useEffect(() => {
+        const handlekeyDown = e => {
+            if (e.key === 'Escape') {
+                setSelectedToken(null)
+            }
+        }
+    
         window.addEventListener('keydown', handlekeyDown);
 
         return () => { window.removeEventListener('keydown', handlekeyDown); }
-    }, [])
+    }, [setSelectedToken])
 
 
     return (

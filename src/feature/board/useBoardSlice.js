@@ -8,7 +8,7 @@ import {
 } from '../game/gameSlice';
 import {
     selectBoardTokens,
-    moveTokenTo,
+    setTokenLocation,
 } from '../player/playersSlice'
 
 export const useBoardSlice = () => {
@@ -23,15 +23,19 @@ export const useBoardSlice = () => {
 
     const validCells = useSelector(selectValidCells)
 
-    const moveSelectedTokenTo = (i, j) => {
-        dispatch(moveTokenTo({ token: selectedToken, i, j }))
+
+    const moveTokenTo = (token, i, j) => {
+        dispatch(setTokenLocation({ token, i, j }))
     }
+
+    const moveSelectedTokenTo = (i, j) => moveTokenTo(selectedToken, i, j)
 
     return {
         ...actions,
         boardTokens,
         selectedTokenId: selectedToken?.id,
         validCells,
+        moveTokenTo,
         moveSelectedTokenTo,
     }
 }
