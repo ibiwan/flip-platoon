@@ -1,8 +1,15 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { ijkey } from '../../util';
 import { GAME_MODE_SETUP } from '../../util/consts'
-import { selectAllTokens, selectBoardTokens } from '../player/playersSlice';
+import {
+    selectAllTokens,
+    selectBoardTokens,
+    selectHashedBoardTokens,
+    selectOliveTokens,
+    selectTanTokens,
+} from '../player/playersSlice';
 import { rules } from '../../rules';
+const { validMoves } = rules
 
 const gameInit = {
     mode: GAME_MODE_SETUP,
@@ -14,14 +21,19 @@ export const gameSlice = createSlice({
     name: 'gameSlice',
     initialState: gameInit,
     reducers: {
-        setGameMode: (gameSlice, { payload }) => { gameSlice.mode = payload },
-        setCurrentPlayer: (gameSlice, { payload }) => { gameSlice.currentPlayer = payload },
-        setSelectedToken: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload },
-        setHoverSelectedTokenId: (gameSlice, { payload }) => { gameSlice.hoverSelectedTokenId = payload },
+        setGameModeAction: (gameSlice, { payload }) => { gameSlice.mode = payload },
+        setCurrentPlayerAction: (gameSlice, { payload }) => { gameSlice.currentPlayer = payload },
+        setSelectedTokenAction: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload },
+        setHoverSelectedTokenIdAction: (gameSlice, { payload }) => { gameSlice.hoverSelectedTokenId = payload },
     },
 })
 
-export const { setGameMode, setCurrentPlayer, setSelectedToken, setHoverSelectedTokenId } = gameSlice.actions
+export const {
+    setGameModeAction,
+    setCurrentPlayerAction,
+    setSelectedTokenAction,
+    setHoverSelectedTokenIdAction,
+} = gameSlice.actions
 
 export const selectGameMode = state => state.gameSlice.mode
 export const selectCurrentPlayer = state => state.gameSlice.currentPlayer
@@ -33,14 +45,24 @@ export const selectOccupiedCells = createSelector(
     boardTokens => boardTokens.map(({ position: { i, j } }) => ijkey(i, j))
 )
 
-const selectClickSelectedToken = createSelector(
+export const selectOliveCells = createSelector(
+    selectOliveTokens,
+    boardTokens => boardTokens.map(({ position: { i, j } }) => ijkey(i, j))
+)
+
+export const selectTanCells = createSelector(
+    selectTanTokens,
+    boardTokens => boardTokens.map(({ position: { i, j } }) => ijkey(i, j))
+)
+
+export const selectClickSelectedToken = createSelector(
     selectAllTokens,
     selectSelectedTokenId,
     (allTokens, selectedTokenId) =>
         allTokens.filter(({ id }) => id === selectedTokenId).pop()
 )
 
-const selectHoverSelectedToken = createSelector(
+export const selectHoverSelectedToken = createSelector(
     selectAllTokens,
     selectHoverSelectedTokenId,
     (allTokens, hoverSelectedTokenId) =>
@@ -53,7 +75,7 @@ export const selectSelectedToken = createSelector(
     (click, hover) => click ?? hover
 )
 
-export const selectValidCells = createSelector(
+export const selectValidMoves = createSelector(
     selectGameMode,
     selectOccupiedCells,
     selectSelectedToken,
@@ -61,12 +83,34 @@ export const selectValidCells = createSelector(
         if (!selectedToken) {
             return []
         }
-        const { validMoves } = rules
-        const getter = gameMode === GAME_MODE_SETUP ?
-            validMoves.getValidStarts :
-            validMoves.getValidMoves
 
-        return getter(occupiedCells, selectedToken)
+        return (
+            [
+                ...validMoves.getValidStarts(gameMode, occupiedCells, selectedToken),
+                ...validMoves.getValidMoves(gameMode, occupiedCells, selectedToken),
+            ]
+        )
+    }
+)
+
+export const selectValidAttacks = createSelector(
+    selectGameMode,
+    selectHashedBoardTokens,
+    selectSelectedToken,
+    (
+        gameMode,
+        hashedTokens,
+        selectedToken,
+    ) => {
+        if (!selectedToken) {
+            return []
+        }
+
+        return validMoves.getValidAttacks(
+            gameMode,
+            hashedTokens,
+            selectedToken,
+        );
     }
 )
 

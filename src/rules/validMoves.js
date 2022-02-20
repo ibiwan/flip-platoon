@@ -1,5 +1,5 @@
 import { dist, getAllCells } from "../util"
-import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from "../util/consts"
+import { GAME_MODE_PLAYING, GAME_MODE_SETUP, PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from "../util/consts"
 import { tokens } from "./tokens"
 import { baseRules } from "./baseRules"
 
@@ -7,13 +7,24 @@ const { boardSize } = baseRules
 
 const START_ROWS = {
     [PLAYER_OLIVE]: [0, 1],
-    [PLAYER_TAN]: [boardSize-1, boardSize - 2]
+    [PLAYER_TAN]: [boardSize - 1, boardSize - 2]
 }
 
-export const getValidStarts = (occupiedCells, selectedToken) => {
+export const getValidStarts = (
+    gameMode,
+    occupiedCells,
+    selectedToken,
+) => {
+    if (!(
+        gameMode === GAME_MODE_SETUP ||
+        selectedToken.position === TOKEN_POSITION_HOME
+    )) {
+        return [];
+    }
+
     const allCells = getAllCells(boardSize)
 
-    const validCells = allCells.filter(({ i, j, key }) => {
+    const validMoves = allCells.filter(({ i, j, key }) => {
         if (occupiedCells.includes(key)) {
             return false;
         }
@@ -25,18 +36,27 @@ export const getValidStarts = (occupiedCells, selectedToken) => {
         return true;
     })
 
-    return validCells.map(({ key }) => key)
+    return validMoves.map(({ key }) => key)
 }
 
-export const getValidMoves = (occupiedCells, selectedToken) => {
-    const allCells = getAllCells(boardSize)
-
-    let move
-    if (selectedToken && selectedToken.position !== TOKEN_POSITION_HOME) {
-        move = tokens[selectedToken.type][selectedToken.mode].move
+export const getValidMoves = (
+    gameMode,
+    occupiedCells,
+    selectedToken,
+) => {
+    if (
+        gameMode !== GAME_MODE_PLAYING ||
+        selectedToken.position === TOKEN_POSITION_HOME
+    ) {
+        return [];
     }
 
-    const validCells = allCells.filter(({ i, j, key }) => {
+
+    const allCells = getAllCells(boardSize)
+
+    const move = tokens[selectedToken.type][selectedToken.mode].move
+
+    const validMoves = allCells.filter(({ i, j, key }) => {
         if (occupiedCells.includes(key)) {
             return false
         }
@@ -52,5 +72,40 @@ export const getValidMoves = (occupiedCells, selectedToken) => {
         return true
     })
 
-    return validCells.map(({ key }) => key)
+    return validMoves.map(({ key }) => key)
+}
+
+export const getValidAttacks = (
+    gameMode,
+    hashedTokens,
+    selectedToken,
+) => {
+    if (
+        gameMode !== GAME_MODE_PLAYING ||
+        selectedToken.position === TOKEN_POSITION_HOME
+    ) {
+        return [];
+    }
+
+    const allCells = getAllCells(boardSize)
+
+    const range = tokens[selectedToken.type][selectedToken.mode].range
+
+    const validAttacks = allCells.filter(({ i, j, key }) => {
+        if (key in hashedTokens && hashedTokens[key].color === selectedToken.color) {
+            return false
+        }
+
+        if (selectedToken && selectedToken.position !== TOKEN_POSITION_HOME) {
+            const d = dist({ i, j }, selectedToken.position)
+
+            if (d > range.max || d < range.min) {
+                return false
+            }
+        }
+
+        return true
+    })
+
+    return validAttacks.map(({ key }) => key)
 }

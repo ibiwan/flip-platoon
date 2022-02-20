@@ -1,23 +1,42 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllTokens } from '../player/playersSlice';
-import { selectGameMode, setSelectedToken } from './gameSlice';
+
+import {
+    selectGameMode,
+    selectSelectedToken,
+    selectSelectedTokenId,
+    selectValidAttacks,
+    selectValidMoves,
+    selectClickSelectedToken,
+    selectHoverSelectedToken,
+    setHoverSelectedTokenIdAction,
+} from './gameSlice';
 
 export const useGameSlice = () => {
     const dispatch = useDispatch()
 
-    const actions = useMemo(() => bindActionCreators({
-        setSelectedToken,
-    }, dispatch), [dispatch])
-
     const gameMode = useSelector(selectGameMode)
+    const selectedToken = useSelector(selectSelectedToken)
+    const selectedTokenId = useSelector(selectSelectedTokenId)
+    const validAttacks = useSelector(selectValidAttacks)
+    const validMoves = useSelector(selectValidMoves)
+    const clickSelectedToken = useSelector(selectClickSelectedToken)
+    const hoverSelectedToken = useSelector(selectHoverSelectedToken)
 
-    const allTokens = useSelector(selectAllTokens)
+    const actions = useMemo(() => bindActionCreators({
+        setHoverSelectedTokenId: setHoverSelectedTokenIdAction,
+    }, dispatch), [dispatch]);
 
     return {
         ...actions,
+        // actions.setHoverSelectedTokenId
         gameMode,
-        allTokens,
+        selectedToken,
+        selectedTokenId,
+        clickSelectedToken,
+        hoverSelectedToken,
+        validAttacks,
+        validMoves,
     }
 }

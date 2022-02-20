@@ -1,12 +1,10 @@
 import { useMemo } from "react"
 import { useGameSlice } from "./useGameSlice"
+import { usePlayerSlice } from '../player/usePlayerSlice'
 
 export const useGame = () => {
-    const {
-        gameMode,
-        setSelectedToken,
-        allTokens,
-    } = useGameSlice()
+    const { gameMode } = useGameSlice()
+    const { allTokens } = usePlayerSlice()
 
     const tokenSummary = useMemo(() => {
         const summaries = allTokens.map(({ id, position }) => ({ id, position }))
@@ -15,7 +13,6 @@ export const useGame = () => {
 
     return {
         gameMode,
-        setSelectedToken,
         tokenSummary,
     }
 }

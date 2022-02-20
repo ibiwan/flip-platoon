@@ -22,10 +22,21 @@
     align-items: center;
 }
 
-#board .boardCell.valid-target {
+#board .boardCell.valid-move-target {
     background-color: rgb(91, 204, 91);
 }
 
-#board .boardCell.current-target {
+#board .boardCell.current-move-target {
     background-color: green;
+}
+
+#board .frame.valid-attack-target  {
+    border: solid 10px  rgb(218, 33, 33);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+#board .boardCell.current-attack-target {
+    background-color: rgb(128, 0, 0);
 }

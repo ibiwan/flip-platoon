@@ -1,27 +1,44 @@
-import { bindActionCreators } from "@reduxjs/toolkit"
-import { useMemo } from "react"
 import { useDrag } from "react-dnd"
-import { useDispatch } from "react-redux"
-import { ItemTypes } from "../../util/dragondrop/itemTypes"
-import { setHoverSelectedTokenId } from '../game/gameSlice'
 
-export const useToken = (selectedToken, setSelectedToken) => {
-    const dispatch = useDispatch()
+import { useSetSelectedToken } from "../game/useSetSelectedToken"
+import { useGameSlice } from "../game/useGameSlice"
+import { usePlayerSlice } from "../player/usePlayerSlice"
+
+import { ItemTypes } from "../../util/dragondrop/itemTypes"
+import { flipOf } from "../player/playerSliceUtils"
+
+export const useToken = (token) => {
+    const { setSelectedToken } = useSetSelectedToken()
+    const {
+        clickSelectedToken,
+        hoverSelectedToken,
+        setHoverSelectedTokenId,
+    } = useGameSlice()
+    const {
+        setTokenMode
+    } = usePlayerSlice()
 
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: ItemTypes.TOKEN,
         item: () => {
-            setSelectedToken(selectedToken.id);
-            return selectedToken;
+            setSelectedToken(token.id)
+            return token;
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         })
     }))
 
-    const actions = useMemo(() => bindActionCreators({
-        setHoverSelectedTokenId,
-    }, dispatch), [dispatch])
+    const toggleTokenMode = (token) => {
+        setTokenMode({ token, mode: flipOf(token.mode) })
+    }
 
-    return { isDragging, dragRef, ...actions }
+    return {
+        isDragging,
+        dragRef,
+        toggleTokenMode,
+        clickSelectedToken,
+        hoverSelectedToken,
+        setHoverSelectedTokenId,
+    }
 }

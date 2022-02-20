@@ -1,15 +1,14 @@
 import classNames from 'classnames';
 import { Flipped } from 'react-flip-toolkit'
 
+import { TokenIcon } from './TokenIcon';
 import { useToken } from './useToken';
+import { useSetSelectedToken } from '../game/useSetSelectedToken';
 
 import "./Token.css"
-import { TokenIcon } from './TokenIcon';
 
 export const Token = ({
     token,
-    selected,
-    setSelectedToken,
 }) => {
     const {
         id,
@@ -18,19 +17,30 @@ export const Token = ({
         mode,
     } = token
 
-    const { /*isDragging,*/ dragRef, setHoverSelectedTokenId } = useToken(token, setSelectedToken)
+    const {
+        /*isDragging,*/
+        dragRef,
+        setHoverSelectedTokenId,
+        toggleTokenMode,
+        selected,
+        clickSelected,
+    } = useToken(token)
+    const { setSelectedToken } = useSetSelectedToken()
 
     const onClick = e => {
         e.stopPropagation()
-        if (!selected) {
+        if (!clickSelected) {
             setSelectedToken(id)
         } else {
-            console.log("second click")
+            toggleTokenMode(token)
+            setSelectedToken(null)
         }
     }
+
     const onMouseEnter = () => {
         setHoverSelectedTokenId(id)
     }
+
     const onMouseLeave = () => {
         setHoverSelectedTokenId(null)
     }

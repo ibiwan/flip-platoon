@@ -5,12 +5,15 @@ import { PlayerSide } from '../player/PlayerSide';
 import { Board } from '../board/Board';
 import { Status } from '../status/Status';
 import { PLAYER_OLIVE, PLAYER_TAN } from '../../util/consts';
+
 import { useGame } from './useGame'
+import { useSetSelectedToken } from './useSetSelectedToken';
 
 import "./Game.css"
 
 export const Game = () => {
-    const { setSelectedToken, tokenSummary } = useGame()
+    const { tokenSummary } = useGame()
+    const { setSelectedToken } = useSetSelectedToken()
 
     useEffect(() => {
         const handlekeyDown = e => {

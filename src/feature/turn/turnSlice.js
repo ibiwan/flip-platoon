@@ -17,10 +17,10 @@ export const turnSlice = createSlice({
     name: 'turnSlice',
     initialState: turnInit,
     reducers: {
-        a: () => { }
+        aAction: () => { }
     },
 })
 
-export const { a } = turnSlice.actions
+export const { aAction } = turnSlice.actions
 
 export const turnReducer = turnSlice.reducer
