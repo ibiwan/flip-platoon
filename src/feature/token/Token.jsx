@@ -3,7 +3,6 @@ import { Flipped } from 'react-flip-toolkit'
 
 import { TokenIcon } from './TokenIcon';
 import { useToken } from './useToken';
-import { useSetSelectedToken } from '../game/useSetSelectedToken';
 
 import "./Token.css"
 
@@ -24,8 +23,8 @@ export const Token = ({
         toggleTokenMode,
         selected,
         clickSelected,
+        setSelectedToken,
     } = useToken(token)
-    const { setSelectedToken } = useSetSelectedToken()
 
     const onClick = e => {
         e.stopPropagation()

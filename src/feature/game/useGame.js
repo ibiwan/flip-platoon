@@ -3,7 +3,10 @@ import { useGameSlice } from "./useGameSlice"
 import { usePlayerSlice } from '../player/usePlayerSlice'
 
 export const useGame = () => {
-    const { gameMode } = useGameSlice()
+    const {
+        gameMode,
+        setSelectedToken,
+    } = useGameSlice()
     const { allTokens } = usePlayerSlice()
 
     const tokenSummary = useMemo(() => {
@@ -13,6 +16,7 @@ export const useGame = () => {
 
     return {
         gameMode,
+        setSelectedToken,
         tokenSummary,
     }
 }

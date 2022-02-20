@@ -7,13 +7,14 @@ import { Status } from '../status/Status';
 import { PLAYER_OLIVE, PLAYER_TAN } from '../../util/consts';
 
 import { useGame } from './useGame'
-import { useSetSelectedToken } from './useSetSelectedToken';
 
 import "./Game.css"
 
 export const Game = () => {
-    const { tokenSummary } = useGame()
-    const { setSelectedToken } = useSetSelectedToken()
+    const { 
+        tokenSummary,
+        setSelectedToken,
+     } = useGame()
 
     useEffect(() => {
         const handlekeyDown = e => {

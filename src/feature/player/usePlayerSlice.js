@@ -21,13 +21,12 @@ export const usePlayerSlice = (color) => {
 
     const actions = useMemo(() => bindActionCreators({
         setTokenLocation: setTokenLocationAction,
-        setTokenMode:setTokenModeAction,
+        setTokenMode: setTokenModeAction,
     }, dispatch), [dispatch]);
 
     return {
-        ...actions,
-        // actions.setTokenLocation
-        // actions.setTokenMode
+        setTokenLocation: actions.setTokenLocation,
+        setTokenMode: actions.setTokenMode,
         player,
         allTokens,
         hashedBoardTokens,

@@ -4,7 +4,13 @@ import { useGameSlice } from '../game/useGameSlice'
 import { usePlayerSlice } from '../player/usePlayerSlice'
 
 export const useStatus = () => {
-    const { gameMode, setGameMode } = useGameSlice();
+    const {
+        gameMode,
+        setGameMode,
+        selectedToken,
+        clickSelectedToken,
+        hoverSelectedToken,
+    } = useGameSlice();
 
     const readyToStart = usePlayerSlice();
 
@@ -17,5 +23,8 @@ export const useStatus = () => {
         inSetupMode,
         readyToStart,
         startGame,
+        selectedToken,
+        clickSelectedToken,
+        hoverSelectedToken,
     }
 }

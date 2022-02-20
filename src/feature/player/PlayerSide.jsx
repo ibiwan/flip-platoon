@@ -2,13 +2,13 @@ import { TOKEN_POSITION_HOME } from '../../util/consts';
 import { Token } from '../token/Token'
 
 import { usePlayerSide } from './usePlayerSide';
-import { useSetSelectedToken } from '../game/useSetSelectedToken';
+import { useGameSlice } from '../game/useGameSlice';
 
 import "./PlayerSide.css"
 
 export const PlayerSide = ({ color }) => {
     const { player, selectedTokenId } = usePlayerSide(color)
-    const { setSelectedToken } = useSetSelectedToken()
+    const { setSelectedToken } = useGameSlice()
 
     const sideTokens = player?.tokens.filter(t => t.position === TOKEN_POSITION_HOME)
 

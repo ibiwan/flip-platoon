@@ -2,3 +2,7 @@
     grid-area: status;
     width: 100%;
 }
+.statusArea div{
+    width: 100%;
+    overflow:wrap;
+}

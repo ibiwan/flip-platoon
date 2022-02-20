@@ -4,19 +4,17 @@ import { useDispatch } from "react-redux"
 import { ItemTypes } from "../../util/dragondrop/itemTypes"
 import { ijkey } from "../../util"
 
-import { useSetSelectedToken } from '../game/useSetSelectedToken'
 import { useGameSlice } from "../game/useGameSlice"
 import { usePlayerSlice } from "../player/usePlayerSlice"
 
-export const useBoardCell = (i, j, isTarget) => {
+export const useBoardCell = (i, j) => {
     const dispatch = useDispatch()
-
-    const { setSelectedToken } = useSetSelectedToken();
 
     const {
         selectedToken,
         validAttacks,
         validMoves,
+        setSelectedToken,
     } = useGameSlice()
 
     const {
@@ -32,24 +30,18 @@ export const useBoardCell = (i, j, isTarget) => {
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key)
 
     const moveSelectedTokenTo = (i, j) => {
-        moveTokenTo(selectedToken, i, j)
-        dispatch(setSelectedToken(null))
-    }
-
-    const moveTokenTo = (token, i, j) => {
-        // dispatch(
         setTokenLocation({ token, i, j })
-        // )
+        dispatch(setSelectedToken(null))
     }
 
     const moveToken = (token) => {
         setSelectedToken(null)
 
-        if (!isTarget) {
+        if (!isMoveTarget) {
             return
         }
 
-        moveTokenTo(token, i, j)
+        setTokenLocation({ token, i, j })
     }
 
     const [{ isOver }, dropRef] = useDrop(
@@ -60,7 +52,7 @@ export const useBoardCell = (i, j, isTarget) => {
                 isOver: !!monitor.isOver()
             })
         }),
-        [i, j, isTarget]
+        [i, j, isMoveTarget]
     )
     return {
         isOver,

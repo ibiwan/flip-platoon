@@ -10,7 +10,10 @@ import {
     selectValidMoves,
     selectClickSelectedToken,
     selectHoverSelectedToken,
+
     setHoverSelectedTokenIdAction,
+    setSelectedTokenAction,
+    setGameModeAction,
 } from './gameSlice';
 
 export const useGameSlice = () => {
@@ -26,11 +29,14 @@ export const useGameSlice = () => {
 
     const actions = useMemo(() => bindActionCreators({
         setHoverSelectedTokenId: setHoverSelectedTokenIdAction,
+        setSelectedToken: setSelectedTokenAction,
+        setGameMode: setGameModeAction,
     }, dispatch), [dispatch]);
 
     return {
-        ...actions,
-        // actions.setHoverSelectedTokenId
+        setHoverSelectedTokenId: actions.setHoverSelectedTokenId,
+        setSelectedToken: actions.setSelectedToken,
+        setGameMode: actions.setGameMode,
         gameMode,
         selectedToken,
         selectedTokenId,
