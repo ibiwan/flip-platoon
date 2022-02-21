@@ -19,6 +19,7 @@ export const Token = ({
     const {
         /*isDragging,*/
         dragRef,
+        dragPreviewRef,
         setHoverSelectedTokenId,
         toggleTokenMode,
         selected,
@@ -54,17 +55,33 @@ export const Token = ({
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
-                <div className={classNames('stayToken', 'token', color, mode)}>
+                <div className={classNames(
+                    'goToken',
+                    'token',
+                    'bigThing',
+                    'dragger',
+                    color,
+                    mode,
+                )} ref={dragRef}>
                     <TokenIcon type={type} size="80%" />
                 </div>
-                <div className={classNames('goToken', 'token', color, mode)} ref={dragRef}>
+                <div className={classNames(
+                    'stayToken',
+                    'token',
+                    'bigThing',
+                    color,
+                    mode,
+                )} ref={dragPreviewRef} >
                     <TokenIcon type={type} size="80%" />
                 </div>
                 {selected &&
-                    <div className='tokenGlow'>
+                    <div className={classNames(
+                        'tokenGlow',
+                        'bigThing',
+                    )} >
                     </div>
                 }
             </div>
-        </Flipped>
+        </Flipped >
     )
 }

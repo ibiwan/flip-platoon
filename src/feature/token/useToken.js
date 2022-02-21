@@ -19,7 +19,7 @@ export const useToken = (token) => {
         setTokenMode
     } = usePlayerSlice()
 
-    const [{ isDragging }, dragRef] = useDrag(() => ({
+    const [{ isDragging }, dragRef, dragPreviewRef] = useDrag(() => ({
         type: ItemTypes.TOKEN,
         item: () => {
             setSelectedToken(token.id)
@@ -41,6 +41,7 @@ export const useToken = (token) => {
     return {
         isDragging,
         dragRef,
+        dragPreviewRef,
         toggleTokenMode,
         selected,
         clickSelected,

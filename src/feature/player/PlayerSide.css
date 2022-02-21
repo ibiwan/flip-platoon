@@ -1,26 +1,14 @@
 .playerSide {
-    display:flex;
-    align-items:center;
-    justify-self: stretch;
-}
-
-.playerSideContent {
     display: flex;
-    position: static;
-    justify-items: flex-start;
+    align-items: center;
 }
 
-.playerSide h1{
-    position:relative;
-    top:0px;
+.playerSide h1 {
+    font-size: x-large;
+    padding: 1em;
 }
 
 .playerSideTokens {
-    display:grid;
-    grid-template-columns: repeat(5,1fr);
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }

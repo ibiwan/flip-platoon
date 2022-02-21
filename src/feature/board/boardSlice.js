@@ -1,13 +1,23 @@
-// import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-// export const boardSlice = createSlice({
-//   name: 'boardSlice',
-//   initialState: {},
-//   reducers: {
-//     a: () => { }
-//   },
-// })
+const boardInit = {
+    hoverSelectedBoardCell: null,
+}
 
-// export const { a } = boardSlice.actions
+export const boardSlice = createSlice({
+    name: 'boardSlice',
+    initialState: boardInit,
+    reducers: {
+        setHoverSelectedBoardCellAction: (boardSlice, { payload }) => {
+            boardSlice.hoverSelectedBoardCell = payload
+        },
+    },
+})
 
-// export const boardReducer = boardSlice.reducer
+export const { setHoverSelectedBoardCellAction } = boardSlice.actions
+
+export const selectHoverSelectedBoardCell = state =>
+    state.boardSlice.hoverSelectedBoardCell
+
+
+export const boardReducer = boardSlice.reducer

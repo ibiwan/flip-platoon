@@ -1,6 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { ijkey } from '../../util';
 import { GAME_MODE_SETUP } from '../../util/consts'
+
 import {
     selectAllTokens,
     selectBoardTokens,
@@ -8,6 +9,7 @@ import {
     selectOliveTokens,
     selectTanTokens,
 } from '../player/playersSlice';
+
 import { rules } from '../../rules';
 const { validMoves } = rules
 

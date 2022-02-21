@@ -1,15 +1,13 @@
 import { useDrop } from "react-dnd"
-import { useDispatch } from "react-redux"
 
 import { ItemTypes } from "../../util/dragondrop/itemTypes"
 import { ijkey } from "../../util"
 
 import { useGameSlice } from "../game/useGameSlice"
 import { usePlayerSlice } from "../player/usePlayerSlice"
+import { useBoardSlice } from "../board/useBoardSlice"
 
 export const useBoardCell = (i, j) => {
-    const dispatch = useDispatch()
-
     const {
         selectedToken,
         validAttacks,
@@ -22,16 +20,24 @@ export const useBoardCell = (i, j) => {
         setTokenLocation,
     } = usePlayerSlice()
 
+    const {
+        hoverSelectedBoardCell,
+        setHoverSelectedBoardCell
+    } = useBoardSlice()
+
     const key = ijkey(i, j)
 
     const token = hashedTokens[key]
 
     const isMoveTarget = selectedToken?.id && validMoves.includes(key)
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key)
+    const isHovered = hoverSelectedBoardCell === key
 
     const moveSelectedTokenTo = (i, j) => {
         setTokenLocation({ token, i, j })
-        dispatch(setSelectedToken(null))
+
+        setSelectedToken(null)
+        setHoverSelectedBoardCell(null)
     }
 
     const moveToken = (token) => {
@@ -42,6 +48,9 @@ export const useBoardCell = (i, j) => {
         }
 
         setTokenLocation({ token, i, j })
+
+        setSelectedToken(null)
+        setHoverSelectedBoardCell(null)
     }
 
     const [{ isOver }, dropRef] = useDrop(
@@ -55,11 +64,14 @@ export const useBoardCell = (i, j) => {
         [i, j, isMoveTarget]
     )
     return {
+        key,
         isOver,
         dropRef,
         token,
         moveSelectedTokenTo,
         isMoveTarget,
         isAttackTarget,
+        isHovered,
+        setHoverSelectedBoardCell,
     }
 }

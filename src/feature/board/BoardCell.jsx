@@ -7,12 +7,15 @@ export const BoardCell = ({
     i, j,
 }) => {
     const {
+        key,
         isOver,
         dropRef,
         token,
         moveSelectedTokenTo,
         isMoveTarget,
         isAttackTarget,
+        setHoverSelectedBoardCell,
+        isHovered,
     } = useBoardCell(
         i, j,
     )
@@ -24,15 +27,26 @@ export const BoardCell = ({
         }
     }
 
+    const onMouseEnter = () => {
+        setHoverSelectedBoardCell(key)
+    }
+
+    const onMouseLeave = () => {
+        setHoverSelectedBoardCell(null)
+    }
+
     return (
         <div
             className={classnames(
                 'boardCell',
                 { 'valid-move-target': isMoveTarget },
                 { 'current-move-target': isMoveTarget && isOver },
+                { 'is-hovered': isHovered },
             )}
             ref={dropRef}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         >
             <div
                 className={classnames(
@@ -41,12 +55,12 @@ export const BoardCell = ({
                     { 'current-attack-target': isAttackTarget && isOver },
                 )}
             >
-                {token &&
-                    <Token
-                        token={token}
-                    />
-                }
             </div>
+            {token &&
+                <Token
+                    token={token}
+                />
+            }
         </div>
     )
 }

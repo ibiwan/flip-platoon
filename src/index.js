@@ -9,7 +9,6 @@ import { store } from './util/store'
 import reportWebVitals from './reportWebVitals';
 import { Game } from './feature/game/Game';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

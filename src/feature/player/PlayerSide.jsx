@@ -20,22 +20,20 @@ export const PlayerSide = ({ color }) => {
                 gridArea: `player-${color}`
             }}
         >
-            <div className='playerSideContent'>
-                <h1>
-                    PLAYER:
-                    <br />
-                    {color.toUpperCase()}
-                </h1>
-                <div className='playerSideTokens'>
-                    {sideTokens && sideTokens.map(token =>
-                        <Token
-                            key={token.id}
-                            token={token}
-                            selected={token.id === selectedTokenId}
-                            setSelectedToken={setSelectedToken}
-                        />
-                    )}
-                </div>
+            <h1>
+                PLAYER:
+                <br />
+                {color.toUpperCase()}
+            </h1>
+            <div className='playerSideTokens'>
+                {sideTokens && sideTokens.map(token =>
+                    <Token
+                        key={token.id}
+                        token={token}
+                        selected={token.id === selectedTokenId}
+                        setSelectedToken={setSelectedToken}
+                    />
+                )}
             </div>
         </div>
     )
