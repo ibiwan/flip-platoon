@@ -9,7 +9,7 @@ export const Board = () => {
     return (
         <div id="boardArea">
             <div id="board" style={{
-                gridTemplateColumns: `repeat(${boardSize}, 1fr)`
+                gridTemplateColumns: `repeat(${boardSize}, 6vmin)`
             }}>
                 {
                     anArray(boardSize).map((_, i) =>

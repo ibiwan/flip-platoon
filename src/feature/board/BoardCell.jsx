@@ -3,6 +3,8 @@ import classnames from 'classnames'
 import { Token } from "../token/Token"
 import { useBoardCell } from './useBoardCell'
 
+import "./BoardCell.css"
+
 export const BoardCell = ({
     i, j,
 }) => {
@@ -52,13 +54,14 @@ export const BoardCell = ({
                 className={classnames(
                     'frame',
                     { 'valid-attack-target': isAttackTarget },
-                    { 'current-attack-target': isAttackTarget && isOver },
-                )}
+                    { 'current-attack-target': isAttackTarget && (isOver || isHovered) },
+                    { 'is-hovered': isHovered },
+                    )}
             >
             </div>
             {token &&
                 <Token
-                    token={token}
+                token={token}
                 />
             }
         </div>
