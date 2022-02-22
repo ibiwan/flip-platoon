@@ -5,6 +5,7 @@ import { usePlayerSlice } from "../player/usePlayerSlice"
 
 import { ItemTypes } from "../../util/dragondrop/itemTypes"
 import { flipOf } from "../player/playerSliceUtils"
+import { TOKEN_POSITION_HOME } from "../../util/consts"
 
 export const useToken = (token) => {
     const {
@@ -37,6 +38,7 @@ export const useToken = (token) => {
     const selected = selectedToken?.id === token.id
     const clickSelected = clickSelectedToken?.id === token.id;
     const hoverSelected = hoverSelectedToken?.id === token.id;
+    const onBoard = token.position !== TOKEN_POSITION_HOME
 
     return {
         isDragging,
@@ -44,6 +46,7 @@ export const useToken = (token) => {
         dragPreviewRef,
         toggleTokenMode,
         selected,
+        onBoard,
         clickSelected,
         hoverSelected,
         setSelectedToken,

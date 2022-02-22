@@ -8,11 +8,13 @@ const {
     numInfantry,
     numCavalry,
     numArtillery,
+    tokens,
 } = rules
 
 const makeToken = (type, color) => {
     const mode = TOKEN_MODE_ASSAULT
     const position = TOKEN_POSITION_HOME
+    const health = tokens[type].health
 
     return {
         id: nanoid(6),
@@ -20,6 +22,8 @@ const makeToken = (type, color) => {
         color,
         mode,
         position,
+        health: health-1,
+        maxHealth: health,
     }
 }
 

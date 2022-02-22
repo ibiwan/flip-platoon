@@ -1,10 +1,11 @@
-import classNames from 'classnames';
 import { Flipped } from 'react-flip-toolkit'
 
-import { TokenIcon } from './TokenIcon';
 import { useToken } from './useToken';
 
 import "./Token.css"
+import { HealthBar } from './HealthBar';
+import { SelectionGlow } from './SelectionGlow';
+import { Coin } from './Coin';
 
 export const Token = ({
     token,
@@ -14,7 +15,11 @@ export const Token = ({
         color,
         type,
         mode,
+        health,
+        maxHealth,
     } = token
+
+    const pctHealth = health * 100 / maxHealth
 
     const {
         /*isDragging,*/
@@ -23,12 +28,14 @@ export const Token = ({
         setHoverSelectedTokenId,
         toggleTokenMode,
         selected,
+        onBoard,
         clickSelected,
         setSelectedToken,
     } = useToken(token)
 
     const onClick = e => {
         e.stopPropagation()
+
         if (!clickSelected) {
             setSelectedToken(id)
         } else {
@@ -46,42 +53,25 @@ export const Token = ({
     }
 
     return (
-        <Flipped
-            flipId={token.id}
-        >
+        <Flipped flipId={token.id}        >
             <div
                 className={'tokenWrapper'}
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
-                <div className={classNames(
-                    'goToken',
-                    'token',
-                    'bigThing',
-                    'dragger',
-                    color,
-                    mode,
-                )} ref={dragRef}>
-                    <TokenIcon type={type} size="80%" />
-                </div>
-                <div className={classNames(
-                    'stayToken',
-                    'token',
-                    'bigThing',
-                    color,
-                    mode,
-                )} ref={dragPreviewRef} >
-                    <TokenIcon type={type} size="80%" />
-                </div>
-                {selected &&
-                    <div className={classNames(
-                        'tokenGlow',
-                        'bigThing',
-                    )} >
-                    </div>
-                }
+                <Coin {...{
+                    color, mode, type,
+                    isDragger: true,
+                    aRef: dragRef,
+                }} />
+                <Coin {...{
+                    color, mode, type,
+                    aRef: dragPreviewRef,
+                }} />
+                {selected && <SelectionGlow />}
+                {onBoard && <HealthBar pctHealth={pctHealth} />}
             </div>
-        </Flipped >
+        </Flipped>
     )
 }
