@@ -24,7 +24,8 @@ export const useToken = (token) => {
         type: ItemTypes.TOKEN,
         item: () => {
             setSelectedToken(token.id)
-            return token;
+
+            return {tokenId: token.id}
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),

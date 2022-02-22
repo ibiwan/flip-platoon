@@ -10,6 +10,11 @@ const START_ROWS = {
     [PLAYER_TAN]: [boardSize - 1, boardSize - 2]
 }
 
+export const getValidDestinations = (gameMode, occupiedCells, selectedToken) =>
+    gameMode === GAME_MODE_SETUP
+        ? getValidStarts(gameMode, occupiedCells, selectedToken)
+        : getValidMoves(gameMode, occupiedCells, selectedToken)
+
 export const getValidStarts = (
     gameMode,
     occupiedCells,
@@ -50,7 +55,6 @@ export const getValidMoves = (
     ) {
         return [];
     }
-
 
     const allCells = getAllCells(boardSize)
 

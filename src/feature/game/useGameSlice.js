@@ -6,6 +6,7 @@ import {
     selectGameMode,
     selectSelectedToken,
     selectSelectedTokenId,
+    selectOccupiedCells,
     selectValidAttacks,
     selectValidMoves,
     selectClickSelectedToken,
@@ -22,6 +23,7 @@ export const useGameSlice = () => {
     const gameMode = useSelector(selectGameMode)
     const selectedToken = useSelector(selectSelectedToken)
     const selectedTokenId = useSelector(selectSelectedTokenId)
+    const occupiedCells = useSelector(selectOccupiedCells)
     const validAttacks = useSelector(selectValidAttacks)
     const validMoves = useSelector(selectValidMoves)
     const clickSelectedToken = useSelector(selectClickSelectedToken)
@@ -40,6 +42,7 @@ export const useGameSlice = () => {
         gameMode,
         selectedToken,
         selectedTokenId,
+        occupiedCells,
         clickSelectedToken,
         hoverSelectedToken,
         validAttacks,

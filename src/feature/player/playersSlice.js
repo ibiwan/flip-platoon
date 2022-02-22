@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { ijkey } from '../../util'
 
-import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from '../../util/consts'
+import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_GRAVE, TOKEN_POSITION_HOME } from '../../util/consts'
 import { playerInit } from './playerSliceUtils'
 
 const playersInit = {
@@ -9,28 +9,37 @@ const playersInit = {
     [PLAYER_TAN]: playerInit(PLAYER_TAN),
 }
 
+const getSliceToken = (stateSlice, token) => {
+    return stateSlice[token.color]
+        .tokens.find(({ id }) => id === token.id)
+}
+
 export const playersSlice = createSlice({
     name: 'playersSlice',
     initialState: playersInit,
     reducers: {
         setTokenLocationAction: (stateSlice, { payload: { token, i, j } }) => {
-            const foundToken = stateSlice[token.color].tokens
-                .find(({ id }) =>
-                    id === token.id)
-            foundToken.position = { i, j }
+            getSliceToken(stateSlice, token)
+                .position = { i, j }
         },
         setTokenModeAction: (stateSlice, { payload: { token, mode } }) => {
-            const foundToken = stateSlice[token.color].tokens
-                .find(({ id }) =>
-                    id === token.id)
-            foundToken.mode = mode
+            getSliceToken(stateSlice, token)
+                .mode = mode
         },
+        doTokenDamageAction: (stateSlice, { payload: { token, damage } }) => {
+            const foundToken = getSliceToken(stateSlice, token)
+            foundToken.health -= damage
+            if (foundToken.health <= 0) {
+                foundToken.position = TOKEN_POSITION_GRAVE
+            }
+        }
     }
 })
 
 export const {
     setTokenLocationAction,
     setTokenModeAction,
+    doTokenDamageAction,
 } = playersSlice.actions
 
 export const selectPlayer = color => state => state.playersSlice[color]
@@ -43,6 +52,12 @@ export const selectAllTokens = createSelector(
     selectOliveTokens,
     selectTanTokens,
     (olive, tan) => [...olive, ...tan]
+)
+
+export const makeSelectTokenById = createSelector(
+    selectAllTokens,
+    (state, id)=>id,
+    (allTokens, id) => allTokens.find(token => token.id === id)
 )
 
 export const selectBoardTokens = createSelector(

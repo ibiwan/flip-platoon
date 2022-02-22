@@ -74,7 +74,9 @@ export const selectHoverSelectedToken = createSelector(
 export const selectSelectedToken = createSelector(
     selectClickSelectedToken,
     selectHoverSelectedToken,
-    (click, hover) => click ?? hover
+    (click, hover) => {
+        return click ?? hover
+    }
 )
 
 export const selectValidMoves = createSelector(

@@ -10,6 +10,7 @@ export const TOKEN_MODE_ASSAULT = 'assault'
 export const TOKEN_MODE_SKIRMISH = 'skirmish'
 
 export const TOKEN_POSITION_HOME = 'home'
+export const TOKEN_POSITION_GRAVE = 'grave'
 
 export const GAME_MODE_SETUP = 'setup'
 export const GAME_MODE_PLAYING = 'playing'

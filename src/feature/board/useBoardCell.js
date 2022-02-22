@@ -7,17 +7,23 @@ import { useGameSlice } from "../game/useGameSlice"
 import { usePlayerSlice } from "../player/usePlayerSlice"
 import { useBoardSlice } from "../board/useBoardSlice"
 
+import { rules } from '../../util/../rules'
+
 export const useBoardCell = (i, j) => {
     const {
+        gameMode,
         selectedToken,
+        occupiedCells,
         validAttacks,
         validMoves,
         setSelectedToken,
     } = useGameSlice()
 
     const {
+        allTokens,
         hashedBoardTokens,
         setTokenLocation,
+        doTokenDamage,
     } = usePlayerSlice()
 
     const {
@@ -34,20 +40,30 @@ export const useBoardCell = (i, j) => {
     const isHovered = hoverSelectedBoardCell === key
 
     const moveSelectedTokenTo = (i, j) => {
-        setTokenLocation({ token:selectedToken, i, j })
+        setTokenLocation({ token: selectedToken, i, j })
 
         setSelectedToken(null)
         setHoverSelectedBoardCell(null)
     }
 
-    const moveToken = (token) => {
-        setSelectedToken(null)
+    const dropToken = ({ tokenId }) => {
+        const movingToken = allTokens.find(t => t.id === tokenId)
+        const dragMoves = rules.validMoves.getValidDestinations(gameMode, occupiedCells, movingToken)
+        const dragAttacks = rules.validMoves.getValidAttacks(gameMode, hashedBoardTokens, movingToken)
 
-        if (!isMoveTarget) {
+        const isDragMoveTarget = dragMoves.includes(key)
+        const isDragAttackTarget = dragAttacks.includes(key)
+
+        if (isDragMoveTarget) {
+            setTokenLocation({ token: movingToken, i, j })
+        } else if (isDragAttackTarget) {
+            const { type, mode } = movingToken
+            const damage = rules.tokens[type][mode].damage
+            console.log({ token, damage })
+            doTokenDamage({ token, damage })
+        } else {
             return
         }
-
-        setTokenLocation({ token, i, j })
 
         setSelectedToken(null)
         setHoverSelectedBoardCell(null)
@@ -56,13 +72,14 @@ export const useBoardCell = (i, j) => {
     const [{ isOver }, dropRef] = useDrop(
         () => ({
             accept: ItemTypes.TOKEN,
-            drop: (token) => moveToken(token),
+            drop: (item) => dropToken(item),
             collect: (monitor) => ({
                 isOver: !!monitor.isOver()
             })
         }),
         [i, j, isMoveTarget]
     )
+
     return {
         key,
         isOver,
