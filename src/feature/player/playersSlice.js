@@ -54,7 +54,8 @@ export const selectHashedBoardTokens = createSelector(
     selectBoardTokens,
     boardTokens => boardTokens.reduce((acc, cur) => {
         const { position: { i, j } } = cur
-        acc[ijkey(i, j)] = cur
+        const key = ijkey(i, j)
+        acc[key] = cur
         return acc
     }, {})
 )

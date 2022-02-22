@@ -101,7 +101,7 @@ export const selectValidAttacks = createSelector(
     selectSelectedToken,
     (
         gameMode,
-        hashedTokens,
+        hashedBoardTokens,
         selectedToken,
     ) => {
         if (!selectedToken) {
@@ -110,7 +110,7 @@ export const selectValidAttacks = createSelector(
 
         return validMoves.getValidAttacks(
             gameMode,
-            hashedTokens,
+            hashedBoardTokens,
             selectedToken,
         );
     }

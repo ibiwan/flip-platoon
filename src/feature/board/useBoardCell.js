@@ -16,7 +16,7 @@ export const useBoardCell = (i, j) => {
     } = useGameSlice()
 
     const {
-        hashedBoardTokens: hashedTokens,
+        hashedBoardTokens,
         setTokenLocation,
     } = usePlayerSlice()
 
@@ -27,14 +27,14 @@ export const useBoardCell = (i, j) => {
 
     const key = ijkey(i, j)
 
-    const token = hashedTokens[key]
+    const token = hashedBoardTokens[key]
 
     const isMoveTarget = selectedToken?.id && validMoves.includes(key)
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key)
     const isHovered = hoverSelectedBoardCell === key
 
     const moveSelectedTokenTo = (i, j) => {
-        setTokenLocation({ token, i, j })
+        setTokenLocation({ token:selectedToken, i, j })
 
         setSelectedToken(null)
         setHoverSelectedBoardCell(null)

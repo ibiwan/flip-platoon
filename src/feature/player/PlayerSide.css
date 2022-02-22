@@ -1,6 +1,6 @@
 .playerSide {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
 }
 
 .playerSide h1 {
@@ -10,5 +10,6 @@
 
 .playerSideTokens {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 6vmin);
+    grid-template-rows: repeat(2, 6vmin);
 }

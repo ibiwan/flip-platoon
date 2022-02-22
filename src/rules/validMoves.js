@@ -77,7 +77,7 @@ export const getValidMoves = (
 
 export const getValidAttacks = (
     gameMode,
-    hashedTokens,
+    hashedBoardTokens,
     selectedToken,
 ) => {
     if (
@@ -92,7 +92,7 @@ export const getValidAttacks = (
     const range = tokens[selectedToken.type][selectedToken.mode].range
 
     const validAttacks = allCells.filter(({ i, j, key }) => {
-        if (key in hashedTokens && hashedTokens[key].color === selectedToken.color) {
+        if (key in hashedBoardTokens && hashedBoardTokens[key].color === selectedToken.color) {
             return false
         }
 

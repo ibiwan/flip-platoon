@@ -1,5 +1,7 @@
 #board .boardCell {
     border: 1px solid black;
+    box-sizing: border-box;
+
     background-color: linen;
     
     position: relative;
@@ -19,20 +21,22 @@
 
 #board .frame.valid-attack-target {
     border: solid 1vmin rgb(240, 121, 121);
-
     box-sizing: border-box;
-    width: 6vmin;
-    height: 6vmin;
 
     position:absolute;
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
 }
 
 #board .frame.current-attack-target {
     border: solid 1vmin rgb(155, 0, 0);
-
     box-sizing: border-box;
-    width: 6vmin;
-    height: 6vmin;
     
     position:absolute;
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
 }

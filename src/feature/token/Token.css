@@ -1,14 +1,9 @@
-.bigThing {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .tokenWrapper {
-    height: 6vmin;
-    width: 6vmin;
     position: relative;
+    left: 5%;
+    top: 5%;
+    height: 90%;
+    width: 90%;
 }
 
 .token {
@@ -20,14 +15,22 @@
     justify-content: center;
 }
 
-.dragger {
-    z-index: 2 !important;
-}
-
 .tokenGlow{
     border-radius: 50%;
     box-shadow: 0px 0px 7px 7px red;
     z-index: 1;
+}
+
+/* token, glow */
+.bigThing {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dragger {
+    z-index: 2 !important;
 }
 
 .tan {
