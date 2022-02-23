@@ -1,0 +1,61 @@
+.tokenCard {
+    border: 1px solid black;
+    border-radius: 2em;
+    padding: 1em;
+    position: relative;
+    background-color: linen;
+
+    /* filter: grayscale(.8); */
+}
+
+.tokenName {
+    font-size: x-large;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+.ruleSection {
+    margin-top: 1ex;
+    padding: 1ex;
+}
+
+.ruleSection.active {
+    border: 1ex solid red;
+    box-sizing: content-box;
+}
+
+.ruleSection:not(.active) {
+    border: 1ex solid linen;
+    box-sizing: content-box;
+}
+
+.tokenBaseRules {
+    background-color: lightgray;;
+}
+
+.tokenAssaultRules {
+    background-color: #eb7a39ce;
+}
+
+.tokenSkirmishRules {
+    background-color: #b32be9cb;
+
+}
+
+.tokenRule {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1ex;
+}
+
+.ruleSectionLabel {
+    font-size: large;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1ex;
+}
+
+.ruleLabel {
+    font-weight: 700;
+}

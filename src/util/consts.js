@@ -2,7 +2,7 @@ export const PLAYER_OLIVE = 'olive'
 export const PLAYER_TAN = 'tan'
 
 export const TOKEN_INFANTRY = 'infantry'
-export const TOKEN_ARCHERS = 'archery'
+export const TOKEN_ARCHERS = 'archer'
 export const TOKEN_CAVALRY = 'cavalry'
 export const TOKEN_ARTILLERY = 'artillery'
 
