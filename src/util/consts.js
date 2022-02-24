@@ -16,3 +16,7 @@ export const TOKEN_REALM_GRAVE = 'grave';
 export const GAME_MODE_SETUP = 'setup';
 export const GAME_MODE_PLAYING = 'playing';
 export const GAME_MODE_FINISHED = 'finished';
+
+export const TURN_PHASE_MOVE = 'move';
+export const TURN_PHASE_FLIP = 'flip';
+export const TURN_PHASE_ATTACK = 'attack';

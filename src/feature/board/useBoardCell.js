@@ -8,6 +8,8 @@ import { usePlayerSlice } from "../player/usePlayerSlice";
 import { useBoardSlice } from "../board/useBoardSlice";
 
 import { rules } from '../../util/../rules';
+import { useTurnSlice } from "../turn/useTurnSlice";
+import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from "../../util/consts";
 
 export const useBoardCell = (i, j) => {
     const {
@@ -32,6 +34,12 @@ export const useBoardCell = (i, j) => {
         setHoveredBoardCell
     } = useBoardSlice();
 
+    const {
+        canMove,
+        canAttack,
+        recordTokenTurnPhase,
+    } = useTurnSlice();
+
     const key = ijkey(i, j);
 
     const token = hashedBoardTokens[key];
@@ -41,7 +49,15 @@ export const useBoardCell = (i, j) => {
     const isHovered = hoveredBoardCell === key;
 
     const moveSelectedTokenTo = (i, j) => {
+        // console.log({ canMove: canMove(selectedToken.id) });
+
+        if(!canMove(selectedToken.id)){
+            console.log("token already moved this turn: ", selectedToken.id);
+            return;
+        }
+
         setTokenLocation({ token: selectedToken, i, j });
+        recordTokenTurnPhase({ tokenId: token.id, phase: TURN_PHASE_MOVE });
 
         setClickedTokenId(null);
         setHoveredBoardCell(null);
@@ -56,11 +72,25 @@ export const useBoardCell = (i, j) => {
         const isDragAttackTarget = dragAttacks.includes(key);
 
         if (isDragMoveTarget) {
+            // console.log({ canMove: canMove(movingToken.id) });
+            if(!canMove(movingToken.id)){
+                console.log("token already moved this turn: ", movingToken.id);
+                return;
+            }
+    
             setTokenLocation({ token: movingToken, i, j });
+            recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_MOVE });
         } else if (isDragAttackTarget) {
+            // console.log({ canAttack: canAttack(movingToken.id) });
+            if(!canAttack(movingToken.id)){
+                console.log("token already attacked this turn: ", movingToken.id);
+                return;
+            }
+
             const { type, mode } = movingToken;
             const damage = rules.tokens[type][mode].damage;
             doTokenDamage({ token, damage });
+            recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_ATTACK });
         } else {
             setDraggedTokenId(null);
             return;

@@ -10,3 +10,14 @@
     width: 100%;
     overflow: wrap;
 }
+
+.statusArea .turn-tokens .token-turn {
+    display: flex;
+    flex-direction: column;
+}
+
+.statusArea .turn-tokens .token-turn .turn-portion {
+    margin-left: 2em;
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+}
