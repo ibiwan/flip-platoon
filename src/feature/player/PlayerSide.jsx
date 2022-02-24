@@ -1,16 +1,16 @@
 import { TOKEN_REALM_HOME } from '../../util/consts';
-import { Token } from '../token/Token'
+import { Token } from '../token/Token';
 
 import { usePlayerSide } from './usePlayerSide';
 import { useGameSlice } from '../game/useGameSlice';
 
-import "./PlayerSide.css"
+import "./PlayerSide.css";
 
 export const PlayerSide = ({ color }) => {
-    const { player, selectedTokenId } = usePlayerSide(color)
-    const { setSelectedToken } = useGameSlice()
+    const { player, selectedTokenId } = usePlayerSide(color);
+    const { setSelectedToken } = useGameSlice();
 
-    const sideTokens = player?.tokens.filter(t => t.realm === TOKEN_REALM_HOME)
+    const sideTokens = player?.tokens.filter(t => t.realm === TOKEN_REALM_HOME);
 
     return (
         <div
@@ -36,5 +36,5 @@ export const PlayerSide = ({ color }) => {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};

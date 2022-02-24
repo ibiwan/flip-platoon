@@ -8,9 +8,9 @@ import {
 } from './boardSlice';
 
 export const useBoardSlice = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const hoveredBoardCell = useSelector(selectHoveredBoardCell)
+    const hoveredBoardCell = useSelector(selectHoveredBoardCell);
 
     const actions = useMemo(() => bindActionCreators({
         setHoveredBoardCell: setHoveredBoardCellAction,
@@ -19,5 +19,5 @@ export const useBoardSlice = () => {
     return {
         setHoveredBoardCell: actions.setHoveredBoardCell,
         hoveredBoardCell,
-    }
-}
+    };
+};

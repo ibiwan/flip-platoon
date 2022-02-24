@@ -19,17 +19,17 @@ import {
 } from './gameSlice';
 
 export const useGameSlice = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const gameMode = useSelector(selectGameMode)
-    const selectedToken = useSelector(selectSelectedToken)
-    const selectedTokenId = useSelector(selectSelectedTokenId)
-    const clickedToken = useSelector(selectClickedToken)
-    const hoveredToken = useSelector(selectHoveredToken)
-    const draggedToken = useSelector(selectDraggedToken)
-    const occupiedCells = useSelector(selectOccupiedCells)
-    const validAttacks = useSelector(selectValidAttacks)
-    const validMoves = useSelector(selectValidMoves)
+    const gameMode = useSelector(selectGameMode);
+    const selectedToken = useSelector(selectSelectedToken);
+    const selectedTokenId = useSelector(selectSelectedTokenId);
+    const clickedToken = useSelector(selectClickedToken);
+    const hoveredToken = useSelector(selectHoveredToken);
+    const draggedToken = useSelector(selectDraggedToken);
+    const occupiedCells = useSelector(selectOccupiedCells);
+    const validAttacks = useSelector(selectValidAttacks);
+    const validMoves = useSelector(selectValidMoves);
 
     const actions = useMemo(() => bindActionCreators({
         setClickedTokenId: setClickedTokenIdAction,
@@ -53,5 +53,5 @@ export const useGameSlice = () => {
         occupiedCells,
         validAttacks,
         validMoves,
-    }
-}
+    };
+};

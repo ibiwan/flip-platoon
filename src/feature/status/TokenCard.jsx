@@ -1,11 +1,11 @@
-import "./TokenCard.css"
+import "./TokenCard.css";
 
-import { rules } from '../../rules'
-import { TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from "../../util/consts"
-import classNames from "classnames"
+import { rules } from '../../rules';
+import { TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from "../../util/consts";
+import classNames from "classnames";
 
 export const TokenCard = ({ token }) => {
-    const tokenRules = rules.tokens[token.type]
+    const tokenRules = rules.tokens[token.type];
 
     return (
         <div className='tokenCard'>
@@ -77,5 +77,5 @@ export const TokenCard = ({ token }) => {
             </div>
             <div className="ruleSection tokenTargets"></div>
         </div>
-    )
-}
+    );
+};

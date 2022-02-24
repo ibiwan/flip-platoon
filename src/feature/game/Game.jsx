@@ -1,32 +1,32 @@
 import { useEffect } from 'react';
-import { Flipper } from 'react-flip-toolkit'
+import { Flipper } from 'react-flip-toolkit';
 
 import { PlayerSide } from '../player/PlayerSide';
 import { Board } from '../board/Board';
 import { Status } from '../status/Status';
 import { PLAYER_OLIVE, PLAYER_TAN } from '../../util/consts';
 
-import { useGame } from './useGame'
+import { useGame } from './useGame';
 
-import "./Game.css"
+import "./Game.css";
 
 export const Game = () => {
-    const { 
+    const {
         tokenSummary,
         setClickedTokenId,
-     } = useGame()
+    } = useGame();
 
     useEffect(() => {
         const handlekeyDown = e => {
             if (e.key === 'Escape') {
-                setClickedTokenId(null)
+                setClickedTokenId(null);
             }
-        }
+        };
 
         window.addEventListener('keydown', handlekeyDown);
 
-        return () => { window.removeEventListener('keydown', handlekeyDown); }
-    }, [setClickedTokenId])
+        return () => { window.removeEventListener('keydown', handlekeyDown); };
+    }, [setClickedTokenId]);
 
     return (
         <Flipper flipKey={tokenSummary}>
@@ -39,5 +39,5 @@ export const Game = () => {
                 <Status />
             </div>
         </Flipper>
-    )
-}
+    );
+};

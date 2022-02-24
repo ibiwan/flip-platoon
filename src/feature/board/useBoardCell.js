@@ -1,13 +1,13 @@
-import { useDrop } from "react-dnd"
+import { useDrop } from "react-dnd";
 
-import { ItemTypes } from "../../util/dragondrop/itemTypes"
-import { ijkey } from "../../util"
+import { ItemTypes } from "../../util/dragondrop/itemTypes";
+import { ijkey } from "../../util";
 
-import { useGameSlice } from "../game/useGameSlice"
-import { usePlayerSlice } from "../player/usePlayerSlice"
-import { useBoardSlice } from "../board/useBoardSlice"
+import { useGameSlice } from "../game/useGameSlice";
+import { usePlayerSlice } from "../player/usePlayerSlice";
+import { useBoardSlice } from "../board/useBoardSlice";
 
-import { rules } from '../../util/../rules'
+import { rules } from '../../util/../rules';
 
 export const useBoardCell = (i, j) => {
     const {
@@ -18,58 +18,58 @@ export const useBoardCell = (i, j) => {
         validMoves,
         setClickedTokenId,
         setDraggedTokenId,
-    } = useGameSlice()
+    } = useGameSlice();
 
     const {
         allTokens,
         hashedBoardTokens,
         setTokenLocation,
         doTokenDamage,
-    } = usePlayerSlice()
+    } = usePlayerSlice();
 
     const {
         hoveredBoardCell,
         setHoveredBoardCell
-    } = useBoardSlice()
+    } = useBoardSlice();
 
-    const key = ijkey(i, j)
+    const key = ijkey(i, j);
 
-    const token = hashedBoardTokens[key]
+    const token = hashedBoardTokens[key];
 
-    const isMoveTarget = selectedToken?.id && validMoves.includes(key)
-    const isAttackTarget = selectedToken?.id && validAttacks.includes(key)
-    const isHovered = hoveredBoardCell === key
+    const isMoveTarget = selectedToken?.id && validMoves.includes(key);
+    const isAttackTarget = selectedToken?.id && validAttacks.includes(key);
+    const isHovered = hoveredBoardCell === key;
 
     const moveSelectedTokenTo = (i, j) => {
-        setTokenLocation({ token: selectedToken, i, j })
+        setTokenLocation({ token: selectedToken, i, j });
 
-        setClickedTokenId(null)
-        setHoveredBoardCell(null)
-    }
+        setClickedTokenId(null);
+        setHoveredBoardCell(null);
+    };
 
     const dropToken = ({ tokenId }) => {
-        const movingToken = allTokens.find(t => t.id === tokenId)
-        const dragMoves = rules.validMoves.getValidDestinations(gameMode, occupiedCells, movingToken)
-        const dragAttacks = rules.validMoves.getValidAttacks(gameMode, hashedBoardTokens, movingToken)
+        const movingToken = allTokens.find(t => t.id === tokenId);
+        const dragMoves = rules.validMoves.getValidDestinations(gameMode, occupiedCells, movingToken);
+        const dragAttacks = rules.validMoves.getValidAttacks(gameMode, hashedBoardTokens, movingToken);
 
-        const isDragMoveTarget = dragMoves.includes(key)
-        const isDragAttackTarget = dragAttacks.includes(key)
+        const isDragMoveTarget = dragMoves.includes(key);
+        const isDragAttackTarget = dragAttacks.includes(key);
 
         if (isDragMoveTarget) {
-            setTokenLocation({ token: movingToken, i, j })
+            setTokenLocation({ token: movingToken, i, j });
         } else if (isDragAttackTarget) {
-            const { type, mode } = movingToken
-            const damage = rules.tokens[type][mode].damage
-            doTokenDamage({ token, damage })
+            const { type, mode } = movingToken;
+            const damage = rules.tokens[type][mode].damage;
+            doTokenDamage({ token, damage });
         } else {
-            setDraggedTokenId(null)
-            return
+            setDraggedTokenId(null);
+            return;
         }
 
-        setDraggedTokenId(null)
-        setClickedTokenId(null)
-        setHoveredBoardCell(null)
-    }
+        setDraggedTokenId(null);
+        setClickedTokenId(null);
+        setHoveredBoardCell(null);
+    };
 
     const [{ isOver }, dropRef] = useDrop(
         () => ({
@@ -80,7 +80,7 @@ export const useBoardCell = (i, j) => {
             })
         }),
         [i, j, isMoveTarget]
-    )
+    );
 
     return {
         key,
@@ -92,5 +92,5 @@ export const useBoardCell = (i, j) => {
         isAttackTarget,
         isHovered,
         setHoveredBoardCell,
-    }
-}
+    };
+};

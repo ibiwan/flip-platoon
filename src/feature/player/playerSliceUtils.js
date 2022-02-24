@@ -9,13 +9,13 @@ const {
     numCavalry,
     numArtillery,
     tokens,
-} = rules
+} = rules;
 
 const makeToken = (type, color) => {
-    const mode = TOKEN_MODE_ASSAULT
-    const realm = TOKEN_REALM_HOME
-    const position = null
-    const health = tokens[type].health
+    const mode = TOKEN_MODE_ASSAULT;
+    const realm = TOKEN_REALM_HOME;
+    const position = null;
+    const health = tokens[type].health;
 
     return {
         id: nanoid(6),
@@ -24,14 +24,14 @@ const makeToken = (type, color) => {
         mode,
         realm,
         position,
-        health: health-1,
+        health: health - 1,
         maxHealth: health,
-    }
-}
+    };
+};
 
 const arrayOfToken = (num, type, color) => anArray(num).map(() =>
     makeToken(type, color)
-)
+);
 
 export const playerInit = color => ({
     color,
@@ -41,6 +41,6 @@ export const playerInit = color => ({
         ...arrayOfToken(numCavalry, TOKEN_CAVALRY, color),
         ...arrayOfToken(numArtillery, TOKEN_ARTILLERY, color),
     ],
-})
+});
 
-export const flipOf = mode => mode === TOKEN_MODE_ASSAULT ? TOKEN_MODE_SKIRMISH : TOKEN_MODE_ASSAULT
+export const flipOf = mode => mode === TOKEN_MODE_ASSAULT ? TOKEN_MODE_SKIRMISH : TOKEN_MODE_ASSAULT;

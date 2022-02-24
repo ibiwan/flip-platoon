@@ -4,4 +4,4 @@ export const baseRules = {
     numInfantry: 3,
     numCavalry: 2,
     numArtillery: 1,
-}
+};

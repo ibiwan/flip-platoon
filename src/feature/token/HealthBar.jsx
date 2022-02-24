@@ -6,5 +6,5 @@ export const HealthBar = ({ pctHealth }) => {
                 style={{ width: `${pctHealth}%` }}
             />
         </div>
-    )
-}
+    );
+};

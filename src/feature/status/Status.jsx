@@ -1,6 +1,6 @@
 import { useStatus } from './useStatus';
 
-import "./Status.css"
+import "./Status.css";
 import { TokenCard } from './TokenCard';
 
 export const Status = () => {
@@ -13,7 +13,7 @@ export const Status = () => {
         clickedToken,
         hoveredToken,
         draggedToken,
-    } = useStatus()
+    } = useStatus();
 
     return (
         <div className='statusArea' style={{ display: 'flex', flexDirection: 'column' }}>
@@ -46,5 +46,5 @@ export const Status = () => {
                 <b>draggedToken:</b> <pre>{draggedToken?.id}</pre>
             </div>
         </div>
-    )
-}
+    );
+};

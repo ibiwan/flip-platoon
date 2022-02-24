@@ -1,5 +1,5 @@
-import classNames from "classnames"
-import { TokenIcon } from "./TokenIcon"
+import classNames from "classnames";
+import { TokenIcon } from "./TokenIcon";
 
 export const Coin = ({
     isDragger = false,
@@ -18,5 +18,5 @@ export const Coin = ({
         )} ref={aRef}>
             <TokenIcon type={type} size="80%" />
         </div>
-    )
-}
+    );
+};

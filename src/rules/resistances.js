@@ -45,4 +45,4 @@ export const resistances = {
         [`${TOKEN_ARTILLERY}-${TOKEN_MODE_SKIRMISH}`]: 0,
         [`${TOKEN_ARTILLERY}-${TOKEN_MODE_ASSAULT}`]: 0,
     },
-}
+};

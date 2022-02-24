@@ -1,16 +1,16 @@
-import { bindActionCreators } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-import { 
+import { bindActionCreators } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import {
     startTurnAction,
     selectCurrentPlayer,
     selectTurnTokens,
-} from './turnSlice' 
+} from './turnSlice';
 
 export const useTurnSlice = () => {
-    const dispatch= useDispatch()
+    const dispatch = useDispatch();
 
-    const actions = useMemo(()=>bindActionCreators({
+    const actions = useMemo(() => bindActionCreators({
 
-    }, dispatch), [dispatch])
+    }, dispatch), [dispatch]);
 
-}
+};

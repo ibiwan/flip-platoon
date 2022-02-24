@@ -14,13 +14,13 @@ import {
 } from './playersSlice';
 
 export const usePlayerSlice = (color) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const player = useSelector(selectPlayer(color))
-    const allTokens = useSelector(selectAllTokens)
-    const boardTokens = useSelector(selectBoardTokens)
-    const hashedBoardTokens = useSelector(selectHashedBoardTokens)
-    const readyToStart = useSelector(selectReadyToStart)
+    const player = useSelector(selectPlayer(color));
+    const allTokens = useSelector(selectAllTokens);
+    const boardTokens = useSelector(selectBoardTokens);
+    const hashedBoardTokens = useSelector(selectHashedBoardTokens);
+    const readyToStart = useSelector(selectReadyToStart);
 
     const actions = useMemo(() => bindActionCreators({
         setTokenLocation: setTokenLocationAction,
@@ -37,5 +37,5 @@ export const usePlayerSlice = (color) => {
         boardTokens,
         hashedBoardTokens,
         readyToStart,
-    }
-}
+    };
+};

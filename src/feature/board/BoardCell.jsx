@@ -1,9 +1,9 @@
-import classnames from 'classnames'
+import classnames from 'classnames';
 
-import { Token } from "../token/Token"
-import { useBoardCell } from './useBoardCell'
+import { Token } from "../token/Token";
+import { useBoardCell } from './useBoardCell';
 
-import "./BoardCell.css"
+import "./BoardCell.css";
 
 export const BoardCell = ({
     i, j,
@@ -20,22 +20,22 @@ export const BoardCell = ({
         isHovered,
     } = useBoardCell(
         i, j,
-    )
+    );
 
     const onClick = e => {
         if (isMoveTarget || isAttackTarget) {
-            e.stopPropagation()
-            moveSelectedTokenTo(i, j)
+            e.stopPropagation();
+            moveSelectedTokenTo(i, j);
         }
-    }
+    };
 
     const onMouseEnter = () => {
-        setHoveredBoardCell(key)
-    }
+        setHoveredBoardCell(key);
+    };
 
     const onMouseLeave = () => {
-        setHoveredBoardCell(null)
-    }
+        setHoveredBoardCell(null);
+    };
 
     return (
         <div
@@ -56,14 +56,14 @@ export const BoardCell = ({
                     { 'valid-attack-target': isAttackTarget },
                     { 'current-attack-target': isAttackTarget && (isOver || isHovered) },
                     { 'is-hovered': isHovered },
-                    )}
+                )}
             >
             </div>
             {token &&
                 <Token
-                token={token}
+                    token={token}
                 />
             }
         </div>
-    )
-}
+    );
+};

@@ -1,8 +1,8 @@
-import { Flipped } from 'react-flip-toolkit'
+import { Flipped } from 'react-flip-toolkit';
 
 import { useToken } from './useToken';
 
-import "./Token.css"
+import "./Token.css";
 import { HealthBar } from './HealthBar';
 import { SelectionGlow } from './SelectionGlow';
 import { Coin } from './Coin';
@@ -17,9 +17,9 @@ export const Token = ({
         mode,
         health,
         maxHealth,
-    } = token
+    } = token;
 
-    const pctHealth = health * 100 / maxHealth
+    const pctHealth = health * 100 / maxHealth;
 
     const {
         dragRef,
@@ -27,30 +27,30 @@ export const Token = ({
         isSelected,
         isClicked,
         isOnBoard,
-        
+
         toggleTokenMode,
         setClickedTokenId,
         setHoveredTokenId,
-    } = useToken(token)
+    } = useToken(token);
 
     const onClick = e => {
-        e.stopPropagation()
+        e.stopPropagation();
 
         if (!isClicked) {
-            setClickedTokenId(id)
+            setClickedTokenId(id);
         } else {
-            toggleTokenMode(token)
-            setClickedTokenId(null)
+            toggleTokenMode(token);
+            setClickedTokenId(null);
         }
-    }
+    };
 
     const onMouseEnter = () => {
-        setHoveredTokenId(id)
-    }
+        setHoveredTokenId(id);
+    };
 
     const onMouseLeave = () => {
-        setHoveredTokenId(null)
-    }
+        setHoveredTokenId(null);
+    };
 
     return (
         <Flipped flipId={token.id}        >
@@ -73,5 +73,5 @@ export const Token = ({
                 {isOnBoard && <HealthBar pctHealth={pctHealth} />}
             </div>
         </Flipped>
-    )
-}
+    );
+};

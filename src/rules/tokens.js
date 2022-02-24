@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { merge } from 'lodash';
 
 import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from "../util/consts";
 
@@ -14,7 +14,7 @@ const tokenBase = {
         move: { min: 0, max: 1 },
         range: { min: 1, max: 1 },
     },
-}
+};
 
 export const tokens = {
     [TOKEN_INFANTRY]: merge({}, tokenBase, {
@@ -60,4 +60,4 @@ export const tokens = {
             range: { min: 0, max: 0 }
         },
     }),
-}
+};

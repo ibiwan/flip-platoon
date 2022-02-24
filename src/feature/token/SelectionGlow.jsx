@@ -1,4 +1,4 @@
-import classNames from "classnames"
+import classNames from "classnames";
 
 export const SelectionGlow = () => {
     return (
@@ -6,5 +6,5 @@ export const SelectionGlow = () => {
             'tokenGlow',
             'fullDisc',
         )} />
-    )
-}
+    );
+};

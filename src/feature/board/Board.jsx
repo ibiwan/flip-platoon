@@ -1,9 +1,9 @@
-import { rules } from '../../rules'
-import { anArray, ijkey } from "../../util"
-import { BoardCell } from "./BoardCell"
+import { rules } from '../../rules';
+import { anArray, ijkey } from "../../util";
+import { BoardCell } from "./BoardCell";
 
-import "./Board.css"
-const { boardSize } = rules
+import "./Board.css";
+const { boardSize } = rules;
 
 export const Board = () => {
     return (
@@ -23,5 +23,5 @@ export const Board = () => {
                 }
             </div>
         </div>
-    )
-}
+    );
+};

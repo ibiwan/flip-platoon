@@ -4,14 +4,14 @@ import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY } from '.
 export const TokenIcon = ({ type, size }) => {
     switch (type) {
         case TOKEN_INFANTRY:
-            return <GiSwordman size={size} color="darkblue" />
+            return <GiSwordman size={size} color="darkblue" />;
         case TOKEN_CAVALRY:
-            return <GiMountedKnight size={size} color="darkred" />
+            return <GiMountedKnight size={size} color="darkred" />;
         case TOKEN_ARCHERS:
-            return <GiArcher size={size} color="darkgreen" />
+            return <GiArcher size={size} color="darkgreen" />;
         case TOKEN_ARTILLERY:
-            return <GiCatapult size={size} color="darkpurple" />
+            return <GiCatapult size={size} color="darkpurple" />;
         default:
-            return <></>
+            return <></>;
     }
-}
+};
