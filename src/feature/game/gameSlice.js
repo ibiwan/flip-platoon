@@ -16,8 +16,9 @@ const { validMoves } = rules
 const gameInit = {
     mode: GAME_MODE_SETUP,
     currentPlayer: null,
-    selectedTokenId: null,
-    hoverSelectedTokenId: null,
+    clickedTokenId: null,
+    hoveredTokenId: null,
+    draggedTokenId: null,
 }
 export const gameSlice = createSlice({
     name: 'gameSlice',
@@ -25,22 +26,25 @@ export const gameSlice = createSlice({
     reducers: {
         setGameModeAction: (gameSlice, { payload }) => { gameSlice.mode = payload },
         setCurrentPlayerAction: (gameSlice, { payload }) => { gameSlice.currentPlayer = payload },
-        setSelectedTokenAction: (gameSlice, { payload }) => { gameSlice.selectedTokenId = payload },
-        setHoverSelectedTokenIdAction: (gameSlice, { payload }) => { gameSlice.hoverSelectedTokenId = payload },
+        setClickedTokenIdAction: (gameSlice, { payload }) => { gameSlice.clickedTokenId = payload },
+        setHoveredTokenIdAction: (gameSlice, { payload }) => { gameSlice.hoveredTokenId = payload },
+        setDraggedTokenIdAction: (gameSlice, { payload }) => { gameSlice.draggedTokenId = payload },
     },
 })
 
 export const {
     setGameModeAction,
     setCurrentPlayerAction,
-    setSelectedTokenAction,
-    setHoverSelectedTokenIdAction,
+    setClickedTokenIdAction,
+    setHoveredTokenIdAction,
+    setDraggedTokenIdAction,
 } = gameSlice.actions
 
 export const selectGameMode = state => state.gameSlice.mode
 export const selectCurrentPlayer = state => state.gameSlice.currentPlayer
-export const selectSelectedTokenId = state => state.gameSlice.selectedTokenId
-export const selectHoverSelectedTokenId = state => state.gameSlice.hoverSelectedTokenId
+export const selectClickedTokenId = state => state.gameSlice.clickedTokenId
+export const selectHoveredTokenId = state => state.gameSlice.hoveredTokenId
+export const selectDraggedTokenId = state => state.gameSlice.draggedTokenId
 
 export const selectOccupiedCells = createSelector(
     selectBoardTokens,
@@ -57,26 +61,39 @@ export const selectTanCells = createSelector(
     boardTokens => boardTokens.map(({ position: { i, j } }) => ijkey(i, j))
 )
 
-export const selectClickSelectedToken = createSelector(
+export const selectClickedToken = createSelector(
     selectAllTokens,
-    selectSelectedTokenId,
-    (allTokens, selectedTokenId) =>
-        allTokens.filter(({ id }) => id === selectedTokenId).pop()
+    selectClickedTokenId,
+    (allTokens, clickedId) =>
+        allTokens.filter(({ id }) => id === clickedId).pop()
 )
 
-export const selectHoverSelectedToken = createSelector(
+export const selectHoveredToken = createSelector(
     selectAllTokens,
-    selectHoverSelectedTokenId,
-    (allTokens, hoverSelectedTokenId) =>
-        allTokens.filter(({ id }) => id === hoverSelectedTokenId).pop()
+    selectHoveredTokenId,
+    (allTokens, hoveredId) =>
+        allTokens.filter(({ id }) => id === hoveredId).pop()
+)
+
+export const selectDraggedToken = createSelector(
+    selectAllTokens,
+    selectDraggedTokenId,
+    (allTokens, draggedId) =>
+        allTokens.filter(({ id }) => id === draggedId).pop()
+)
+
+export const selectSelectedTokenId = createSelector(
+    selectClickedTokenId,
+    selectHoveredTokenId,
+    selectDraggedTokenId,
+    (clickId, hoverId, dragId) => dragId ?? clickId ?? hoverId
 )
 
 export const selectSelectedToken = createSelector(
-    selectClickSelectedToken,
-    selectHoverSelectedToken,
-    (click, hover) => {
-        return click ?? hover
-    }
+    selectAllTokens,
+    selectSelectedTokenId,
+    (allTokens, selectedId) =>
+        allTokens.filter(({ id }) => id === selectedId).pop()
 )
 
 export const selectValidMoves = createSelector(

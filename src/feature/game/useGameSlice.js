@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     selectGameMode,
-    selectSelectedToken,
-    selectSelectedTokenId,
     selectOccupiedCells,
     selectValidAttacks,
     selectValidMoves,
-    selectClickSelectedToken,
-    selectHoverSelectedToken,
-
-    setHoverSelectedTokenIdAction,
-    setSelectedTokenAction,
+    selectClickedToken,
+    selectHoveredToken,
+    selectDraggedToken,
+    selectSelectedToken,
+    selectSelectedTokenId,
+    setClickedTokenIdAction,
+    setHoveredTokenIdAction,
+    setDraggedTokenIdAction,
     setGameModeAction,
 } from './gameSlice';
 
@@ -23,28 +24,33 @@ export const useGameSlice = () => {
     const gameMode = useSelector(selectGameMode)
     const selectedToken = useSelector(selectSelectedToken)
     const selectedTokenId = useSelector(selectSelectedTokenId)
+    const clickedToken = useSelector(selectClickedToken)
+    const hoveredToken = useSelector(selectHoveredToken)
+    const draggedToken = useSelector(selectDraggedToken)
     const occupiedCells = useSelector(selectOccupiedCells)
     const validAttacks = useSelector(selectValidAttacks)
     const validMoves = useSelector(selectValidMoves)
-    const clickSelectedToken = useSelector(selectClickSelectedToken)
-    const hoverSelectedToken = useSelector(selectHoverSelectedToken)
 
     const actions = useMemo(() => bindActionCreators({
-        setHoverSelectedTokenId: setHoverSelectedTokenIdAction,
-        setSelectedToken: setSelectedTokenAction,
+        setClickedTokenId: setClickedTokenIdAction,
+        setHoveredTokenId: setHoveredTokenIdAction,
+        setDraggedTokenId: setDraggedTokenIdAction,
         setGameMode: setGameModeAction,
     }, dispatch), [dispatch]);
 
     return {
-        setHoverSelectedTokenId: actions.setHoverSelectedTokenId,
-        setSelectedToken: actions.setSelectedToken,
+        setClickedTokenId: actions.setClickedTokenId,
+        setHoveredTokenId: actions.setHoveredTokenId,
+        setDraggedTokenId: actions.setDraggedTokenId,
         setGameMode: actions.setGameMode,
+
         gameMode,
+        clickedToken,
+        hoveredToken,
+        draggedToken,
         selectedToken,
         selectedTokenId,
         occupiedCells,
-        clickSelectedToken,
-        hoverSelectedToken,
         validAttacks,
         validMoves,
     }

@@ -1,5 +1,9 @@
 import { dist, getAllCells } from "../util"
-import { GAME_MODE_PLAYING, GAME_MODE_SETUP, PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_HOME } from "../util/consts"
+import {
+    GAME_MODE_PLAYING, GAME_MODE_SETUP,
+    PLAYER_OLIVE, PLAYER_TAN,
+    TOKEN_REALM_BOARD, TOKEN_REALM_HOME
+} from "../util/consts"
 import { tokens } from "./tokens"
 import { baseRules } from "./baseRules"
 
@@ -11,7 +15,7 @@ const START_ROWS = {
 }
 
 export const getValidDestinations = (gameMode, occupiedCells, selectedToken) =>
-    gameMode === GAME_MODE_SETUP
+    gameMode === GAME_MODE_SETUP || selectedToken.realm === TOKEN_REALM_HOME
         ? getValidStarts(gameMode, occupiedCells, selectedToken)
         : getValidMoves(gameMode, occupiedCells, selectedToken)
 
@@ -22,7 +26,7 @@ export const getValidStarts = (
 ) => {
     if (!(
         gameMode === GAME_MODE_SETUP ||
-        selectedToken.position === TOKEN_POSITION_HOME
+        selectedToken.realm === TOKEN_REALM_HOME
     )) {
         return [];
     }
@@ -51,7 +55,7 @@ export const getValidMoves = (
 ) => {
     if (
         gameMode !== GAME_MODE_PLAYING ||
-        selectedToken.position === TOKEN_POSITION_HOME
+        selectedToken.realm !== TOKEN_REALM_BOARD
     ) {
         return [];
     }
@@ -65,7 +69,7 @@ export const getValidMoves = (
             return false
         }
 
-        if (selectedToken && selectedToken.position !== TOKEN_POSITION_HOME) {
+        if (selectedToken && selectedToken.realm === TOKEN_REALM_BOARD) {
             const d = dist({ i, j }, selectedToken.position)
 
             if (d > move.max || d < move.min) {
@@ -86,7 +90,7 @@ export const getValidAttacks = (
 ) => {
     if (
         gameMode !== GAME_MODE_PLAYING ||
-        selectedToken.position === TOKEN_POSITION_HOME
+        selectedToken.realm !== TOKEN_REALM_BOARD
     ) {
         return [];
     }
@@ -100,7 +104,7 @@ export const getValidAttacks = (
             return false
         }
 
-        if (selectedToken && selectedToken.position !== TOKEN_POSITION_HOME) {
+        if (selectedToken && selectedToken.realm === TOKEN_REALM_BOARD) {
             const d = dist({ i, j }, selectedToken.position)
 
             if (d > range.max || d < range.min) {

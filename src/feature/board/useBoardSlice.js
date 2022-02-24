@@ -3,21 +3,21 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    selectHoverSelectedBoardCell,
-    setHoverSelectedBoardCellAction,
+    selectHoveredBoardCell,
+    setHoveredBoardCellAction,
 } from './boardSlice';
 
 export const useBoardSlice = () => {
     const dispatch = useDispatch()
 
-    const hoverSelectedBoardCell = useSelector(selectHoverSelectedBoardCell)
+    const hoveredBoardCell = useSelector(selectHoveredBoardCell)
 
     const actions = useMemo(() => bindActionCreators({
-        setHoverSelectedBoardCell: setHoverSelectedBoardCellAction,
+        setHoveredBoardCell: setHoveredBoardCellAction,
     }, dispatch), [dispatch]);
 
     return {
-        hoverSelectedBoardCell,
-        setHoverSelectedBoardCell: actions.setHoverSelectedBoardCell,
+        setHoveredBoardCell: actions.setHoveredBoardCell,
+        hoveredBoardCell,
     }
 }

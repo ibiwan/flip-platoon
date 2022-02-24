@@ -16,7 +16,8 @@ export const useBoardCell = (i, j) => {
         occupiedCells,
         validAttacks,
         validMoves,
-        setSelectedToken,
+        setClickedTokenId,
+        setDraggedTokenId,
     } = useGameSlice()
 
     const {
@@ -27,8 +28,8 @@ export const useBoardCell = (i, j) => {
     } = usePlayerSlice()
 
     const {
-        hoverSelectedBoardCell,
-        setHoverSelectedBoardCell
+        hoveredBoardCell,
+        setHoveredBoardCell
     } = useBoardSlice()
 
     const key = ijkey(i, j)
@@ -37,13 +38,13 @@ export const useBoardCell = (i, j) => {
 
     const isMoveTarget = selectedToken?.id && validMoves.includes(key)
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key)
-    const isHovered = hoverSelectedBoardCell === key
+    const isHovered = hoveredBoardCell === key
 
     const moveSelectedTokenTo = (i, j) => {
         setTokenLocation({ token: selectedToken, i, j })
 
-        setSelectedToken(null)
-        setHoverSelectedBoardCell(null)
+        setClickedTokenId(null)
+        setHoveredBoardCell(null)
     }
 
     const dropToken = ({ tokenId }) => {
@@ -59,14 +60,15 @@ export const useBoardCell = (i, j) => {
         } else if (isDragAttackTarget) {
             const { type, mode } = movingToken
             const damage = rules.tokens[type][mode].damage
-            console.log({ token, damage })
             doTokenDamage({ token, damage })
         } else {
+            setDraggedTokenId(null)
             return
         }
 
-        setSelectedToken(null)
-        setHoverSelectedBoardCell(null)
+        setDraggedTokenId(null)
+        setClickedTokenId(null)
+        setHoveredBoardCell(null)
     }
 
     const [{ isOver }, dropRef] = useDrop(
@@ -89,6 +91,6 @@ export const useBoardCell = (i, j) => {
         isMoveTarget,
         isAttackTarget,
         isHovered,
-        setHoverSelectedBoardCell,
+        setHoveredBoardCell,
     }
 }

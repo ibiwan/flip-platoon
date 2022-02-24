@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { ijkey } from '../../util'
 
-import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_POSITION_GRAVE, TOKEN_POSITION_HOME } from '../../util/consts'
+import { PLAYER_OLIVE, PLAYER_TAN, TOKEN_REALM_BOARD, TOKEN_REALM_GRAVE, TOKEN_REALM_HOME } from '../../util/consts'
 import { playerInit } from './playerSliceUtils'
 
 const playersInit = {
@@ -19,18 +19,18 @@ export const playersSlice = createSlice({
     initialState: playersInit,
     reducers: {
         setTokenLocationAction: (stateSlice, { payload: { token, i, j } }) => {
-            getSliceToken(stateSlice, token)
-                .position = { i, j }
+            const foundToken = getSliceToken(stateSlice, token)
+            foundToken.realm = TOKEN_REALM_BOARD
+            foundToken.position = { i, j }
         },
         setTokenModeAction: (stateSlice, { payload: { token, mode } }) => {
-            getSliceToken(stateSlice, token)
-                .mode = mode
+            getSliceToken(stateSlice, token).mode = mode
         },
         doTokenDamageAction: (stateSlice, { payload: { token, damage } }) => {
             const foundToken = getSliceToken(stateSlice, token)
             foundToken.health -= damage
             if (foundToken.health <= 0) {
-                foundToken.position = TOKEN_POSITION_GRAVE
+                foundToken.realm = TOKEN_REALM_GRAVE
             }
         }
     }
@@ -56,13 +56,13 @@ export const selectAllTokens = createSelector(
 
 export const makeSelectTokenById = createSelector(
     selectAllTokens,
-    (state, id)=>id,
+    (state, id) => id,
     (allTokens, id) => allTokens.find(token => token.id === id)
 )
 
 export const selectBoardTokens = createSelector(
     selectAllTokens,
-    allTokens => allTokens.filter(({ position }) => position !== TOKEN_POSITION_HOME)
+    allTokens => allTokens.filter(({ realm }) => realm === TOKEN_REALM_BOARD)
 )
 
 export const selectHashedBoardTokens = createSelector(
@@ -77,8 +77,8 @@ export const selectHashedBoardTokens = createSelector(
 
 export const selectHomeTokens = createSelector(
     selectAllTokens,
-    allTokens => allTokens.filter(({ position }) =>
-        position === TOKEN_POSITION_HOME)
+    allTokens => allTokens.filter(({ realm }) =>
+        realm === TOKEN_REALM_HOME)
 )
 
 export const selectReadyToStart = createSelector(

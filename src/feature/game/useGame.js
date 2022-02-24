@@ -5,18 +5,18 @@ import { usePlayerSlice } from '../player/usePlayerSlice'
 export const useGame = () => {
     const {
         gameMode,
-        setSelectedToken,
+        setClickedTokenId,
     } = useGameSlice()
     const { allTokens } = usePlayerSlice()
 
     const tokenSummary = useMemo(() => {
-        const summaries = allTokens.map(({ id, position }) => ({ id, position }))
+        const summaries = allTokens.map(({ id, realm, position }) => ({ id, realm, position }))
         return JSON.stringify(summaries)
     }, [allTokens])
 
     return {
         gameMode,
-        setSelectedToken,
+        setClickedTokenId,
         tokenSummary,
     }
 }

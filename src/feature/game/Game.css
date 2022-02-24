@@ -1,5 +1,10 @@
 #game {
-    position: relative;
+    /* background-color: lightblue; */
+    position: absolute;
+    top:0;
+    height: 100vh;
+    left:0;
+    width:100vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 4fr 1fr;

@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { anArray } from '../../util';
-import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH, TOKEN_POSITION_HOME } from '../../util/consts';
+import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH, TOKEN_REALM_HOME } from '../../util/consts';
 import { rules } from '../../rules';
 
 const {
@@ -13,7 +13,8 @@ const {
 
 const makeToken = (type, color) => {
     const mode = TOKEN_MODE_ASSAULT
-    const position = TOKEN_POSITION_HOME
+    const realm = TOKEN_REALM_HOME
+    const position = null
     const health = tokens[type].health
 
     return {
@@ -21,6 +22,7 @@ const makeToken = (type, color) => {
         type,
         color,
         mode,
+        realm,
         position,
         health: health-1,
         maxHealth: health,

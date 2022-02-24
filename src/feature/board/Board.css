@@ -1,6 +1,7 @@
 #boardArea {
     grid-area: board;
     margin: auto;
+    /* background-color: lightsalmon; */
 }
 
 #board {
@@ -9,4 +10,6 @@
 
     height: 60vmin;
     width: 60vmin;
+
+    /* background-color: lightseagreen; */
 }

@@ -22,34 +22,34 @@ export const Token = ({
     const pctHealth = health * 100 / maxHealth
 
     const {
-        /*isDragging,*/
         dragRef,
         dragPreviewRef,
-        setHoverSelectedTokenId,
+        isSelected,
+        isClicked,
+        isOnBoard,
+        
         toggleTokenMode,
-        selected,
-        onBoard,
-        clickSelected,
-        setSelectedToken,
+        setClickedTokenId,
+        setHoveredTokenId,
     } = useToken(token)
 
     const onClick = e => {
         e.stopPropagation()
 
-        if (!clickSelected) {
-            setSelectedToken(id)
+        if (!isClicked) {
+            setClickedTokenId(id)
         } else {
             toggleTokenMode(token)
-            setSelectedToken(null)
+            setClickedTokenId(null)
         }
     }
 
     const onMouseEnter = () => {
-        setHoverSelectedTokenId(id)
+        setHoveredTokenId(id)
     }
 
     const onMouseLeave = () => {
-        setHoverSelectedTokenId(null)
+        setHoveredTokenId(null)
     }
 
     return (
@@ -69,8 +69,8 @@ export const Token = ({
                     color, mode, type,
                     aRef: dragPreviewRef,
                 }} />
-                {selected && <SelectionGlow />}
-                {onBoard && <HealthBar pctHealth={pctHealth} />}
+                {isSelected && <SelectionGlow />}
+                {isOnBoard && <HealthBar pctHealth={pctHealth} />}
             </div>
         </Flipped>
     )

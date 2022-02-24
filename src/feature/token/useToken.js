@@ -5,15 +5,17 @@ import { usePlayerSlice } from "../player/usePlayerSlice"
 
 import { ItemTypes } from "../../util/dragondrop/itemTypes"
 import { flipOf } from "../player/playerSliceUtils"
-import { TOKEN_POSITION_HOME } from "../../util/consts"
+import { TOKEN_REALM_BOARD } from "../../util/consts"
 
-export const useToken = (token) => {
+export const useToken = (displayedToken) => {
     const {
         selectedToken,
-        clickSelectedToken,
-        hoverSelectedToken,
-        setHoverSelectedTokenId,
-        setSelectedToken,
+        clickedToken,
+        hoveredToken,
+        draggedToken,
+        setHoveredTokenId,
+        setClickedTokenId,
+        setDraggedTokenId,
     } = useGameSlice()
 
     const {
@@ -23,34 +25,42 @@ export const useToken = (token) => {
     const [{ isDragging }, dragRef, dragPreviewRef] = useDrag(() => ({
         type: ItemTypes.TOKEN,
         item: () => {
-            setSelectedToken(token.id)
+            setDraggedTokenId(displayedToken.id)
 
-            return {tokenId: token.id}
+            return { tokenId: displayedToken.id }
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
-        })
+        }),
     }))
 
     const toggleTokenMode = (token) => {
         setTokenMode({ token, mode: flipOf(token.mode) })
     }
 
-    const selected = selectedToken?.id === token.id
-    const clickSelected = clickSelectedToken?.id === token.id;
-    const hoverSelected = hoverSelectedToken?.id === token.id;
-    const onBoard = token.position !== TOKEN_POSITION_HOME
+    const isSelected = selectedToken?.id === displayedToken.id
+    const isClicked = clickedToken?.id === displayedToken.id;
+    const isHovered = hoveredToken?.id === displayedToken.id;
+    const isDragged = draggedToken?.id === displayedToken.id;
+    const isOnBoard = displayedToken.realm === TOKEN_REALM_BOARD
 
     return {
         isDragging,
         dragRef,
         dragPreviewRef,
         toggleTokenMode,
-        selected,
-        onBoard,
-        clickSelected,
-        hoverSelected,
-        setSelectedToken,
-        setHoverSelectedTokenId,
+
+        isSelected,
+
+        setClickedTokenId,
+        isClicked,
+
+        setHoveredTokenId,
+        isHovered,
+
+        setDraggedTokenId,
+        isDragged,
+
+        isOnBoard,
     }
 }

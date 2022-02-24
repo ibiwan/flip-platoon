@@ -16,7 +16,7 @@ export const BoardCell = ({
         moveSelectedTokenTo,
         isMoveTarget,
         isAttackTarget,
-        setHoverSelectedBoardCell,
+        setHoveredBoardCell,
         isHovered,
     } = useBoardCell(
         i, j,
@@ -30,11 +30,11 @@ export const BoardCell = ({
     }
 
     const onMouseEnter = () => {
-        setHoverSelectedBoardCell(key)
+        setHoveredBoardCell(key)
     }
 
     const onMouseLeave = () => {
-        setHoverSelectedBoardCell(null)
+        setHoveredBoardCell(null)
     }
 
     return (

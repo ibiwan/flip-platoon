@@ -10,8 +10,9 @@ export const Status = () => {
         // readyToStart,
         startGame,
         selectedToken,
-        clickSelectedToken,
-        hoverSelectedToken,
+        clickedToken,
+        hoveredToken,
+        draggedToken,
     } = useStatus()
 
     return (
@@ -36,10 +37,13 @@ export const Status = () => {
                 <b>selectedToken:</b> <pre>{selectedToken?.id}</pre>
             </div>
             <div className='jsonDiv'>
-                <b>clickSelectedToken:</b> <pre>{JSON.stringify(clickSelectedToken, undefined, 2)}</pre>
+                <b>clickedToken:</b> <pre>{clickedToken?.id}</pre>
             </div>
             <div className='jsonDiv'>
-                <b>hoverSelectedToken:</b> <pre>{JSON.stringify(hoverSelectedToken, undefined, 2)}</pre>
+                <b>hoveredToken:</b> <pre>{hoveredToken?.id}</pre>
+            </div>
+            <div className='jsonDiv'>
+                <b>draggedToken:</b> <pre>{draggedToken?.id}</pre>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import { TOKEN_POSITION_HOME } from '../../util/consts';
+import { TOKEN_REALM_HOME } from '../../util/consts';
 import { Token } from '../token/Token'
 
 import { usePlayerSide } from './usePlayerSide';
@@ -10,7 +10,7 @@ export const PlayerSide = ({ color }) => {
     const { player, selectedTokenId } = usePlayerSide(color)
     const { setSelectedToken } = useGameSlice()
 
-    const sideTokens = player?.tokens.filter(t => t.position === TOKEN_POSITION_HOME)
+    const sideTokens = player?.tokens.filter(t => t.realm === TOKEN_REALM_HOME)
 
     return (
         <div

@@ -1,11 +1,13 @@
 .playerSide {
+    align-self: center;
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
+    /* background-color: lightgreen; */
 }
 
 .playerSide h1 {
     font-size: x-large;
-    padding: 1em;
+    padding: 1vh;
 }
 
 .playerSideTokens {

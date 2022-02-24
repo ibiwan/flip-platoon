@@ -13,25 +13,25 @@ import "./Game.css"
 export const Game = () => {
     const { 
         tokenSummary,
-        setSelectedToken,
+        setClickedTokenId,
      } = useGame()
 
     useEffect(() => {
         const handlekeyDown = e => {
             if (e.key === 'Escape') {
-                setSelectedToken(null)
+                setClickedTokenId(null)
             }
         }
 
         window.addEventListener('keydown', handlekeyDown);
 
         return () => { window.removeEventListener('keydown', handlekeyDown); }
-    }, [setSelectedToken])
+    }, [setClickedTokenId])
 
     return (
         <Flipper flipKey={tokenSummary}>
             <div id="game"
-                onClick={() => setSelectedToken(null)}
+                onClick={() => setClickedTokenId(null)}
             >
                 <PlayerSide color={PLAYER_OLIVE} />
                 <Board />

@@ -8,8 +8,9 @@ export const useStatus = () => {
         gameMode,
         setGameMode,
         selectedToken,
-        clickSelectedToken,
-        hoverSelectedToken,
+        clickedToken,
+        hoveredToken,
+        draggedToken,
     } = useGameSlice();
 
     const readyToStart = usePlayerSlice();
@@ -24,7 +25,8 @@ export const useStatus = () => {
         readyToStart,
         startGame,
         selectedToken,
-        clickSelectedToken,
-        hoverSelectedToken,
+        clickedToken,
+        hoveredToken,
+        draggedToken,
     }
 }
