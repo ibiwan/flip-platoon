@@ -9,18 +9,23 @@ const tokenInit = {
 
 const turnInit = {
     currentPlayer: null,
-    tokensMoved: [], // id
-    currentToken: tokenInit
+    turnTokens: [],
+    // currentTokenId: null,
 }
 
 export const turnSlice = createSlice({
     name: 'turnSlice',
     initialState: turnInit,
     reducers: {
-        aAction: () => { }
+        startTurnAction: (turnSlice, action) => {
+            console.log({ action })
+        }
     },
 })
 
-export const { aAction } = turnSlice.actions
+export const { startTurnAction } = turnSlice.actions
+
+export const selectCurrentPlayer = slice => slice.turnSlice.currentPlayer
+export const selectTurnTokens = slice => slice.turnSlice.turnTokens
 
 export const turnReducer = turnSlice.reducer
