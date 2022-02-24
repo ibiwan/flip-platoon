@@ -1,4 +1,7 @@
-import { TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from "../util/consts";
+import {
+    TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY,
+    TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH,
+} from 'util/consts';
 
 export const resistances = {
     _attacker: { _target: '_damage_multiplier' },

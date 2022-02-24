@@ -1,11 +1,11 @@
-import { dist, getAllCells } from "../util";
+import { dist, getAllCells } from 'util';
 import {
     GAME_MODE_PLAYING, GAME_MODE_SETUP,
     PLAYER_OLIVE, PLAYER_TAN,
     TOKEN_REALM_BOARD, TOKEN_REALM_HOME
-} from "../util/consts";
-import { tokens } from "./tokens";
-import { baseRules } from "./baseRules";
+} from 'util/consts';
+import { tokens } from './tokens';
+import { baseRules } from './baseRules';
 
 const { boardSize } = baseRules;
 
