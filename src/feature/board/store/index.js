@@ -1,7 +1,7 @@
-import { useBoardSlice } from './useBoardSlice';
-import { boardReducer } from './boardSlice';
+import { useBoardStore } from './useBoardStore';
+import { makeBoardStore } from './boardStore';
 
 export {
-    useBoardSlice,
-    boardReducer,
+    useBoardStore,
+    makeBoardStore,
 };

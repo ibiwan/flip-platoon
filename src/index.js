@@ -9,15 +9,18 @@ import reportWebVitals from './reportWebVitals';
 
 import { store } from 'util/store';
 import { Game } from 'feature/game';
+import { RootStoreProvider } from 'util/rootStore';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
-        <Game />
-      </DndProvider>
+      <RootStoreProvider>
+        <DndProvider backend={HTML5Backend}>
+          <Game />
+        </DndProvider>
+      </RootStoreProvider>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode >,
   document.getElementById('root')
 );
 

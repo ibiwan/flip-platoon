@@ -10,7 +10,7 @@ import { useGameSlice } from 'feature/game';
 import { usePlayersSlice } from 'feature/player';
 import { useTurnSlice } from 'feature/turn';
 
-import { useBoardSlice } from '../../store';
+import { useBoardStore } from '../../store';
 
 export const useBoardCell = (i, j) => {
     const {
@@ -31,15 +31,15 @@ export const useBoardCell = (i, j) => {
     } = usePlayersSlice();
 
     const {
-        hoveredBoardCell,
-        setHoveredBoardCell
-    } = useBoardSlice();
-
-    const {
         canMove,
         canAttack,
         recordTokenTurnPhase,
     } = useTurnSlice();
+
+    const {
+        hoveredBoardCell,
+        setHoveredBoardCell,
+    } =  useBoardStore();
 
     const key = ijkey(i, j);
 

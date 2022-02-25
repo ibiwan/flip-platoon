@@ -1,11 +1,12 @@
 import classnames from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import { Token } from 'feature/token';
 
 import { useBoardCell } from './useBoardCell';
 import './BoardCell.css';
 
-export const BoardCell = ({
+export const BoardCell = observer(({
     i, j,
 }) => {
     const {
@@ -66,4 +67,4 @@ export const BoardCell = ({
             }
         </div>
     );
-};
+});

@@ -1,9 +1,2 @@
-import { Board, BoardCell } from './component';
-import { useBoardSlice, boardReducer } from './store';
-
-export {
-    Board,
-    BoardCell,
-    useBoardSlice,
-    boardReducer,
-};
+export * from './component'
+export * from './store'
