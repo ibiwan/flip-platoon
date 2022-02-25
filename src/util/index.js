@@ -6,7 +6,10 @@ export const ijkey = (i, j) => `${i}-${j}`;
 
 export const rand = (max) => Math.floor(Math.random() * max);
 
-export const dist = ({ i, j }, { i: m, j: n }) =>
+export const dist = (
+    { i, j },
+    { i: m, j: n },
+) =>
     Math.max(
         Math.abs(i - m),
         Math.abs(j - n)

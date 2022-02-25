@@ -2,8 +2,11 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { ijkey } from 'util';
 import {
-    PLAYER_OLIVE, PLAYER_TAN,
-    TOKEN_REALM_BOARD, TOKEN_REALM_GRAVE, TOKEN_REALM_HOME,
+    PLAYER_OLIVE,
+    PLAYER_TAN,
+    TOKEN_REALM_BOARD,
+    TOKEN_REALM_GRAVE,
+    TOKEN_REALM_HOME,
 } from 'util/consts';
 import { playerInit } from './playerSliceUtils';
 

@@ -1,12 +1,12 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+
+import { rules } from 'rules';
 import { ijkey } from 'util';
 import { GAME_MODE_SETUP } from 'util/consts';
 
 import {
     selectors as playersSliceSelectors,
 } from 'feature/player';
-
-import { rules } from 'rules';
 
 const {
     selectAllTokens,

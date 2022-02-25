@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-     TURN_PHASE_ATTACK, TURN_PHASE_FLIP, TURN_PHASE_MOVE ,
-    } from 'util/consts';
+    TURN_PHASE_ATTACK,
+    TURN_PHASE_FLIP,
+    TURN_PHASE_MOVE,
+} from 'util/consts';
 
 const tokenInit = {
     id: null,

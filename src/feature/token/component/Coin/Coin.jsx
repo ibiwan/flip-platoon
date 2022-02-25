@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+
 import { TokenIcon } from '../TokenIcon';
 
 export const Coin = ({

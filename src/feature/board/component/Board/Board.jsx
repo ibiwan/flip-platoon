@@ -1,8 +1,9 @@
 import { rules } from 'rules';
 import { anArray, ijkey } from 'util';
-import { BoardCell } from '../BoardCell';
 
+import { BoardCell } from '../BoardCell';
 import './Board.css';
+
 const { boardSize } = rules;
 
 export const Board = () => {

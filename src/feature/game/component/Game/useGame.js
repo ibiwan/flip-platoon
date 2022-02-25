@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
-import { useGameSlice } from '../../store';
+
 import { usePlayersSlice } from 'feature/player';
+
+import { useGameSlice } from '../../store';
 
 export const useGame = () => {
     const {
@@ -10,7 +12,10 @@ export const useGame = () => {
     const { allTokens } = usePlayersSlice();
 
     const tokenSummary = useMemo(() => {
-        const summaries = allTokens.map(({ id, realm, position }) => ({ id, realm, position }));
+        const summaries = allTokens.map(
+            ({ id, realm, position }) =>
+                ({ id, realm, position })
+        );
         return JSON.stringify(summaries);
     }, [allTokens]);
 

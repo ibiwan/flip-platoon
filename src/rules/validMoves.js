@@ -14,10 +14,22 @@ const START_ROWS = {
     [PLAYER_TAN]: [boardSize - 1, boardSize - 2]
 };
 
-export const getValidDestinations = (gameMode, occupiedCells, selectedToken) =>
+export const getValidDestinations = (
+    gameMode,
+    occupiedCells,
+    selectedToken,
+) =>
     gameMode === GAME_MODE_SETUP || selectedToken.realm === TOKEN_REALM_HOME
-        ? getValidStarts(gameMode, occupiedCells, selectedToken)
-        : getValidMoves(gameMode, occupiedCells, selectedToken);
+        ? getValidStarts(
+            gameMode,
+            occupiedCells,
+            selectedToken,
+        )
+        : getValidMoves(
+            gameMode,
+            occupiedCells,
+            selectedToken,
+        );
 
 export const getValidStarts = (
     gameMode,

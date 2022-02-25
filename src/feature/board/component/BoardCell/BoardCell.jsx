@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-import { Token } from 'feature/token/component/Token/Token';
+import { Token } from 'feature/token';
 
 import { useBoardCell } from './useBoardCell';
 import './BoardCell.css';

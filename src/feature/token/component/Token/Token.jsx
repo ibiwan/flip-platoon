@@ -1,11 +1,10 @@
 import { Flipped } from 'react-flip-toolkit';
 
-import { useToken } from './useToken';
-
+import { Coin } from '../Coin';
 import { HealthBar } from '../HealthBar';
 import { SelectionGlow } from '../SelectionGlow';
-import { Coin } from '../Coin';
 
+import { useToken } from './useToken';
 import './Token.css';
 
 export const Token = ({
@@ -62,12 +61,16 @@ export const Token = ({
                 onMouseLeave={onMouseLeave}
             >
                 <Coin {...{
-                    color, mode, type,
+                    color,
+                    mode,
+                    type,
                     isDragger: true,
                     aRef: dragRef,
                 }} />
                 <Coin {...{
-                    color, mode, type,
+                    color,
+                    mode,
+                    type,
                     aRef: dragPreviewRef,
                 }} />
                 {isSelected && <SelectionGlow />}

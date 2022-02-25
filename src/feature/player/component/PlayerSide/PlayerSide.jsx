@@ -1,9 +1,9 @@
 import { TOKEN_REALM_HOME } from 'util/consts';
-import { Token } from 'feature/token/component/Token/Token';
+
+import { useGameSlice } from 'feature/game';
+import { Token } from 'feature/token';
 
 import { usePlayerSide } from './usePlayerSide';
-import { useGameSlice } from 'feature/game';
-
 import './PlayerSide.css';
 
 export const PlayerSide = ({ color }) => {

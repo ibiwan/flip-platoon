@@ -1,5 +1,9 @@
 import { PlayerSide } from './component';
-import { usePlayersSlice, playersReducer, selectors } from './store';
+import {
+    usePlayersSlice,
+    playersReducer,
+    selectors,
+} from './store';
 
 export {
     PlayerSide,

@@ -1,4 +1,8 @@
-import { GameMode, Status, TokenCard } from './component';
+import {
+    GameMode,
+    Status,
+    TokenCard,
+} from './component';
 
 export {
     GameMode,

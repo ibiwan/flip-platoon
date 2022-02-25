@@ -1,10 +1,14 @@
 import { nanoid } from '@reduxjs/toolkit';
+
 import { anArray } from 'util';
-import { 
-    TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY, 
-    TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH,
-     TOKEN_REALM_HOME,
-     } from 'util/consts';
+import {
+    TOKEN_ARCHERS,
+    TOKEN_ARTILLERY,
+    TOKEN_CAVALRY,
+    TOKEN_INFANTRY,
+    TOKEN_MODE_ASSAULT,
+    TOKEN_REALM_HOME,
+} from 'util/consts';
 import { rules } from 'rules';
 
 const {

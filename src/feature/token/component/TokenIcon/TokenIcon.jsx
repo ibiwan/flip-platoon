@@ -1,7 +1,16 @@
-import { GiSwordman, GiMountedKnight, GiArcher, GiCatapult } from 'react-icons/gi';
-import { 
-    TOKEN_ARCHERS, TOKEN_ARTILLERY, TOKEN_CAVALRY, TOKEN_INFANTRY,
- } from 'util/consts';
+import {
+    GiSwordman,
+    GiMountedKnight,
+    GiArcher,
+    GiCatapult,
+} from 'react-icons/gi';
+
+import {
+    TOKEN_ARCHERS,
+    TOKEN_ARTILLERY,
+    TOKEN_CAVALRY,
+    TOKEN_INFANTRY,
+} from 'util/consts';
 
 export const TokenIcon = ({ type, size }) => {
     switch (type) {

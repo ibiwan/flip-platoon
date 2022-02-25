@@ -1,8 +1,9 @@
-import './TokenCard.css';
+import classNames from 'classnames';
 
 import { rules } from 'rules';
 import { TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from 'util/consts';
-import classNames from 'classnames';
+
+import './TokenCard.css';
 
 export const TokenCard = ({ token }) => {
     const tokenRules = rules.tokens[token.type];

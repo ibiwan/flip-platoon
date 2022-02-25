@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { Flipper } from 'react-flip-toolkit';
 
+import { PLAYER_OLIVE, PLAYER_TAN } from 'util/consts';
+
 import { PlayerSide } from 'feature/player';
 import { Board } from 'feature/board';
 import { Status } from 'feature/status';
-import { PLAYER_OLIVE, PLAYER_TAN } from 'util/consts';
 
 import { useGame } from './useGame';
-
 import './Game.css';
 
 export const Game = () => {

@@ -1,15 +1,16 @@
 import { useDrop } from 'react-dnd';
+import { batch } from 'react-redux';
 
-import { ijkey } from 'util';
-import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
-import { ItemTypes } from 'util/dragondrop/itemTypes';
 import { rules } from 'rules';
-
-import { useBoardSlice } from '../../store';
+import { ijkey } from 'util';
+import { ItemTypes } from 'util/dragondrop/itemTypes';
+import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
 
 import { useGameSlice } from 'feature/game';
 import { usePlayersSlice } from 'feature/player';
 import { useTurnSlice } from 'feature/turn';
+
+import { useBoardSlice } from '../../store';
 
 export const useBoardCell = (i, j) => {
     const {
@@ -51,58 +52,76 @@ export const useBoardCell = (i, j) => {
     const moveSelectedTokenTo = (i, j) => {
         // console.log({ canMove: canMove(selectedToken.id) });
 
-        if(!canMove(selectedToken.id)){
+        if (!canMove(selectedToken.id)) {
             console.log('token already moved this turn: ', selectedToken.id);
             return;
         }
+        batch(() => {
+            setTokenLocation({ token: selectedToken, i, j });
+            recordTokenTurnPhase({
+                tokenId: token.id,
+                phase: TURN_PHASE_MOVE,
+            });
 
-        setTokenLocation({ token: selectedToken, i, j });
-        recordTokenTurnPhase({ tokenId: token.id, phase: TURN_PHASE_MOVE });
-
-        setClickedTokenId(null);
-        setHoveredBoardCell(null);
+            setClickedTokenId(null);
+            setHoveredBoardCell(null);
+        });
     };
 
     const dropToken = ({ tokenId }) => {
         const movingToken = allTokens.find(t => t.id === tokenId);
-        const dragMoves = rules.validMoves.getValidDestinations(gameMode, occupiedCells, movingToken);
-        const dragAttacks = rules.validMoves.getValidAttacks(gameMode, hashedBoardTokens, movingToken);
+        const dragMoves = rules.validMoves.getValidDestinations(
+            gameMode,
+            occupiedCells,
+            movingToken,
+        );
+        const dragAttacks = rules.validMoves.getValidAttacks(
+            gameMode,
+            hashedBoardTokens,
+            movingToken,
+        );
 
         const isDragMoveTarget = dragMoves.includes(key);
         const isDragAttackTarget = dragAttacks.includes(key);
 
         if (isDragMoveTarget) {
             // console.log({ canMove: canMove(movingToken.id) });
-            if(!canMove(movingToken.id)){
+            if (!canMove(movingToken.id)) {
                 console.log('token already moved this turn: ', movingToken.id);
                 return;
             }
-    
-            setTokenLocation({ token: movingToken, i, j });
-            recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_MOVE });
+
+            batch(() => {
+                setTokenLocation({ token: movingToken, i, j });
+                recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_MOVE });
+            });
         } else if (isDragAttackTarget) {
             // console.log({ canAttack: canAttack(movingToken.id) });
-            if(!canAttack(movingToken.id)){
+            if (!canAttack(movingToken.id)) {
                 console.log('token already attacked this turn: ', movingToken.id);
                 return;
             }
 
-            if(!token){
+            if (!token) {
                 return;
             }
 
             const { type, mode } = movingToken;
             const damage = rules.tokens[type][mode].damage;
-            doTokenDamage({ token, damage });
-            recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_ATTACK });
+            batch(() => {
+                doTokenDamage({ token, damage });
+                recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_ATTACK });
+            });
         } else {
             setDraggedTokenId(null);
             return;
         }
 
-        setDraggedTokenId(null);
-        setClickedTokenId(null);
-        setHoveredBoardCell(null);
+        batch(() => {
+            setDraggedTokenId(null);
+            setClickedTokenId(null);
+            setHoveredBoardCell(null);
+        });
     };
 
     const [{ isOver }, dropRef] = useDrop(
