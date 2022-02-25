@@ -1,3 +1,5 @@
+import { observer } from 'mobx-react-lite';
+
 import { rules } from 'rules';
 import { anArray, ijkey } from 'util';
 
@@ -6,7 +8,7 @@ import './Board.css';
 
 const { boardSize } = rules;
 
-export const Board = () => {
+export const Board = observer(() => {
     return (
         <div id='boardArea'>
             <div id='board' style={{
@@ -25,4 +27,4 @@ export const Board = () => {
             </div>
         </div>
     );
-};
+});

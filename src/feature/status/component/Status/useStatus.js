@@ -5,7 +5,7 @@ import {
 
 import { useGameSlice } from 'feature/game';
 import { usePlayersSlice } from 'feature/player';
-import { useTurnSlice } from 'feature/turn';
+import { useTurnStore } from 'feature/turn';
 
 export const useStatus = () => {
     const {
@@ -21,7 +21,7 @@ export const useStatus = () => {
         currentPlayer,
         turnTokens,
         startTurn,
-    } = useTurnSlice();
+    } = useTurnStore();
 
     const {
         readyToStart

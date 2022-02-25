@@ -1,13 +1,15 @@
 import { createContext, useContext } from "react";
 
-import { makeBoardStore } from 'feature/board';
+import { getBoardStore } from 'feature/board';
+import { getTurnStore } from 'feature/turn';
 
 let _store;
 
 const StoreContext = createContext(undefined);
 
 const makeRootStore = () => ({
-    boardStore: makeBoardStore(),
+    boardStore: getBoardStore(),
+    turnStore: getTurnStore(),
 });
 
 export const RootStoreProvider = ({ children }) => {

@@ -1,3 +1,7 @@
-import { useTurnSlice } from './useTurnSlice';
+import { useTurnStore } from './useTurnStore';
+import { getTurnStore } from './turnStore';
 
-export { useTurnSlice };
+export {
+    useTurnStore,
+    getTurnStore,
+};

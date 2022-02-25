@@ -1,7 +1,7 @@
 import { useBoardStore } from './useBoardStore';
-import { makeBoardStore } from './boardStore';
+import { getBoardStore } from './boardStore';
 
 export {
     useBoardStore,
-    makeBoardStore,
+    getBoardStore,
 };

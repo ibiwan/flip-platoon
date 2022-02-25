@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 
 import { rules } from 'rules';
@@ -5,7 +6,7 @@ import { TOKEN_MODE_ASSAULT, TOKEN_MODE_SKIRMISH } from 'util/consts';
 
 import './TokenCard.css';
 
-export const TokenCard = ({ token }) => {
+export const TokenCard = observer(({ token }) => {
     const tokenRules = rules.tokens[token.type];
 
     return (
@@ -79,4 +80,4 @@ export const TokenCard = ({ token }) => {
             <div className='ruleSection tokenTargets'></div>
         </div>
     );
-};
+});

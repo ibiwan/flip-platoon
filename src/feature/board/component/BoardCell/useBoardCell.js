@@ -8,7 +8,7 @@ import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
 
 import { useGameSlice } from 'feature/game';
 import { usePlayersSlice } from 'feature/player';
-import { useTurnSlice } from 'feature/turn';
+import { useTurnStore } from 'feature/turn';
 
 import { useBoardStore } from '../../store';
 
@@ -34,12 +34,12 @@ export const useBoardCell = (i, j) => {
         canMove,
         canAttack,
         recordTokenTurnPhase,
-    } = useTurnSlice();
+    } = useTurnStore();
 
     const {
         hoveredBoardCell,
         setHoveredBoardCell,
-    } =  useBoardStore();
+    } = useBoardStore();
 
     const key = ijkey(i, j);
 
@@ -50,18 +50,16 @@ export const useBoardCell = (i, j) => {
     const isHovered = hoveredBoardCell === key;
 
     const moveSelectedTokenTo = (i, j) => {
-        // console.log({ canMove: canMove(selectedToken.id) });
-
         if (!canMove(selectedToken.id)) {
             console.log('token already moved this turn: ', selectedToken.id);
             return;
         }
         batch(() => {
             setTokenLocation({ token: selectedToken, i, j });
-            recordTokenTurnPhase({
-                tokenId: token.id,
-                phase: TURN_PHASE_MOVE,
-            });
+            recordTokenTurnPhase(
+                token.id,
+                TURN_PHASE_MOVE,
+            );
 
             setClickedTokenId(null);
             setHoveredBoardCell(null);
@@ -85,7 +83,6 @@ export const useBoardCell = (i, j) => {
         const isDragAttackTarget = dragAttacks.includes(key);
 
         if (isDragMoveTarget) {
-            // console.log({ canMove: canMove(movingToken.id) });
             if (!canMove(movingToken.id)) {
                 console.log('token already moved this turn: ', movingToken.id);
                 return;
@@ -93,10 +90,9 @@ export const useBoardCell = (i, j) => {
 
             batch(() => {
                 setTokenLocation({ token: movingToken, i, j });
-                recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_MOVE });
+                recordTokenTurnPhase(movingToken.id, TURN_PHASE_MOVE);
             });
         } else if (isDragAttackTarget) {
-            // console.log({ canAttack: canAttack(movingToken.id) });
             if (!canAttack(movingToken.id)) {
                 console.log('token already attacked this turn: ', movingToken.id);
                 return;
@@ -110,7 +106,7 @@ export const useBoardCell = (i, j) => {
             const damage = rules.tokens[type][mode].damage;
             batch(() => {
                 doTokenDamage({ token, damage });
-                recordTokenTurnPhase({ tokenId: movingToken.id, phase: TURN_PHASE_ATTACK });
+                recordTokenTurnPhase(movingToken.id, TURN_PHASE_ATTACK);
             });
         } else {
             setDraggedTokenId(null);

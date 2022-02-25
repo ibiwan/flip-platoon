@@ -1,10 +1,12 @@
-import { runInAction } from 'mobx';
 import { useRootStore } from 'util/rootStore';
+import {
+    setHoveredBoardCell,
+} from './boardStore';
 
 export const useBoardStore = () => {
-    const store = useRootStore();
-    const hoveredBoardCell = store.boardStore.hoveredBoardCell;
-    const setHoveredBoardCell = id => runInAction(() => store.boardStore.hoveredBoardCell = id);
+    const { boardStore } = useRootStore();
+    
+    const hoveredBoardCell = boardStore.hoveredBoardCell;
 
     return {
         hoveredBoardCell,

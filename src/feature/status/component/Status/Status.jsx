@@ -1,9 +1,11 @@
+import { observer } from 'mobx-react-lite';
+
 import { TokenCard } from '../TokenCard';
 
 import { useStatus } from './useStatus';
 import './Status.css';
 
-export const Status = () => {
+export const Status = observer(() => {
     const {
         gameMode,
         inSetupMode,
@@ -45,7 +47,6 @@ export const Status = () => {
             </div>
             {inPlayingMode &&
                 <div>
-
                     <b>current player:</b> {currentPlayer}
                 </div>
             }
@@ -68,8 +69,7 @@ export const Status = () => {
                     onClick={onStartOliveTurn}
                 >Start Olive Turn</button>
             }
-            {
-                inPlayingMode &&
+            {inPlayingMode &&
                 <div className='turn-tokens'>
                     <h2>
                         Turn Tokens
@@ -110,4 +110,4 @@ export const Status = () => {
             </div>
         </div>
     );
-};
+});

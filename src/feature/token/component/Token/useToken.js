@@ -6,7 +6,7 @@ import { ItemTypes } from 'util/dragondrop/itemTypes';
 import { TOKEN_REALM_BOARD, TURN_PHASE_FLIP } from 'util/consts';
 
 import { useGameSlice } from 'feature/game';
-import { useTurnSlice } from 'feature/turn';
+import { useTurnStore } from 'feature/turn';
 import { usePlayersSlice } from 'feature/player';
 
 export const useToken = (displayedToken) => {
@@ -27,7 +27,7 @@ export const useToken = (displayedToken) => {
     const {
         canFlip,
         recordTokenTurnPhase,
-    } = useTurnSlice();
+    } = useTurnStore();
 
     const [{ isDragging }, dragRef, dragPreviewRef] = useDrag(() => ({
         type: ItemTypes.TOKEN,
@@ -42,7 +42,6 @@ export const useToken = (displayedToken) => {
     }));
 
     const toggleTokenMode = (token) => {
-        // console.log({ canFlip: canFlip(token.id) });
         if (!canFlip(token.id)) {
             console.log('token already flipped this turn: ', token.id);
             return;
@@ -50,7 +49,7 @@ export const useToken = (displayedToken) => {
 
         batch(() => {
             setTokenMode({ token, mode: flipOf(token.mode) });
-            recordTokenTurnPhase({ tokenId: token.id, phase: TURN_PHASE_FLIP });
+            recordTokenTurnPhase(token.id, TURN_PHASE_FLIP);
         });
     };
 

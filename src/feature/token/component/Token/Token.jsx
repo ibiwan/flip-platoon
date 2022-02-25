@@ -1,4 +1,5 @@
 import { Flipped } from 'react-flip-toolkit';
+import { observer } from 'mobx-react-lite';
 
 import { Coin } from '../Coin';
 import { HealthBar } from '../HealthBar';
@@ -7,7 +8,7 @@ import { SelectionGlow } from '../SelectionGlow';
 import { useToken } from './useToken';
 import './Token.css';
 
-export const Token = ({
+export const Token = observer(({
     token,
 }) => {
     const {
@@ -78,4 +79,4 @@ export const Token = ({
             </div>
         </Flipped>
     );
-};
+});

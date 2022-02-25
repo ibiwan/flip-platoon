@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Flipper } from 'react-flip-toolkit';
+import { observer } from 'mobx-react-lite';
 
 import { PLAYER_OLIVE, PLAYER_TAN } from 'util/consts';
 
@@ -10,7 +11,7 @@ import { Status } from 'feature/status';
 import { useGame } from './useGame';
 import './Game.css';
 
-export const Game = () => {
+export const Game = observer(() => {
     const {
         tokenSummary,
         setClickedTokenId,
@@ -40,4 +41,4 @@ export const Game = () => {
             </div>
         </Flipper>
     );
-};
+});
