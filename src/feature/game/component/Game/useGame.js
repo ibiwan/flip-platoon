@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { usePlayersStore } from 'feature/player';
 
 import { useGameStore } from '../../store';
