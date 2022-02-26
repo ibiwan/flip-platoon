@@ -1,34 +1,32 @@
-import { usePlayersSlice } from 'feature/player';
+import { usePlayersStore } from 'feature/player';
 import { useRootStore } from 'util/rootStore';
-
-import {
-    startTurn as startTurnAction,
-    recordTokenTurnPhase,
-} from './turnStore';
 
 export const useTurnStore = () => {
     const { turnStore } = useRootStore();
 
-    const currentPlayer = turnStore.currentPlayer;
-    const turnTokens = turnStore.turnTokens;
+    const {
+        currentPlayer,
+        turnTokens,
+        canFlip,
+        canMove,
+        canAttack,
+        startTurn: startTurnAction,
+        recordTokenTurnPhase,
+    } = turnStore;
 
     const {
         boardTokens
-    } = usePlayersSlice();
+    } = usePlayersStore();
 
     const startTurn = (color) => {
         const playerTokens =
             boardTokens.filter(t => t.color === color);
 
-            startTurnAction(
+        startTurnAction(
             color,
             playerTokens.map(t => t.id),
         );
     };
-
-    const canMove = (tokenId) => !turnTokens?.find(t => t.id === tokenId)?.moveDone;
-    const canAttack = (tokenId) => !turnTokens?.find(t => t.id === tokenId)?.attackDone;
-    const canFlip = (tokenId) => !turnTokens?.find(t => t.id === tokenId)?.flipDone;
 
     return {
         currentPlayer,
@@ -36,6 +34,7 @@ export const useTurnStore = () => {
         canMove,
         canAttack,
         canFlip,
+
         startTurn,
         recordTokenTurnPhase,
     };

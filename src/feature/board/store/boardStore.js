@@ -1,11 +1,13 @@
 import {
     makeAutoObservable,
-    runInAction,
 } from 'mobx';
+
 
 let boardStore;
 let initialState = {
     hoveredBoardCell: null,
+
+    setHoveredBoardCell: id => boardStore.hoveredBoardCell = id,
 };
 
 export const getBoardStore = () => {
@@ -14,8 +16,3 @@ export const getBoardStore = () => {
 
     return boardStore;
 };
-
-export const setHoveredBoardCell = id =>
-    runInAction(() =>
-        boardStore.hoveredBoardCell = id
-    );

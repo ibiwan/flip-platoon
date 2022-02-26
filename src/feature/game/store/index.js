@@ -1,7 +1,7 @@
-import { useGameSlice } from './useGameSlice';
-import { gameReducer } from './gameSlice';
+import { getGameStore } from './gameStore';
+import { useGameStore } from './useGameStore';
 
 export {
-    useGameSlice,
-    gameReducer,
+    getGameStore,
+    useGameStore,
 };

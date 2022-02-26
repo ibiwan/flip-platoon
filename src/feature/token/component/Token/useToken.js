@@ -1,28 +1,27 @@
 import { useDrag } from 'react-dnd';
-import { batch } from 'react-redux';
 
 import { flipOf } from 'util/game';
 import { ItemTypes } from 'util/dragondrop/itemTypes';
 import { TOKEN_REALM_BOARD, TURN_PHASE_FLIP } from 'util/consts';
 
-import { useGameSlice } from 'feature/game';
+import { useGameStore } from 'feature/game';
 import { useTurnStore } from 'feature/turn';
-import { usePlayersSlice } from 'feature/player';
+import { usePlayersStore } from 'feature/player';
 
 export const useToken = (displayedToken) => {
     const {
-        selectedToken,
-        clickedToken,
-        hoveredToken,
-        draggedToken,
+        selectedTokenId,
+        clickedTokenId,
+        hoveredTokenId,
+        draggedTokenId,
         setHoveredTokenId,
         setClickedTokenId,
         setDraggedTokenId,
-    } = useGameSlice();
+    } = useGameStore();
 
     const {
         setTokenMode
-    } = usePlayersSlice();
+    } = usePlayersStore();
 
     const {
         canFlip,
@@ -47,16 +46,14 @@ export const useToken = (displayedToken) => {
             return;
         }
 
-        batch(() => {
-            setTokenMode({ token, mode: flipOf(token.mode) });
-            recordTokenTurnPhase(token.id, TURN_PHASE_FLIP);
-        });
+        setTokenMode(token, flipOf(token.mode));
+        recordTokenTurnPhase(token.id, TURN_PHASE_FLIP);
     };
 
-    const isSelected = selectedToken?.id === displayedToken.id;
-    const isClicked = clickedToken?.id === displayedToken.id;
-    const isHovered = hoveredToken?.id === displayedToken.id;
-    const isDragged = draggedToken?.id === displayedToken.id;
+    const isSelected = selectedTokenId === displayedToken.id;
+    const isClicked = clickedTokenId === displayedToken.id;
+    const isHovered = hoveredTokenId === displayedToken.id;
+    const isDragged = draggedTokenId === displayedToken.id;
     const isOnBoard = displayedToken.realm === TOKEN_REALM_BOARD;
 
     return {

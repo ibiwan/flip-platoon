@@ -54,7 +54,7 @@ export const Token = observer(({
     };
 
     return (
-        <Flipped flipId={token.id}        >
+        <Flipped flipId={token.id}>
             <div
                 className={'tokenWrapper'}
                 onClick={onClick}

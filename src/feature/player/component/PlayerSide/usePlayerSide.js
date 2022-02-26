@@ -1,13 +1,13 @@
-import { useGameSlice } from 'feature/game';
+import { useGameStore } from 'feature/game';
 
-import { usePlayersSlice } from '../../store';
+import { usePlayersStore } from '../../store';
 
 export const usePlayerSide = (color) => {
-    const { selectedTokenId } = useGameSlice();
-    const { player } = usePlayersSlice(color);
+    const { selectedTokenId } = useGameStore();
+    const { tokensByColor } = usePlayersStore();
 
     return {
-        player,
+        tokensByColor,
         selectedTokenId,
     };
 };

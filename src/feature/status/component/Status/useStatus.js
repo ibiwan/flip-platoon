@@ -3,8 +3,8 @@ import {
      PLAYER_OLIVE, PLAYER_TAN,
      } from 'util/consts';
 
-import { useGameSlice } from 'feature/game';
-import { usePlayersSlice } from 'feature/player';
+import { useGameStore } from 'feature/game';
+import { usePlayersStore } from 'feature/player';
 import { useTurnStore } from 'feature/turn';
 
 export const useStatus = () => {
@@ -15,7 +15,7 @@ export const useStatus = () => {
         clickedToken,
         hoveredToken,
         draggedToken,
-    } = useGameSlice();
+    } = useGameStore();
 
     const {
         currentPlayer,
@@ -25,7 +25,7 @@ export const useStatus = () => {
 
     const {
         readyToStart
-    } = usePlayersSlice();
+    } = usePlayersStore();
 
     const inSetupMode = gameMode === GAME_MODE_SETUP;
     const inPlayingMode = gameMode === GAME_MODE_PLAYING;

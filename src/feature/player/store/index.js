@@ -1,22 +1,7 @@
-import { usePlayersSlice } from './usePlayersSlice';
-import {
-    playersReducer,
-    selectAllTokens,
-    selectBoardTokens,
-    selectHashedBoardTokens,
-    selectOliveTokens,
-    selectTanTokens,
-} from './playersSlice';
-
-export const selectors = {
-    selectAllTokens,
-    selectBoardTokens,
-    selectHashedBoardTokens,
-    selectOliveTokens,
-    selectTanTokens,
-};
+import { getPlayersStore } from './playersStore';
+import { usePlayersStore } from './usePlayersStore';
 
 export {
-    usePlayersSlice,
-    playersReducer,
+    getPlayersStore,
+    usePlayersStore,
 };
