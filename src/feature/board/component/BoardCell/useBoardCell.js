@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { rules } from 'rules';
 import { ijkey } from 'util';
 import { ItemTypes } from 'util/dragondrop/itemTypes';
-import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
+import { GAME_MODE_PLAYING, TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
 
 import { useGameStore } from 'feature/game';
 import { usePlayersStore } from 'feature/player';
@@ -15,7 +15,6 @@ export const useBoardCell = (i, j) => {
     const {
         gameMode,
         selectedToken,
-        occupiedCells,
         validAttacks,
         validMoves,
         setClickedTokenId,
@@ -27,11 +26,13 @@ export const useBoardCell = (i, j) => {
         hashedBoardTokens,
         setTokenLocation,
         doTokenDamage,
+        occupiedCells,
     } = usePlayersStore();
 
     const {
-        canMove,
-        canAttack,
+        currentPlayer,
+        hasMoved,
+        hasAttacked,
         recordTokenTurnPhase,
     } = useTurnStore();
 
@@ -42,21 +43,29 @@ export const useBoardCell = (i, j) => {
 
     const key = ijkey(i, j);
 
-    const token = hashedBoardTokens[key];
+    const cellToken = hashedBoardTokens[key];
 
     const isMoveTarget = selectedToken?.id && validMoves.includes(key);
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key);
     const isHovered = hoveredBoardCell === key;
 
     const moveSelectedTokenTo = (i, j) => {
-        if (!canMove(selectedToken.id)) {
+        if (
+            gameMode === GAME_MODE_PLAYING &&
+            selectedToken.color !== currentPlayer
+        ) {
+            console.log(`not your turn, ${selectedToken.color}`);
+            return;
+        }
+
+        if (hasMoved(selectedToken.id)) {
             console.log('token already moved this turn: ', selectedToken.id);
             return;
         }
 
         setTokenLocation(selectedToken, i, j);
         recordTokenTurnPhase(
-            token.id,
+            selectedToken.id,
             TURN_PHASE_MOVE,
         );
 
@@ -82,7 +91,7 @@ export const useBoardCell = (i, j) => {
         const isDragAttackTarget = dragAttacks.includes(key);
 
         if (isDragMoveTarget) {
-            if (!canMove(movingToken.id)) {
+            if (hasMoved(movingToken.id)) {
                 console.log('token already moved this turn: ', movingToken.id);
                 return;
             }
@@ -90,19 +99,26 @@ export const useBoardCell = (i, j) => {
             setTokenLocation(movingToken, i, j);
             recordTokenTurnPhase(movingToken.id, TURN_PHASE_MOVE);
         } else if (isDragAttackTarget) {
-            if (!canAttack(movingToken.id)) {
+            if (
+                gameMode === GAME_MODE_PLAYING &&
+                movingToken.color !== currentPlayer
+            ) {
+                console.log(`not your turn, ${movingToken.color}`);
+            }
+
+            if (hasAttacked(movingToken.id)) {
                 console.log('token already attacked this turn: ', movingToken.id);
                 return;
             }
 
-            if (!token) {
+            if (!cellToken) {
                 return;
             }
 
             const { type, mode } = movingToken;
             const damage = rules.tokens[type][mode].damage;
 
-            doTokenDamage(token, damage);
+            doTokenDamage(cellToken, damage);
             recordTokenTurnPhase(movingToken.id, TURN_PHASE_ATTACK);
         } else {
             setDraggedTokenId(null);
@@ -129,7 +145,7 @@ export const useBoardCell = (i, j) => {
         key,
         isOver,
         dropRef,
-        token,
+        token: cellToken,
 
         isMoveTarget,
         isAttackTarget,

@@ -15,6 +15,7 @@ export const useStatus = () => {
         clickedToken,
         hoveredToken,
         draggedToken,
+        setClickedTokenId,
     } = useGameStore();
 
     const {
@@ -33,9 +34,11 @@ export const useStatus = () => {
     const startGame = () => setGameMode(GAME_MODE_PLAYING);
     const startOliveTurn = () => {
         startTurn(PLAYER_OLIVE);
+        setClickedTokenId(null);
     };
     const startTanTurn = () => {
         startTurn(PLAYER_TAN);
+        setClickedTokenId(null);
     };
 
     return {

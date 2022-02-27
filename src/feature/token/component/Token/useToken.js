@@ -2,7 +2,7 @@ import { useDrag } from 'react-dnd';
 
 import { flipOf } from 'util/game';
 import { ItemTypes } from 'util/dragondrop/itemTypes';
-import { TOKEN_REALM_BOARD, TURN_PHASE_FLIP } from 'util/consts';
+import { GAME_MODE_PLAYING, GAME_MODE_SETUP, TOKEN_REALM_BOARD, TURN_PHASE_FLIP } from 'util/consts';
 
 import { useGameStore } from 'feature/game';
 import { useTurnStore } from 'feature/turn';
@@ -10,6 +10,7 @@ import { usePlayersStore } from 'feature/player';
 
 export const useToken = (displayedToken) => {
     const {
+        gameMode,
         selectedTokenId,
         clickedTokenId,
         hoveredTokenId,
@@ -24,7 +25,8 @@ export const useToken = (displayedToken) => {
     } = usePlayersStore();
 
     const {
-        canFlip,
+        currentPlayer,
+        hasFlipped,
         recordTokenTurnPhase,
     } = useTurnStore();
 
@@ -41,7 +43,15 @@ export const useToken = (displayedToken) => {
     }));
 
     const toggleTokenMode = (token) => {
-        if (!canFlip(token.id)) {
+        if (
+            gameMode === GAME_MODE_PLAYING &&
+            token.color !== currentPlayer
+        ) {
+            console.log(`not your turn, ${token.color}`);
+            return;
+        }
+
+        if (hasFlipped(token.id)) {
             console.log('token already flipped this turn: ', token.id);
             return;
         }
@@ -55,6 +65,8 @@ export const useToken = (displayedToken) => {
     const isHovered = hoveredTokenId === displayedToken.id;
     const isDragged = draggedTokenId === displayedToken.id;
     const isOnBoard = displayedToken.realm === TOKEN_REALM_BOARD;
+    const isMyTurn = currentPlayer === displayedToken.color;
+    const inSetupMode = gameMode === GAME_MODE_SETUP;
 
     return {
         isDragging,
@@ -74,5 +86,7 @@ export const useToken = (displayedToken) => {
         isDragged,
 
         isOnBoard,
+        isMyTurn,
+        inSetupMode,
     };
 };

@@ -52,9 +52,9 @@ const initialState = {
     currentPlayer: null,
     turnTokens: [],
 
-    canFlip: tokenId => !turnStore.turnTokens?.find(t => t.id === tokenId)?.flipDone,
-    canMove: tokenId => !turnStore.turnTokens?.find(t => t.id === tokenId)?.moveDone,
-    canAttack: tokenId => !turnStore.turnTokens?.find(t => t.id === tokenId)?.attackDone,
+    hasFlipped: tokenId => turnStore.turnTokens?.find(t => t.id === tokenId)?.flipDone,
+    hasMoved: tokenId => turnStore.turnTokens?.find(t => t.id === tokenId)?.moveDone,
+    hasAttacked: tokenId => turnStore.turnTokens?.find(t => t.id === tokenId)?.attackDone,
 
     startTurn,
     recordTokenTurnPhase,

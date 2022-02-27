@@ -7,9 +7,9 @@ export const useTurnStore = () => {
     const {
         currentPlayer,
         turnTokens,
-        canFlip,
-        canMove,
-        canAttack,
+        hasFlipped,
+        hasMoved,
+        hasAttacked,
         startTurn: startTurnAction,
         recordTokenTurnPhase,
     } = turnStore;
@@ -31,9 +31,9 @@ export const useTurnStore = () => {
     return {
         currentPlayer,
         turnTokens,
-        canMove,
-        canAttack,
-        canFlip,
+        hasMoved,
+        hasAttacked,
+        hasFlipped,
 
         startTurn,
         recordTokenTurnPhase,

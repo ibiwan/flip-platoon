@@ -25,9 +25,12 @@ export const Token = observer(({
     const {
         dragRef,
         dragPreviewRef,
+        
         isSelected,
         isClicked,
         isOnBoard,
+        isMyTurn,
+        inSetupMode,
 
         toggleTokenMode,
         setClickedTokenId,
@@ -37,7 +40,8 @@ export const Token = observer(({
     const onClick = e => {
         e.stopPropagation();
 
-        if (!isClicked) {
+        if (!isClicked && (inSetupMode || isMyTurn)
+        ) {
             setClickedTokenId(id);
         } else {
             toggleTokenMode(token);
@@ -61,13 +65,14 @@ export const Token = observer(({
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
-                <Coin {...{
-                    color,
-                    mode,
-                    type,
-                    isDragger: true,
-                    aRef: dragRef,
-                }} />
+                {(inSetupMode || isMyTurn) &&
+                    <Coin {...{
+                        color,
+                        mode,
+                        type,
+                        isDragger: true,
+                        aRef: dragRef,
+                    }} />}
                 <Coin {...{
                     color,
                     mode,

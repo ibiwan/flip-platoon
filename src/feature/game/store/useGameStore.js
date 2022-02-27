@@ -39,7 +39,6 @@ export const useGameStore = () => {
 
     return {
         gameMode,
-        occupiedCells,
         clickedTokenId,
         hoveredTokenId,
         draggedTokenId,
