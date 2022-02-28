@@ -18,7 +18,10 @@ export const useGameStore = () => {
         clickedTokenId,
         hoveredTokenId,
         draggedTokenId,
+
         selectedTokenId,
+        inSetupMode,
+        inPlayingMode,
 
         setGameMode,
         setClickedTokenId,
@@ -39,6 +42,9 @@ export const useGameStore = () => {
 
     return {
         gameMode,
+        inSetupMode,
+        inPlayingMode,
+
         clickedTokenId,
         hoveredTokenId,
         draggedTokenId,

@@ -5,17 +5,28 @@ export const usePlayersStore = () => {
     const { playersStore } = useRootStore();
 
     const {
-        oliveTokens,
         occupiedCells,
+
+        oliveTokens,
         oliveCells,
+        oliveHomeTokens,
+        numOliveHomeTokens,
+
         tanCells,
         tanTokens,
+        tanHomeTokens,
+        numTanHomeTokens,
+
         allTokens,
+        tokenSummary,
+
         homeTokens,
-        readyToStart,
+
         boardTokens,
         hashedBoardTokens,
-        tokenSummary,
+
+        readyToStart,
+        setReadyToStart,
 
         setTokenLocation,
         setTokenMode,
@@ -23,20 +34,31 @@ export const usePlayersStore = () => {
     } = playersStore;
 
     return {
-        oliveTokens,
         occupiedCells,
+
+        oliveTokens,
         oliveCells,
+        oliveHomeTokens,
+        numOliveHomeTokens,
+
         tanCells,
         tanTokens,
+        tanHomeTokens,
+        numTanHomeTokens,
+
         allTokens,
-        homeTokens,
-        readyToStart,
-        boardTokens,
-        hashedBoardTokens,
         tokenSummary,
 
+        homeTokens,
+
+        boardTokens,
+        hashedBoardTokens,
+
+        readyToStart,
+        setReadyToStart,
+
         tokenById: id => allTokens.find(token => token.id === id),
-        tokensByColor: color => color === PLAYER_TAN ? tanTokens : oliveTokens,
+        tokensByColor: color => color === PLAYER_TAN ? tanHomeTokens : oliveHomeTokens,
 
         setTokenLocation,
         setTokenMode,

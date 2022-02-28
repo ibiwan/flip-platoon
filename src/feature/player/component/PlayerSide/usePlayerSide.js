@@ -4,10 +4,19 @@ import { usePlayersStore } from '../../store';
 
 export const usePlayerSide = (color) => {
     const { selectedTokenId } = useGameStore();
-    const { tokensByColor } = usePlayersStore();
+    const {
+        tokensByColor,
+        readyToStart,
+        setReadyToStart,
+    } = usePlayersStore();
+
+    const playerHomeTokens = tokensByColor(color);
 
     return {
-        tokensByColor,
+        playerHomeTokens,
         selectedTokenId,
+        readyToStart,
+        setReadyToStart,
+        canSetReadyToStart: playerHomeTokens.length === 0,
     };
 };

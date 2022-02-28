@@ -12,7 +12,7 @@ import {
     TOKEN_REALM_HOME,
 } from 'util/consts';
 
-import { playerInit } from './playerSliceUtils';
+import { playerInit } from './playerStoreUtils';
 
 const playersInit = {
     [PLAYER_OLIVE]: playerInit(PLAYER_OLIVE),
@@ -68,6 +68,20 @@ let initialState = {
         return this.allTokens.filter(({ realm }) =>
             realm === TOKEN_REALM_HOME);
     },
+    get oliveHomeTokens() {
+        return this.oliveTokens.filter(({ realm }) =>
+            realm === TOKEN_REALM_HOME);
+    },
+    get numOliveHomTokens() {
+        return this.oliveHomeTokens.length;
+    },
+    get tanHomeTokens() {
+        return this.tanTokens.filter(({ realm }) =>
+            realm === TOKEN_REALM_HOME);
+    },
+    get numTanHomeTokens() {
+        return this.tanHomeTokens.length;
+    },
     get readyToStart() { return this.homeTokens.length === 0; },
     get boardTokens() {
         return this.allTokens.filter(({ realm }) =>
@@ -82,6 +96,9 @@ let initialState = {
         }, {});
     },
 
+    setReadyToStart: (color, ready) => {
+        playersStore[color].readyToStart = ready;
+    },
     setTokenLocation: (token, i, j) => {
         const foundToken = getStoreToken(playersStore, token);
         foundToken.realm = TOKEN_REALM_BOARD;

@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { rules } from 'rules';
 import { ijkey } from 'util';
 import { ItemTypes } from 'util/dragondrop/itemTypes';
-import { GAME_MODE_PLAYING, TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
+import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
 
 import { useGameStore } from 'feature/game';
 import { usePlayersStore } from 'feature/player';
@@ -14,6 +14,7 @@ import { useBoardStore } from '../../store';
 export const useBoardCell = (i, j) => {
     const {
         gameMode,
+        inPlayingMode,
         selectedToken,
         validAttacks,
         validMoves,
@@ -51,7 +52,7 @@ export const useBoardCell = (i, j) => {
 
     const moveSelectedTokenTo = (i, j) => {
         if (
-            gameMode === GAME_MODE_PLAYING &&
+            inPlayingMode &&
             selectedToken.color !== currentPlayer
         ) {
             console.log(`not your turn, ${selectedToken.color}`);
@@ -100,7 +101,7 @@ export const useBoardCell = (i, j) => {
             recordTokenTurnPhase(movingToken.id, TURN_PHASE_MOVE);
         } else if (isDragAttackTarget) {
             if (
-                gameMode === GAME_MODE_PLAYING &&
+                inPlayingMode &&
                 movingToken.color !== currentPlayer
             ) {
                 console.log(`not your turn, ${movingToken.color}`);

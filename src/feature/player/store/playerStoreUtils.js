@@ -6,7 +6,7 @@ import {
     TOKEN_ARTILLERY,
     TOKEN_CAVALRY,
     TOKEN_INFANTRY,
-    TOKEN_MODE_ASSAULT,
+    TOKEN_MODE_SKIRMISH,
     TOKEN_REALM_HOME,
 } from 'util/consts';
 import { rules } from 'rules';
@@ -20,7 +20,7 @@ const {
 } = rules;
 
 const makeToken = (type, color) => {
-    const mode = TOKEN_MODE_ASSAULT;
+    const mode = TOKEN_MODE_SKIRMISH;
     const realm = TOKEN_REALM_HOME;
     const position = null;
     const health = tokens[type].health;
@@ -43,6 +43,7 @@ const arrayOfToken = (num, type, color) => anArray(num).map(() =>
 
 export const playerInit = color => ({
     color,
+    readyToStart: false,
     tokens: [
         ...arrayOfToken(numArchers, TOKEN_ARCHERS, color),
         ...arrayOfToken(numInfantry, TOKEN_INFANTRY, color),
