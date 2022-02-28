@@ -1,0 +1,10 @@
+.dict-entry {
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+}
+
+.dict-key {
+    font-weight: 600;
+}
+
+.dict-value {}

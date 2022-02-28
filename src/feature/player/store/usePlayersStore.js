@@ -7,25 +7,23 @@ export const usePlayersStore = () => {
     const {
         occupiedCells,
 
-        oliveTokens,
-        oliveCells,
         oliveHomeTokens,
-        numOliveHomeTokens,
+        numOliveSkirmishTokens,
+        oliveBoardTokens,
 
-        tanCells,
-        tanTokens,
         tanHomeTokens,
-        numTanHomeTokens,
+        numTanSkirmishTokens,
+        tanBoardTokens,
 
         allTokens,
         tokenSummary,
 
-        homeTokens,
-
-        boardTokens,
         hashedBoardTokens,
 
-        readyToStart,
+        firstPlayer,
+        boardReadyToStart,
+        tanReadyToStart,
+        oliveReadyToStart,
         setReadyToStart,
 
         setTokenLocation,
@@ -33,33 +31,33 @@ export const usePlayersStore = () => {
         doTokenDamage,
     } = playersStore;
 
+    const playerReadyToStart = color => color === PLAYER_TAN ? tanReadyToStart : oliveReadyToStart;
+    const homeTokensByColor = color => color === PLAYER_TAN ? tanHomeTokens : oliveHomeTokens;
+    const gameReadyToStart = tanReadyToStart && oliveReadyToStart && boardReadyToStart;
+
     return {
         occupiedCells,
-
-        oliveTokens,
-        oliveCells,
-        oliveHomeTokens,
-        numOliveHomeTokens,
-
-        tanCells,
-        tanTokens,
-        tanHomeTokens,
-        numTanHomeTokens,
 
         allTokens,
         tokenSummary,
 
-        homeTokens,
-
-        boardTokens,
         hashedBoardTokens,
 
-        readyToStart,
+        tanReadyToStart,
+        oliveReadyToStart,
+        playerReadyToStart,
+        boardReadyToStart,
+        gameReadyToStart,
+        
+        homeTokensByColor,
+        boardTokensByColor: color => color === PLAYER_TAN ? tanBoardTokens : oliveBoardTokens,
+        numSkirmishTokensByColor: color => color === PLAYER_TAN ? numTanSkirmishTokens : numOliveSkirmishTokens,
+        numOliveSkirmishTokens,
+        numTanSkirmishTokens,
+        firstPlayer,
+        canSetReadyToStart: color => homeTokensByColor(color).length === 0,
+
         setReadyToStart,
-
-        tokenById: id => allTokens.find(token => token.id === id),
-        tokensByColor: color => color === PLAYER_TAN ? tanHomeTokens : oliveHomeTokens,
-
         setTokenLocation,
         setTokenMode,
         doTokenDamage,

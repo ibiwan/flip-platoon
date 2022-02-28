@@ -1,5 +1,6 @@
 export const PLAYER_OLIVE = 'olive';
 export const PLAYER_TAN = 'tan';
+export const STARTER_RANDOM = 'random';
 
 export const TOKEN_INFANTRY = 'infantry';
 export const TOKEN_ARCHERS = 'archer';

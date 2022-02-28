@@ -1,0 +1,20 @@
+.ready-to-start-button {
+    border: 1px solid #999;
+    border-radius: 5px;
+    font-weight: normal;
+    font-size: medium;
+    text-align: center;
+    padding: 3px;
+    background-color: lightgray;
+    color: #999;
+}
+
+.can-set-ready-to-start {
+    border-color: black;
+    color: black;
+    background-color: red;
+}
+
+.can-set-ready-to-start.is-ready-to-start {
+    background-color: green;
+}

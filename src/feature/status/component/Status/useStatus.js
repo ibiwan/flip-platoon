@@ -1,7 +1,7 @@
-import { 
+import {
     GAME_MODE_PLAYING,
-     PLAYER_OLIVE, PLAYER_TAN,
-     } from 'util/consts';
+    PLAYER_OLIVE, PLAYER_TAN,
+} from 'util/consts';
 
 import { useGameStore } from 'feature/game';
 import { usePlayersStore } from 'feature/player';
@@ -27,7 +27,13 @@ export const useStatus = () => {
     } = useTurnStore();
 
     const {
-        readyToStart
+        tanReadyToStart,
+        oliveReadyToStart,
+        boardReadyToStart,
+        gameReadyToStart,
+        numOliveSkirmishTokens,
+        numTanSkirmishTokens,
+        firstPlayer,
     } = usePlayersStore();
 
     const startGame = () => setGameMode(GAME_MODE_PLAYING);
@@ -44,7 +50,13 @@ export const useStatus = () => {
         gameMode,
         inSetupMode,
         inPlayingMode,
-        readyToStart,
+        tanReadyToStart,
+        oliveReadyToStart,
+        boardReadyToStart,
+        gameReadyToStart,
+        numOliveSkirmishTokens,
+        numTanSkirmishTokens,
+        firstPlayer,
         startGame,
         startOliveTurn,
         startTanTurn,

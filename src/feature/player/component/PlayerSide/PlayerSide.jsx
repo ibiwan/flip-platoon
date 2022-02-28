@@ -1,30 +1,25 @@
 import { observer } from 'mobx-react-lite';
-import classNames from 'classnames';
 
 import { useGameStore } from 'feature/game';
 import { Token } from 'feature/token';
 
 import { usePlayerSide } from './usePlayerSide';
 import './PlayerSide.css';
+import { ReadyStartButton } from '../ReadyStartButton';
 
 export const PlayerSide = observer(({ color }) => {
     const {
         playerHomeTokens,
         selectedTokenId,
         readyToStart,
-        setReadyToStart,
         canSetReadyToStart,
+        setReadyToStart,
     } = usePlayerSide(color);
 
     const {
         inSetupMode,
         setSelectedToken,
     } = useGameStore();
-
-    const onClickReady = e => {
-        e.stopPropagation();
-        setReadyToStart(true);
-    };
 
     return (
         <div
@@ -39,18 +34,11 @@ export const PlayerSide = observer(({ color }) => {
                 <br />
                 {color.toUpperCase()}
                 {inSetupMode &&
-                    <button
-                        type="button"
-                        className={classNames(
-                            'ready-to-start-button',
-                            { 'can-set-ready-to-start': canSetReadyToStart },
-                            { 'is-ready-to-start': readyToStart, }
-                        )}
-                        disabled={!canSetReadyToStart}
-                        onClick={onClickReady}
-                    >
-                        Ready To Start
-                    </button>
+                    <ReadyStartButton {...{
+                        readyToStart,
+                        canSetReadyToStart,
+                        setReadyToStart,
+                    }} />
                 }
             </h1>
             <div className='playerSideTokens'>

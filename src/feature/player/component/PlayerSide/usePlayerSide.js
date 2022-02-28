@@ -5,18 +5,19 @@ import { usePlayersStore } from '../../store';
 export const usePlayerSide = (color) => {
     const { selectedTokenId } = useGameStore();
     const {
-        tokensByColor,
-        readyToStart,
+        homeTokensByColor,
+        playerReadyToStart,
         setReadyToStart,
+        canSetReadyToStart,
     } = usePlayersStore();
 
-    const playerHomeTokens = tokensByColor(color);
+    const playerHomeTokens = homeTokensByColor(color);
 
     return {
         playerHomeTokens,
         selectedTokenId,
-        readyToStart,
-        setReadyToStart,
-        canSetReadyToStart: playerHomeTokens.length === 0,
+        readyToStart: playerReadyToStart(color),
+        setReadyToStart: ready => setReadyToStart(color, ready),
+        canSetReadyToStart: canSetReadyToStart(color),
     };
 };

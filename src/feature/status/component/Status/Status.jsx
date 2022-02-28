@@ -4,6 +4,7 @@ import { TokenCard } from '../TokenCard';
 
 import { useStatus } from './useStatus';
 import './Status.css';
+import { DictEntry } from '../DictEntry/DictEntry';
 
 export const Status = observer(() => {
     const {
@@ -12,7 +13,13 @@ export const Status = observer(() => {
         inPlayingMode,
         currentPlayer,
         turnTokens,
-        // readyToStart,
+        tanReadyToStart,
+        oliveReadyToStart,
+        boardReadyToStart,
+        gameReadyToStart,
+        numOliveSkirmishTokens,
+        numTanSkirmishTokens,
+        firstPlayer,
         startGame,
         startOliveTurn,
         startTanTurn,
@@ -42,20 +49,25 @@ export const Status = observer(() => {
             <h1>
                 STATUS
             </h1>
-            <div className='jsonDiv'>
-                <b>game mode:</b> {gameMode}
-            </div>
+            <DictEntry k='game mode' v={gameMode} />
             {inPlayingMode &&
-                <div>
-                    <b>current player:</b> {currentPlayer}
-                </div>
+                <DictEntry k='current player' v={currentPlayer} />
             }
-            {inSetupMode &&
+            {inSetupMode && <>
+                <DictEntry k='olive ready' v={oliveReadyToStart ? 'true' : 'false'} />
+                <DictEntry k='tan ready' v={tanReadyToStart ? 'true' : 'false'} />
+                <DictEntry k='board ready' v={boardReadyToStart ? 'true' : 'false'} />
+                <DictEntry k='game (all) ready' v={gameReadyToStart ? 'true' : 'false'} />
+                <DictEntry k='# olive skirms' v={numOliveSkirmishTokens} />
+                <DictEntry k='# tan skirms' v={numTanSkirmishTokens} />
+                <DictEntry k='first player' v={firstPlayer} />
+
                 <button
                     type='button'
-                    // disabled={!readyToStart}
+                    disabled={!gameReadyToStart}
                     onClick={onStartGame}
                 >Start Game</button>
+            </>
             }
             {inPlayingMode &&
                 <button
@@ -96,18 +108,10 @@ export const Status = observer(() => {
             {selectedToken &&
                 <TokenCard token={selectedToken} />
             }
-            <div className='jsonDiv'>
-                <b>selectedToken:</b> <pre>{selectedToken?.id}</pre>
-            </div>
-            <div className='jsonDiv'>
-                <b>clickedToken:</b> <pre>{clickedToken?.id}</pre>
-            </div>
-            <div className='jsonDiv'>
-                <b>hoveredToken:</b> <pre>{hoveredToken?.id}</pre>
-            </div>
-            <div className='jsonDiv'>
-                <b>draggedToken:</b> <pre>{draggedToken?.id}</pre>
-            </div>
+            <DictEntry k='selectedToken' v={selectedToken?.id} />
+            <DictEntry k='clickedToken' v={clickedToken?.id} />
+            <DictEntry k='hoveredToken' v={hoveredToken?.id} />
+            <DictEntry k='draggedToken' v={draggedToken?.id} />
         </div>
     );
 });

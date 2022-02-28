@@ -15,12 +15,11 @@ export const useTurnStore = () => {
     } = turnStore;
 
     const {
-        boardTokens
+        boardTokensByColor,
     } = usePlayersStore();
 
     const startTurn = (color) => {
-        const playerTokens =
-            boardTokens.filter(t => t.color === color);
+        const playerTokens = boardTokensByColor(color);
 
         startTurnAction(
             color,

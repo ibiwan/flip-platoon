@@ -7,6 +7,8 @@ import { ijkey } from 'util';
 import {
     PLAYER_OLIVE,
     PLAYER_TAN,
+    STARTER_RANDOM,
+    TOKEN_MODE_SKIRMISH,
     TOKEN_REALM_BOARD,
     TOKEN_REALM_GRAVE,
     TOKEN_REALM_HOME,
@@ -40,14 +42,53 @@ let initialState = {
     get oliveTokens() {
         return this[PLAYER_OLIVE].tokens;
     },
-    get tanTokens() {
-        return this[PLAYER_TAN].tokens;
-    },
     get oliveCells() {
         return getCellKeys(this.oliveTokens);
     },
+    get oliveHomeTokens() {
+        return this.oliveTokens.filter(({ realm }) =>
+            realm === TOKEN_REALM_HOME);
+    },
+    get numOliveHomeTokens() {
+        return this.oliveHomeTokens.length;
+    },
+    get oliveSkirmishTokens() {
+        return this.oliveTokens.filter(({ mode }) => mode === TOKEN_MODE_SKIRMISH);
+    },
+    get numOliveSkirmishTokens() {
+        return this.oliveSkirmishTokens.length;
+    },
+    get oliveBoardTokens() {
+        return this.oliveTokens.filter(({ realm }) => realm === TOKEN_REALM_BOARD);
+    },
+
+    get tanTokens() {
+        return this[PLAYER_TAN].tokens;
+    },
     get tanCells() {
         return getCellKeys(this.tanTokens);
+    },
+    get tanHomeTokens() {
+        return this.tanTokens.filter(({ realm }) =>
+            realm === TOKEN_REALM_HOME);
+    },
+    get numTanHomeTokens() {
+        return this.tanHomeTokens.length;
+    },
+    get tanSkirmishTokens() {
+        return this.tanTokens.filter(({ mode }) => mode === TOKEN_MODE_SKIRMISH);
+    },
+    get numTanSkirmishTokens() {
+        return this.tanSkirmishTokens.length;
+    },
+    get tanBoardTokens() {
+        return this.tanTokens.filter(({ realm }) => realm === TOKEN_REALM_BOARD);
+    },
+
+    get firstPlayer() {
+        if (this.numOliveSkirmishTokens > this.numTanSkirmishTokens) { return PLAYER_OLIVE; }
+        if (this.numTanSkirmishTokens > this.numOliveSkirmishTokens) { return PLAYER_TAN; }
+        return STARTER_RANDOM;
     },
     get allTokens() {
         return [
@@ -65,24 +106,17 @@ let initialState = {
         return getCellKeys(this.allTokens);
     },
     get homeTokens() {
-        return this.allTokens.filter(({ realm }) =>
-            realm === TOKEN_REALM_HOME);
+        return this.allTokens.filter(({ realm }) => realm === TOKEN_REALM_HOME);
     },
-    get oliveHomeTokens() {
-        return this.oliveTokens.filter(({ realm }) =>
-            realm === TOKEN_REALM_HOME);
+    get boardReadyToStart() {
+        return this.homeTokens.length === 0;
     },
-    get numOliveHomTokens() {
-        return this.oliveHomeTokens.length;
+    get tanReadyToStart() {
+        return this[PLAYER_TAN].readyToStart;
     },
-    get tanHomeTokens() {
-        return this.tanTokens.filter(({ realm }) =>
-            realm === TOKEN_REALM_HOME);
+    get oliveReadyToStart() {
+        return this[PLAYER_OLIVE].readyToStart;
     },
-    get numTanHomeTokens() {
-        return this.tanHomeTokens.length;
-    },
-    get readyToStart() { return this.homeTokens.length === 0; },
     get boardTokens() {
         return this.allTokens.filter(({ realm }) =>
             realm === TOKEN_REALM_BOARD);
