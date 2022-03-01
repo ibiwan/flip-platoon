@@ -129,3 +129,24 @@ export const getValidAttacks = (
 
     return validAttacks.map(({ key }) => key);
 };
+
+export const checkValid = (token, key, gameMode, occupiedCells, hashedBoardTokens) => {
+    const validMoves = getValidDestinations(
+        gameMode,
+        occupiedCells,
+        token,
+    );
+    const isValidMove = validMoves.includes(key);
+
+    const validAtacks = getValidAttacks(
+        gameMode,
+        hashedBoardTokens,
+        token,
+    );
+    const isValidAttack = validAtacks.includes(key);
+
+    return {
+        isValidMove,
+        isValidAttack,
+    }
+}

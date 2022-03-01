@@ -1,46 +1,33 @@
-import { useDrop } from 'react-dnd';
-
-import { rules } from 'rules';
 import { ijkey } from 'util';
-import { ItemTypes } from 'util/dragondrop/itemTypes';
-import { TURN_PHASE_ATTACK, TURN_PHASE_MOVE } from 'util/consts';
 
 import { useGameStore } from 'feature/game';
 import { usePlayersStore } from 'feature/player';
-import { useTurnStore } from 'feature/turn';
 
 import { useBoardStore } from '../../store';
+import { useCellDrop } from 'util/dragondrop/useCellDrop';
+import { useTokenActions } from 'feature/token/hooks/useTokenActions';
 
 export const useBoardCell = (i, j) => {
     const {
-        gameMode,
-        inPlayingMode,
         selectedToken,
         validAttacks,
         validMoves,
-        setClickedTokenId,
-        setDraggedTokenId,
     } = useGameStore();
 
     const {
-        allTokens,
         hashedBoardTokens,
-        setTokenLocation,
-        doTokenDamage,
-        occupiedCells,
     } = usePlayersStore();
-
-    const {
-        currentPlayer,
-        hasMoved,
-        hasAttacked,
-        recordTokenTurnPhase,
-    } = useTurnStore();
 
     const {
         hoveredBoardCell,
         setHoveredBoardCell,
     } = useBoardStore();
+
+    const {
+        dropToken,
+        moveSelectedTokenTo,
+        attackTargetWith,
+    } = useTokenActions(i, j);
 
     const key = ijkey(i, j);
 
@@ -50,109 +37,36 @@ export const useBoardCell = (i, j) => {
     const isAttackTarget = selectedToken?.id && validAttacks.includes(key);
     const isHovered = hoveredBoardCell === key;
 
-    const moveSelectedTokenTo = (i, j) => {
-        if (
-            inPlayingMode &&
-            selectedToken.color !== currentPlayer
-        ) {
-            console.log(`not your turn, ${selectedToken.color}`);
-            return;
+    const [{ isOver }, dropRef] = useCellDrop(dropToken, [i, j, isMoveTarget]);
+
+    const onClick = e => {
+        if (isMoveTarget) {
+            e.stopPropagation();
+            moveSelectedTokenTo(i, j);
+        } else if (isAttackTarget) {
+            e.stopPropagation();
+            attackTargetWith(cellToken, selectedToken);
         }
-
-        if (hasMoved(selectedToken.id)) {
-            console.log('token already moved this turn: ', selectedToken.id);
-            return;
-        }
-
-        setTokenLocation(selectedToken, i, j);
-        recordTokenTurnPhase(
-            selectedToken.id,
-            TURN_PHASE_MOVE,
-        );
-
-        setClickedTokenId(null);
-        setHoveredBoardCell(null);
     };
 
-    const dropToken = ({ tokenId }) => {
-        const movingToken = allTokens.find(t => t.id === tokenId);
-
-        const dragMoves = rules.validMoves.getValidDestinations(
-            gameMode,
-            occupiedCells,
-            movingToken,
-        );
-        const dragAttacks = rules.validMoves.getValidAttacks(
-            gameMode,
-            hashedBoardTokens,
-            movingToken,
-        );
-
-        const isDragMoveTarget = dragMoves.includes(key);
-        const isDragAttackTarget = dragAttacks.includes(key);
-
-        if (isDragMoveTarget) {
-            if (hasMoved(movingToken.id)) {
-                console.log('token already moved this turn: ', movingToken.id);
-                return;
-            }
-
-            setTokenLocation(movingToken, i, j);
-            recordTokenTurnPhase(movingToken.id, TURN_PHASE_MOVE);
-        } else if (isDragAttackTarget) {
-            if (
-                inPlayingMode &&
-                movingToken.color !== currentPlayer
-            ) {
-                console.log(`not your turn, ${movingToken.color}`);
-            }
-
-            if (hasAttacked(movingToken.id)) {
-                console.log('token already attacked this turn: ', movingToken.id);
-                return;
-            }
-
-            if (!cellToken) {
-                return;
-            }
-
-            const { type, mode } = movingToken;
-            const damage = rules.tokens[type][mode].damage;
-
-            doTokenDamage(cellToken, damage);
-            recordTokenTurnPhase(movingToken.id, TURN_PHASE_ATTACK);
-        } else {
-            setDraggedTokenId(null);
-            return;
-        }
-
-        setDraggedTokenId(null);
-        setClickedTokenId(null);
-        setHoveredBoardCell(null);
+    const onMouseEnter = () => {
+        setHoveredBoardCell(key);
     };
 
-    const [{ isOver }, dropRef] = useDrop(
-        () => ({
-            accept: ItemTypes.TOKEN,
-            drop: (item) => dropToken(item),
-            collect: (monitor) => ({
-                isOver: !!monitor.isOver()
-            })
-        }),
-        [i, j, isMoveTarget]
-    );
+    const onMouseLeave = () => {
+        setHoveredBoardCell(null);
+    };
 
     return {
-        key,
-        isOver,
-        dropRef,
         token: cellToken,
+        dropRef,
 
+        isOver,
         isMoveTarget,
-        isAttackTarget,
         isHovered,
 
-        moveSelectedTokenTo,
-        setHoveredBoardCell,
+        onClick,
+        onMouseEnter,
+        onMouseLeave
     };
 };

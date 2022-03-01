@@ -1,0 +1,1 @@
+export { DictEntry } from './DictEntry'

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Flipper } from 'react-flip-toolkit';
 import { observer } from 'mobx-react-lite';
 
@@ -16,18 +15,6 @@ export const Game = observer(() => {
         tokenSummary,
         setClickedTokenId,
     } = useGame();
-
-    useEffect(() => {
-        const handlekeyDown = e => {
-            if (e.key === 'Escape') {
-                setClickedTokenId(null);
-            }
-        };
-
-        window.addEventListener('keydown', handlekeyDown);
-
-        return () => { window.removeEventListener('keydown', handlekeyDown); };
-    }, [setClickedTokenId]);
 
     return (
         <Flipper flipKey={tokenSummary}>

@@ -1,6 +1,5 @@
-import { useGameStore } from 'feature/game';
-
 import { usePlayersStore } from '../../store';
+import { useGameStore } from 'feature/game';
 
 export const usePlayerSide = (color) => {
     const { selectedTokenId } = useGameStore();
@@ -11,9 +10,16 @@ export const usePlayerSide = (color) => {
         canSetReadyToStart,
     } = usePlayersStore();
 
+    const {
+        inSetupMode,
+        setSelectedToken,
+    } = useGameStore();
+
     const playerHomeTokens = homeTokensByColor(color);
 
     return {
+        inSetupMode,
+        setSelectedToken,
         playerHomeTokens,
         selectedTokenId,
         readyToStart: playerReadyToStart(color),

@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 
-import { useGameStore } from 'feature/game';
 import { Token } from 'feature/token';
 
 import { usePlayerSide } from './usePlayerSide';
@@ -9,17 +8,14 @@ import { ReadyStartButton } from '../ReadyStartButton';
 
 export const PlayerSide = observer(({ color }) => {
     const {
+        inSetupMode,
+        setSelectedToken,
         playerHomeTokens,
         selectedTokenId,
         readyToStart,
         canSetReadyToStart,
         setReadyToStart,
     } = usePlayerSide(color);
-
-    const {
-        inSetupMode,
-        setSelectedToken,
-    } = useGameStore();
 
     return (
         <div

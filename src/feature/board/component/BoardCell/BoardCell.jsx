@@ -5,38 +5,25 @@ import { Token } from 'feature/token';
 
 import { useBoardCell } from './useBoardCell';
 import './BoardCell.css';
+import { TargetIndicator } from '../TargetIndicator';
 
 export const BoardCell = observer(({
     i, j,
 }) => {
     const {
-        key,
-        isOver,
-        dropRef,
         token,
-        moveSelectedTokenTo,
+        dropRef,
+
+        isOver,
         isMoveTarget,
-        isAttackTarget,
-        setHoveredBoardCell,
         isHovered,
+
+        onClick,
+        onMouseEnter,
+        onMouseLeave
     } = useBoardCell(
         i, j,
     );
-
-    const onClick = e => {
-        if (isMoveTarget || isAttackTarget) {
-            e.stopPropagation();
-            moveSelectedTokenTo(i, j);
-        }
-    };
-
-    const onMouseEnter = () => {
-        setHoveredBoardCell(key);
-    };
-
-    const onMouseLeave = () => {
-        setHoveredBoardCell(null);
-    };
 
     return (
         <div
@@ -51,19 +38,9 @@ export const BoardCell = observer(({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <div
-                className={classnames(
-                    'frame',
-                    { 'valid-attack-target': isAttackTarget },
-                    { 'current-attack-target': isAttackTarget && (isOver || isHovered) },
-                    { 'is-hovered': isHovered },
-                )}
-            >
-            </div>
+            <TargetIndicator {...{ i, j, isOver }} />
             {token &&
-                <Token
-                    token={token}
-                />
+                <Token token={token} />
             }
         </div>
     );

@@ -12,50 +12,26 @@ export const Token = observer(({
     token,
 }) => {
     const {
-        id,
         color,
         type,
         mode,
-        health,
-        maxHealth,
     } = token;
-
-    const pctHealth = health * 100 / maxHealth;
 
     const {
         dragRef,
         dragPreviewRef,
-        
+
         isSelected,
-        isClicked,
         isOnBoard,
         isMyTurn,
         inSetupMode,
 
-        toggleTokenMode,
-        setClickedTokenId,
-        setHoveredTokenId,
+        pctHealth,
+
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
     } = useToken(token);
-
-    const onClick = e => {
-        e.stopPropagation();
-
-        if (!isClicked && (inSetupMode || isMyTurn)
-        ) {
-            setClickedTokenId(id);
-        } else {
-            toggleTokenMode(token);
-            setClickedTokenId(null);
-        }
-    };
-
-    const onMouseEnter = () => {
-        setHoveredTokenId(id);
-    };
-
-    const onMouseLeave = () => {
-        setHoveredTokenId(null);
-    };
 
     return (
         <Flipped flipId={token.id}>
